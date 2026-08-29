@@ -11,12 +11,6 @@ The version in `style.css` is the source of truth and must match the
 
 ## [1.4.0] - 2026-08-29
 
-The git history between 1.1.0 and 1.4.0 was lost, both locally and on GitHub.
-This snapshot is restored from a local backup (`batavia.1.4.0.zip`) known to
-match the state last published, so the changes below are reconstructed from a
-diff against 1.1.0 rather than recorded as they happened; per-version detail
-for 1.2.0 and 1.3.0 could not be recovered.
-
 ### Changed
 
 - Renamed the theme from Celestine to Batavia, across the text domain, slug,
