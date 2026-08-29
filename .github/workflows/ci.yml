@@ -89,12 +89,7 @@ jobs:
       - name: Build the distributable zip
         run: npm run zip
 
-      # The preflight fails while the theme slug is still taken on
-      # WordPress.org and while screenshot.png is missing, so its result is
-      # reported without failing the build. Remove continue-on-error once the
-      # theme has been renamed and a screenshot added.
       - name: Submission requirements
-        continue-on-error: true
         run: npm run preflight
 
       - uses: actions/upload-artifact@v4

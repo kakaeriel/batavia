@@ -9,6 +9,12 @@
  * error, which is the desired outcome -- patterns should not reach for
  * WordPress APIs beyond this set.
  *
+ * Patterns also call the theme's own `batavia_get_setting*()` functions from
+ * `inc/settings.php`. That is real theme logic, not a WordPress API, so it is
+ * required for real rather than stubbed -- with just enough of `add_action()`
+ * and `get_option()` beneath it to load without a database, reading back as
+ * the empty options of a fresh install.
+ *
  * @package Batavia
  */
 
@@ -210,4 +216,48 @@ if ( ! function_exists( 'get_stylesheet_directory_uri' ) ) {
 	}
 }
 
+if ( ! function_exists( 'add_action' ) ) {
+	/**
+	 * No-op stand-in for the hooks API.
+	 *
+	 * `inc/settings.php` registers `batavia_register_settings` on `admin_init`
+	 * at the top level of the file; nothing here ever fires that hook, so
+	 * this only needs to exist, not do anything.
+	 *
+	 * @param string   $hook_name Hook name.
+	 * @param callable $callback  Callback.
+	 * @param int      $priority  Priority.
+	 * @param int      $args      Accepted argument count.
+	 * @return true Always.
+	 */
+	function add_action( $hook_name, $callback, $priority = 10, $args = 1 ) {
+		unset( $hook_name, $callback, $priority, $args );
+		return true;
+	}
+}
+
+if ( ! function_exists( 'get_option' ) ) {
+	/**
+	 * Reads a database option.
+	 *
+	 * There is no database here, so every option reads as never having been
+	 * saved -- the same state as a fresh install, which is what
+	 * `batavia_get_setting_bool()` is written to render as a finished page.
+	 *
+	 * @param string $option  Option name.
+	 * @param mixed  $default Value to return.
+	 * @return mixed The default value.
+	 */
+	function get_option( $option, $default = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames
+		unset( $option );
+		return $default;
+	}
+}
+
 // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', BATAVIA_THEME_DIR . '/' );
+}
+
+require_once BATAVIA_THEME_DIR . '/inc/settings.php';
