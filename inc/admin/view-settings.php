@@ -375,6 +375,10 @@ if ( ! function_exists( 'batavia_render_field_input' ) ) {
 				<?php
 				break;
 
+			case 'media':
+				batavia_render_media_field( $name, absint( $value ), $field['label'] );
+				break;
+
 			case 'category':
 				wp_dropdown_categories(
 					array(

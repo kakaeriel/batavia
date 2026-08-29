@@ -70,12 +70,6 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'placeholder' => __( 'Software engineer — distributed systems', 'batavia' ),
 						'help'        => __( 'One line under the name, set in monospace.', 'batavia' ),
 					),
-					'availability'   => array(
-						'label'       => __( 'Status line', 'batavia' ),
-						'type'        => 'text',
-						'placeholder' => __( 'A short status line', 'batavia' ),
-						'help'        => __( 'The small ruled label above the name. It can say anything -- availability, a tagline, whatever is worth leading with -- and you can change it as often as you like.', 'batavia' ),
-					),
 					'location'       => array(
 						'label'       => __( 'Location', 'batavia' ),
 						'type'        => 'text',
@@ -208,10 +202,6 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 				'label'       => __( 'Hero', 'batavia' ),
 				'description' => __( 'The opening section. Everything here is on by default; turn off whatever you do not want, individually.', 'batavia' ),
 				'fields'      => array(
-					'show_hero_availability'  => array(
-						'label' => __( 'Show the status line', 'batavia' ),
-						'type'  => 'checkbox',
-					),
 					'show_hero_name'          => array(
 						'label' => __( 'Show the name', 'batavia' ),
 						'type'  => 'checkbox',
@@ -267,6 +257,11 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'row_label' => __( 'Role', 'batavia' ),
 						'max'       => BATAVIA_REPEATER_MAX_ROWS,
 						'fields'    => array(
+							'logo'        => array(
+								'label' => __( 'Logo', 'batavia' ),
+								'type'  => 'media',
+								'help'  => __( 'Replaces the Mark below with an image in the same square, desaturated until hovered. Leave empty to use Mark instead.', 'batavia' ),
+							),
 							'mark'        => array(
 								'label'       => __( 'Mark', 'batavia' ),
 								'type'        => 'text',
@@ -340,12 +335,23 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'options'    => array(
 							'all'      => __( 'All categories', 'batavia' ),
 							'specific' => __( 'One specific category', 'batavia' ),
+							'exclude'  => __( 'All except one category', 'batavia' ),
 						),
 					),
 					'notes_category'      => array(
 						'label' => __( 'Category', 'batavia' ),
 						'type'  => 'category',
-						'help'  => __( 'Only used when "One specific category" is selected above.', 'batavia' ),
+						'help'  => __( 'Used when "One specific category" or "All except one category" is selected above.', 'batavia' ),
+					),
+				),
+			),
+			'cta'        => array(
+				'label'       => __( 'Closing call to action', 'batavia' ),
+				'description' => __( 'A closing invitation to get in touch, just above the footer. Reads the same contact link as Hero\'s primary button -- a booking page, WhatsApp or email, whichever is filled in under Contact.', 'batavia' ),
+				'fields'      => array(
+					'show_cta' => array(
+						'label' => __( 'Show this section', 'batavia' ),
+						'type'  => 'checkbox',
 					),
 				),
 			),
@@ -363,7 +369,7 @@ if ( ! function_exists( 'batavia_settings_groups' ) ) {
 	 */
 	function batavia_settings_groups() {
 		return array(
-			'homepage' => array( 'hero', 'portfolio', 'experience', 'consulting', 'notes' ),
+			'homepage' => array( 'hero', 'portfolio', 'experience', 'consulting', 'notes', 'cta' ),
 		);
 	}
 }
@@ -471,20 +477,23 @@ if ( ! function_exists( 'batavia_get_setting_bool' ) ) {
 
 if ( ! function_exists( 'batavia_get_category_scope' ) ) {
 	/**
-	 * Whether a category-scoped section is limited to "all" or "specific".
+	 * Whether a category-scoped section is limited to "all", "specific" or
+	 * "exclude".
 	 *
 	 * A radio the user has genuinely never saved is not the same as "all":
 	 * on a site upgrading from before this control existed, a category may
 	 * already be chosen, and treating that silently as "all" would drop a
 	 * filter the site owner set on purpose. So an unsaved mode is inferred
 	 * from whether a category is already stored, rather than defaulting flatly
-	 * to "all". Once the radio is saved once, its stored value is used as-is.
+	 * to "all" -- "exclude" is never inferred this way, since it did not exist
+	 * before this control did. Once the radio is saved once, its stored value
+	 * is used as-is.
 	 *
 	 * @since 1.4.0
 	 *
 	 * @param string $mode_key     Field key the scope radio is stored under.
 	 * @param string $category_key Field key the category id is stored under.
-	 * @return string 'all' or 'specific'.
+	 * @return string 'all', 'specific' or 'exclude'.
 	 */
 	function batavia_get_category_scope( $mode_key, $category_key ) {
 		$mode = batavia_get_setting( $mode_key );
@@ -494,6 +503,51 @@ if ( ! function_exists( 'batavia_get_category_scope' ) ) {
 		}
 
 		return absint( batavia_get_setting( $category_key ) ) > 0 ? 'specific' : 'all';
+	}
+}
+
+if ( ! function_exists( 'batavia_category_tax_query' ) ) {
+	/**
+	 * The `taxQuery` value for a Query Loop scoped to one setting's category.
+	 *
+	 * Returned pre-encoded as JSON, meant to sit directly inside a pattern's
+	 * own `<!-- wp:query {"query":{...,"taxQuery":<?php echo ...; ?>}} -->`
+	 * comment, baked in before the block comment is ever parsed -- the same
+	 * as a category chosen by hand in the block's own Filters panel.
+	 *
+	 * That is deliberate, not just convenient: filtering the query at render
+	 * time instead (on `query_loop_block_query_vars`) cannot work, because
+	 * that filter fires once per descendant block -- Post Template, Query No
+	 * Results, Query Pagination -- and never receives the Query block itself,
+	 * so it can never see the Query block's own className or attributes to
+	 * key off. Baking the value into the block's own `query.taxQuery`
+	 * attribute instead reaches every descendant through ordinary block
+	 * context inheritance, because that is what the attribute is for.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param string      $category_key Field key the category id is stored under.
+	 * @param string|null $mode_key     Field key the scope radio is stored under, if the
+	 *                                  section has one. Omitted for a section with only a
+	 *                                  category picker, which is always "specific" once set.
+	 * @return string 'null', or a JSON-encoded `{"include":...}` / `{"exclude":...}` object.
+	 */
+	function batavia_category_tax_query( $category_key, $mode_key = null ) {
+		$scope = null !== $mode_key ? batavia_get_category_scope( $mode_key, $category_key ) : 'specific';
+
+		if ( 'all' === $scope ) {
+			return 'null';
+		}
+
+		$term_id = absint( batavia_get_setting( $category_key ) );
+
+		if ( $term_id <= 0 ) {
+			return 'null';
+		}
+
+		$side = 'exclude' === $scope ? 'exclude' : 'include';
+
+		return wp_json_encode( array( $side => array( 'category' => array( $term_id ) ) ) );
 	}
 }
 
@@ -561,6 +615,16 @@ if ( ! function_exists( 'batavia_sanitize_repeater_rows' ) ) {
 				}
 
 				$raw = trim( (string) $raw_row[ $sub_key ] );
+
+				if ( 'media' === $sub_field['type'] ) {
+					$attachment_id = absint( $raw );
+
+					if ( $attachment_id > 0 ) {
+						$clean_row[ $sub_key ] = (string) $attachment_id;
+					}
+
+					continue;
+				}
 
 				if ( '' === $raw ) {
 					continue;

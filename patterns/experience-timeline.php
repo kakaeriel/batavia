@@ -14,11 +14,9 @@
  * example roles below, the same way an empty text field elsewhere in the
  * theme keeps the pattern's own wording.
  *
- * A row's mark is its own "Mark" field if set, otherwise the first letter of
- * its title. To use a real logo instead of a letter, open the Front Page
- * template in the Site Editor, select the square for that row, and replace it
- * with an Image block -- the square keeps its size and the logo is
- * desaturated until hovered.
+ * A row's square shows its "Logo" field if set; otherwise its "Mark" field if
+ * set; otherwise the first letter of its title. A logo is desaturated until
+ * hovered, the same treatment the Client pattern's wordmarks use.
  *
  * @package Batavia
  * @since   1.0.0
@@ -62,21 +60,34 @@ if ( empty( $batavia_experience_rows ) ) {
 		<h2 class="wp-block-heading alignwide is-style-batavia-label"><?php esc_html_e( 'Experience', 'batavia' ); ?></h2>
 		<!-- /wp:heading -->
 
-		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 		<div class="wp-block-group alignwide">
 			<?php foreach ( $batavia_experience_rows as $batavia_row ) : ?>
 				<?php
+				$batavia_logo_id  = ! empty( $batavia_row['logo'] ) ? absint( $batavia_row['logo'] ) : 0;
+				$batavia_logo_url = $batavia_logo_id > 0 ? wp_get_attachment_image_url( $batavia_logo_id, 'thumbnail' ) : '';
+
 				$batavia_mark = ! empty( $batavia_row['mark'] )
 					? $batavia_row['mark']
 					: ( ! empty( $batavia_row['title'] ) ? mb_strtoupper( mb_substr( $batavia_row['title'], 0, 1 ) ) : '' );
+				// The square is 3rem and the Mark field's own help text asks for one or
+				// two characters, but nothing stops a longer value from being typed in,
+				// so it is clipped here rather than overflowing the box.
+				$batavia_mark = mb_substr( $batavia_mark, 0, 2 );
 				?>
 				<!-- wp:group {"style":{"border":{"bottom":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 				<div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 					<!-- wp:group {"className":"is-style-batavia-mark","layout":{"type":"constrained"}} -->
 					<div class="wp-block-group is-style-batavia-mark">
-						<!-- wp:paragraph {"fontFamily":"mono","fontSize":"medium"} -->
-						<p class="has-medium-font-size has-mono-font-family"><?php echo esc_html( $batavia_mark ); ?></p>
-						<!-- /wp:paragraph -->
+						<?php if ( '' !== $batavia_logo_url ) : ?>
+							<!-- wp:image {"sizeSlug":"thumbnail","className":"is-style-batavia-logo"} -->
+							<figure class="wp-block-image size-thumbnail is-style-batavia-logo"><img src="<?php echo esc_url( $batavia_logo_url ); ?>" alt="" /></figure>
+							<!-- /wp:image -->
+						<?php else : ?>
+							<!-- wp:paragraph {"fontFamily":"mono","fontSize":"medium"} -->
+							<p class="has-medium-font-size has-mono-font-family"><?php echo esc_html( $batavia_mark ); ?></p>
+							<!-- /wp:paragraph -->
+						<?php endif; ?>
 					</div>
 					<!-- /wp:group -->
 

@@ -231,23 +231,64 @@ h1, h2, h3,
 
 /*
  * 4.3.2 Article entry -- a thumbnail beside a column of text.
- * The text column is allowed to grow but not to become narrower than a
- * readable measure, so the row wraps to two lines on a phone instead of
- * squeezing a title into four words per line. A post with no featured image
- * simply renders the text column full width.
+ * A grid, not a flex row: flex only reserves the thumbnail's column when a
+ * post actually has one, so a post without a featured image had its text
+ * column start flush against the left edge instead of lining up with every
+ * other entry's title. Grid's empty first track keeps that column reserved
+ * either way. Collapses to one column under 640px, where there is no room
+ * for a fixed-width thumbnail beside a readable line of text.
+ *
+ * `body` is not decoration: WordPress's own layout CSS sets `display: flex`
+ * on `body .is-layout-flex`, at specificity (0,1,1) -- one point ahead of a
+ * bare class selector -- so overriding `display` here needs the same shape
+ * to actually win rather than silently losing to a same-specificity rule
+ * that merely loads later.
  */
+body .is-style-batavia-entry {
+	display: grid;
+	grid-template-columns: 12rem 1fr;
+}
+
 .is-style-batavia-entry > .wp-block-group {
-	flex: 1 1 22rem;
+	grid-column: 2;
 	min-width: 0;
 }
 
 .is-style-batavia-entry > .wp-block-post-featured-image {
-	flex: 0 0 auto;
+	grid-column: 1;
 	margin-block: 0;
 }
 
 .is-style-batavia-entry > .wp-block-post-featured-image img {
 	width: 100%;
+}
+
+@media (max-width: 640px) {
+	body .is-style-batavia-entry {
+		grid-template-columns: 1fr;
+	}
+
+	.is-style-batavia-entry > .wp-block-group,
+	.is-style-batavia-entry > .wp-block-post-featured-image {
+		grid-column: 1;
+	}
+}
+
+/*
+ * 4.3.3 Project card -- a screenshot with a rule under it that shifts to
+ * Accent on hover, so the whole card reads as interactive without a shadow
+ * or a zoom. The rule lives on the image rather than the card, so hovering
+ * the title -- also a link, to the same post -- highlights it too.
+ */
+.is-style-batavia-project .wp-block-post-featured-image {
+	border-bottom: 1px solid var(--wp--preset--color--rule);
+	margin-block-end: 0;
+	transition: border-color 150ms ease;
+}
+
+.is-style-batavia-project:hover .wp-block-post-featured-image,
+.is-style-batavia-project:focus-within .wp-block-post-featured-image {
+	border-color: var(--wp--preset--color--accent);
 }
 
 /* 4.4 Ruled list -- entries separated by hairlines, no bullets. */

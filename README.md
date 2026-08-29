@@ -51,7 +51,7 @@ batavia/
 │   └── fonts/                IBM Plex woff2 subsets + OFL licence.
 ├── styles/                  Four style variations (forest, indigo, newsprint, slate).
 ├── parts/                   header.html, footer.html
-├── patterns/                Fifteen patterns; four are template plumbing.
+├── patterns/                Sixteen patterns; four are template plumbing.
 ├── templates/               Seven templates.
 ├── languages/batavia.pot   Translation template.
 └── tools/                   Development tooling. Not distributed.
@@ -92,7 +92,7 @@ npm install && composer install && npm run dev
 
 `Appearance -> Batavia` has five tabs: Site identity, Profile, Contact, Social
 media and Homepage. The first four hold the personal details the patterns read
-through Block Bindings -- name, role, availability, email, WhatsApp number and
+through Block Bindings -- name, role, email, WhatsApp number and
 up to fourteen social profiles. Homepage explains the theme's content model and
 links into the Site Editor. It lives in `inc/admin/` and loads only in the
 admin.

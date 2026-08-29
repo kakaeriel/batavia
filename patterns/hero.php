@@ -3,7 +3,7 @@
  * Title: Hero
  * Slug: batavia/hero
  * Categories: batavia, banner, featured
- * Description: An opening statement: availability, name, role, a one-line summary of the work, two calls to action, and a single ruled line of tools.
+ * Description: An opening statement: name, role, a one-line summary of the work, two calls to action, and a single ruled line of tools.
  * Keywords: hero, intro, headline, banner, about
  * Viewport Width: 1400
  *
@@ -23,7 +23,6 @@
  * @since   1.0.0
  */
 
-$batavia_show_availability  = batavia_get_setting_bool( 'show_hero_availability' );
 $batavia_show_name          = batavia_get_setting_bool( 'show_hero_name' );
 $batavia_show_role          = batavia_get_setting_bool( 'show_hero_role' );
 $batavia_show_description   = batavia_get_setting_bool( 'show_hero_description' );
@@ -37,12 +36,6 @@ $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_sec
 <div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained","contentSize":"46rem","wideSize":"76rem","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
-		<?php if ( $batavia_show_availability ) : ?>
-			<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"batavia/setting","args":{"key":"availability"}}}},"className":"is-style-batavia-label"} -->
-			<p class="is-style-batavia-label"><?php esc_html_e( 'A short status line', 'batavia' ); ?></p>
-			<!-- /wp:paragraph -->
-		<?php endif; ?>
-
 		<?php if ( $batavia_show_name ) : ?>
 			<!-- wp:heading {"metadata":{"bindings":{"content":{"source":"batavia/setting","args":{"key":"name"}}}},"level":1,"fontSize":"xxx-large"} -->
 			<h1 class="wp-block-heading has-xxx-large-font-size"><?php esc_html_e( 'Your Name', 'batavia' ); ?></h1>

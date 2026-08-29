@@ -236,6 +236,30 @@ if ( ! function_exists( 'add_action' ) ) {
 	}
 }
 
+if ( ! function_exists( 'absint' ) ) {
+	/**
+	 * Casts a value to a non-negative integer.
+	 *
+	 * @param mixed $value Value to convert.
+	 * @return int A non-negative integer.
+	 */
+	function absint( $value ) {
+		return abs( (int) $value );
+	}
+}
+
+if ( ! function_exists( 'wp_json_encode' ) ) {
+	/**
+	 * Encodes a value as JSON.
+	 *
+	 * @param mixed $value Value to encode.
+	 * @return string|false JSON string, or false on failure.
+	 */
+	function wp_json_encode( $value ) {
+		return json_encode( $value ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
+	}
+}
+
 if ( ! function_exists( 'get_option' ) ) {
 	/**
 	 * Reads a database option.

@@ -24,15 +24,16 @@ Everything is composed from core blocks. There are no custom post types and no
 custom taxonomies, which means your content stays yours when you switch themes,
 and everything you see on the front end can be rearranged in the Site Editor.
 
-Eleven patterns, in two groups. Six for a front page (the client pattern is
+Twelve patterns, in two groups. Seven for a front page (the client pattern is
 optional and is not used on the shipped homepage):
 
-* Hero -- availability, name, role, summary, calls to action and a tools line
+* Hero -- name, role, summary, calls to action and a tools line
 * Experience -- roles and dates, each with a square for a company mark or logo
 * Client -- optional wordmarks; not used on the front page
 * Portfolio grid -- project cards with screenshots, including fun projects
 * Consulting rates -- hourly, project and retainer as rows, not cards
 * Post index -- recent posts as article entries
+* Closing call to action -- a last invitation to get in touch, before the footer
 
 And five for the middle of an article:
 
@@ -68,8 +69,8 @@ place so setting up a new site is not a tour of four screens. Those values belon
 to your site rather than to Batavia, and they stay as you left them if you
 switch theme.
 
-Profile and Contact hold Batavia's own: your name, role, availability,
-location, email address and contact page. Social media holds fourteen social
+Profile and Contact hold Batavia's own: your name, role, location, email
+address and contact page. Social media holds fourteen social
 profiles; icons whose field you leave empty are left out of the page entirely,
 so there are no dead links and no gaps.
 
