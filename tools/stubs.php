@@ -260,6 +260,37 @@ if ( ! function_exists( 'wp_json_encode' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_category_link' ) ) {
+	/**
+	 * The URL of a category archive.
+	 *
+	 * There is no database here, so no term exists to link to -- the theme
+	 * treats an empty return the same as a category picker left unset.
+	 *
+	 * @param int $category_id Term id.
+	 * @return string Empty string.
+	 */
+	function get_category_link( $category_id ) {
+		unset( $category_id );
+		return '';
+	}
+}
+
+if ( ! function_exists( 'get_permalink' ) ) {
+	/**
+	 * The permalink of a post.
+	 *
+	 * There is no database here, so no post exists to link to.
+	 *
+	 * @param int $post_id Post id.
+	 * @return string Empty string.
+	 */
+	function get_permalink( $post_id = 0 ) {
+		unset( $post_id );
+		return '';
+	}
+}
+
 if ( ! function_exists( 'get_option' ) ) {
 	/**
 	 * Reads a database option.

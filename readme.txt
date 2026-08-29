@@ -24,8 +24,8 @@ Everything is composed from core blocks. There are no custom post types and no
 custom taxonomies, which means your content stays yours when you switch themes,
 and everything you see on the front end can be rearranged in the Site Editor.
 
-Twelve patterns, in two groups. Seven for a front page (the client pattern is
-optional and is not used on the shipped homepage):
+Thirteen patterns, in two groups. Seven for a front page (the client pattern
+is optional and is not used on the shipped homepage):
 
 * Hero -- name, role, summary, calls to action and a tools line
 * Experience -- roles and dates, each with a square for a company mark or logo
@@ -35,13 +35,15 @@ optional and is not used on the shipped homepage):
 * Post index -- recent posts as article entries
 * Closing call to action -- a last invitation to get in touch, before the footer
 
-And five for the middle of an article:
+And six for the middle of an article:
 
 * Note -- an aside on a tinted panel, for a caveat or a prerequisite
 * Specification table -- monospace key and value rows on hairline rules
 * Numbered steps -- a procedure, each step ruled off from the next
 * Questions and answers -- collapsible Details blocks
 * About the author -- a short bio with social icons
+* Portfolio detail -- a project's client, role, timeline and stack, for the
+  top of a portfolio post
 
 Under Appearance > Batavia there is a settings screen for the details that
 would otherwise have to be retyped into every pattern that mentions them: your

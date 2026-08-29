@@ -51,7 +51,7 @@ batavia/
 │   └── fonts/                IBM Plex woff2 subsets + OFL licence.
 ├── styles/                  Four style variations (forest, indigo, newsprint, slate).
 ├── parts/                   header.html, footer.html
-├── patterns/                Sixteen patterns; four are template plumbing.
+├── patterns/                Seventeen patterns; four are template plumbing.
 ├── templates/               Seven templates.
 ├── languages/batavia.pot   Translation template.
 └── tools/                   Development tooling. Not distributed.

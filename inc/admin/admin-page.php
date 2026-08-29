@@ -137,9 +137,7 @@ if ( ! function_exists( 'batavia_enqueue_admin_assets' ) ) {
 			return;
 		}
 
-		if ( 'identity' === $tab ) {
-			wp_enqueue_media();
-		}
+		wp_enqueue_media();
 
 		wp_enqueue_script(
 			'batavia-admin',

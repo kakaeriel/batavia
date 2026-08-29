@@ -22,6 +22,11 @@
  * to stay on the same hairline-and-flat-colour vocabulary as everything else
  * in the theme.
  *
+ * Capped at six projects -- three rows -- with a link to the rest, rather
+ * than growing the homepage by a row for every project added. That link
+ * goes to the category archive when a category is set (the same one this
+ * query is scoped to), and falls back to the blog index otherwise.
+ *
  * @package Batavia
  * @since   1.0.0
  */
@@ -30,7 +35,11 @@ if ( ! batavia_get_setting_bool( 'show_portfolio' ) ) {
 	return;
 }
 
-$batavia_portfolio_tax_query = batavia_category_tax_query( 'portfolio_category' );
+$batavia_portfolio_category_id = absint( batavia_get_setting( 'portfolio_category' ) );
+$batavia_portfolio_tax_query   = batavia_category_tax_query( 'portfolio_category' );
+$batavia_portfolio_archive_url = $batavia_portfolio_category_id > 0
+	? get_category_link( $batavia_portfolio_category_id )
+	: get_permalink( get_option( 'page_for_posts' ) );
 
 ?>
 <!-- wp:group {"align":"full","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|rule","width":"1px"}}},"layout":{"type":"constrained"}} -->
@@ -50,7 +59,7 @@ $batavia_portfolio_tax_query = batavia_category_tax_query( 'portfolio_category' 
 			<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"grid","columnCount":2}} -->
 			<!-- wp:group {"className":"is-style-batavia-project","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
 			<div class="wp-block-group is-style-batavia-project">
-				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
+				<!-- wp:post-featured-image {"isLink":true} /-->
 
 				<!-- wp:post-title {"level":3,"isLink":true,"fontSize":"large"} /-->
 			</div>
@@ -64,6 +73,14 @@ $batavia_portfolio_tax_query = batavia_category_tax_query( 'portfolio_category' 
 			<!-- /wp:query-no-results -->
 		</div>
 		<!-- /wp:query -->
+
+		<!-- wp:buttons -->
+		<div class="wp-block-buttons">
+			<!-- wp:button {"className":"is-style-outline"} -->
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_portfolio_archive_url ? $batavia_portfolio_archive_url : '#' ); ?>"><?php esc_html_e( 'View all work', 'batavia' ); ?></a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
 </div>

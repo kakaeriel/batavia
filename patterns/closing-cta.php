@@ -18,6 +18,15 @@
  * Can be turned off from Appearance -> Batavia -> Homepage. The heading and
  * paragraph are edited directly here, like Hero's own wording.
  *
+ * Surface, not an Ink/Base inversion: Ink and Base swap which one is the
+ * light colour and which is the dark one under dark mode, so a section that
+ * sets background to Ink and text to Base looks like a deliberate dark band
+ * in light mode but flips to a jarring bright one in dark mode. The default
+ * button's own hover state (background Ink, text Base) also lands exactly on
+ * an Ink background, so the button visually disappears on hover. Surface is
+ * one of the six presets that is already dark in dark mode and light in
+ * light mode, the same as every other section, so neither problem exists.
+ *
  * @package Batavia
  * @since   1.4.0
  */
@@ -27,8 +36,8 @@ if ( ! batavia_get_setting_bool( 'show_cta' ) ) {
 }
 
 ?>
-<!-- wp:group {"align":"full","backgroundColor":"ink","textColor":"base","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-base-color has-ink-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
+<!-- wp:group {"align":"full","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|accent","width":"2px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-surface-background-color has-background" style="border-top-color:var(--wp--preset--color--accent);border-top-width:2px;padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"36rem","wideSize":"76rem","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
 		<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
