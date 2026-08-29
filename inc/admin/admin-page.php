@@ -2,18 +2,17 @@
 /**
  * The theme's Appearance sub-page.
  *
- * A block theme has no Customizer, and the Site Editor gives no hint about what
- * a theme expects of you. This page fills that gap: it says which categories the
- * patterns are built around, where to set a static front page, and where each
- * part of the theme is edited.
+ * Five tabs, one menu entry. Site identity, Profile, Contact and Social media
+ * are the short lists of details that would otherwise have to be retyped into
+ * every pattern that mentions them, split apart so saving one kind of detail
+ * never means scrolling past every other kind first. Homepage chooses what
+ * the front page shows.
  *
- * Deliberately limited to what a theme is permitted to do. Theme review forbids
- * demo importers, outbound HTTP requests and usage tracking in a theme, so there
- * are none here -- every link is either an admin screen on this site or a plain
- * link to documentation the reader chooses to follow. Anything beyond that
- * belongs in a companion plugin.
+ * Deliberately limited to what a theme is permitted to do: no demo importer, no
+ * outbound requests, no tracking, and nothing that writes to the database
+ * without being asked. Anything beyond that belongs in a companion plugin.
  *
- * @package Celestine
+ * @package Batavia
  * @since   1.1.0
  */
 
@@ -21,7 +20,67 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'celestine_register_admin_page' ) ) {
+require_once get_theme_file_path( 'inc/admin/view-settings.php' );
+require_once get_theme_file_path( 'inc/admin/view-homepage.php' );
+
+if ( ! function_exists( 'batavia_admin_tabs' ) ) {
+	/**
+	 * The tabs on the page, in order.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return array<string, string> Tab slug mapped to its label.
+	 */
+	function batavia_admin_tabs() {
+		return array(
+			'identity' => __( 'Site identity', 'batavia' ),
+			'profile'  => __( 'Profile', 'batavia' ),
+			'contact'  => __( 'Contact', 'batavia' ),
+			'social'   => __( 'Social media', 'batavia' ),
+			'homepage' => __( 'Homepage', 'batavia' ),
+		);
+	}
+}
+
+if ( ! function_exists( 'batavia_current_admin_tab' ) ) {
+	/**
+	 * The tab being viewed, falling back to the first one.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return string Tab slug.
+	 */
+	function batavia_current_admin_tab() {
+		$tabs = batavia_admin_tabs();
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading which tab to display, not processing a submission.
+		$requested = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : '';
+
+		return isset( $tabs[ $requested ] ) ? $requested : (string) array_key_first( $tabs );
+	}
+}
+
+if ( ! function_exists( 'batavia_admin_page_url' ) ) {
+	/**
+	 * The URL of one tab of this page.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param string $tab Tab slug.
+	 * @return string Admin URL.
+	 */
+	function batavia_admin_page_url( $tab = 'identity' ) {
+		return add_query_arg(
+			array(
+				'page' => 'batavia',
+				'tab'  => $tab,
+			),
+			admin_url( 'themes.php' )
+		);
+	}
+}
+
+if ( ! function_exists( 'batavia_register_admin_page' ) ) {
 	/**
 	 * Registers the sub-page under Appearance.
 	 *
@@ -29,258 +88,147 @@ if ( ! function_exists( 'celestine_register_admin_page' ) ) {
 	 *
 	 * @return void
 	 */
-	function celestine_register_admin_page() {
-		$page = add_theme_page(
+	function batavia_register_admin_page() {
+		add_theme_page(
 			/* translators: Page title of the theme's Appearance sub-page. */
-			__( 'Celestine', 'celestine' ),
+			__( 'Batavia', 'batavia' ),
 			/* translators: Menu label of the theme's Appearance sub-page. */
-			__( 'Celestine', 'celestine' ),
+			__( 'Batavia', 'batavia' ),
 			'edit_theme_options',
-			'celestine',
-			'celestine_render_admin_page'
+			'batavia',
+			'batavia_render_admin_page'
 		);
-
-		if ( $page ) {
-			add_action( 'admin_print_styles-' . $page, 'celestine_enqueue_admin_styles' );
-		}
 	}
 }
-add_action( 'admin_menu', 'celestine_register_admin_page' );
+add_action( 'admin_menu', 'batavia_register_admin_page' );
 
-if ( ! function_exists( 'celestine_enqueue_admin_styles' ) ) {
+if ( ! function_exists( 'batavia_enqueue_admin_assets' ) ) {
 	/**
-	 * Loads the page's stylesheet, and only on this page.
+	 * Loads the page's assets, and only on this page.
 	 *
-	 * Hooked to admin_print_styles-{$hook_suffix} so it cannot leak into other
-	 * admin screens.
+	 * The hook suffix is checked rather than trusted, so nothing here can leak
+	 * into another admin screen. The media library and the picker script load
+	 * only on the tab that needs them.
 	 *
 	 * @since 1.1.0
 	 *
+	 * @param string $hook_suffix The current admin page.
 	 * @return void
 	 */
-	function celestine_enqueue_admin_styles() {
-		$version = wp_get_theme()->get( 'Version' );
-
-		wp_enqueue_style(
-			'celestine-admin',
-			get_theme_file_uri( 'assets/css/admin.css' ),
-			array(),
-			is_string( $version ) && '' !== $version ? $version : false
-		);
-	}
-}
-
-if ( ! function_exists( 'celestine_admin_steps' ) ) {
-	/**
-	 * The setup steps, in the order they should be done.
-	 *
-	 * Ordered because it is a real sequence: patterns filter by category, so the
-	 * categories have to exist before the front page is worth editing.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return array<int, array<string, string>> Step definitions.
-	 */
-	function celestine_admin_steps() {
-		return array(
-			array(
-				'title' => __( 'Create your categories', 'celestine' ),
-				'body'  => __( 'Celestine separates writing from projects using the built-in Category taxonomy rather than custom post types, so your content survives a theme switch. Add a category named Blog and one named Portfolio.', 'celestine' ),
-				'label' => __( 'Add categories', 'celestine' ),
-				'url'   => admin_url( 'edit-tags.php?taxonomy=category' ),
-			),
-			array(
-				'title' => __( 'Choose a static front page', 'celestine' ),
-				'body'  => __( 'Create a page for your home page and another for your posts, then select them under Reading. This is what makes the composed front page appear instead of a plain list of posts.', 'celestine' ),
-				'label' => __( 'Open Reading settings', 'celestine' ),
-				'url'   => admin_url( 'options-reading.php' ),
-			),
-			array(
-				'title' => __( 'Point the loops at your categories', 'celestine' ),
-				'body'  => __( 'The Portfolio grid and Writing index are ordinary Query Loop blocks. Select each one, open the Filters panel in the sidebar, and choose the matching category. They ship unfiltered because a theme cannot know your category IDs in advance.', 'celestine' ),
-				'label' => __( 'Edit the front page', 'celestine' ),
-				'url'   => admin_url( 'site-editor.php?p=%2Ftemplate' ),
-			),
-			array(
-				'title' => __( 'Make it yours', 'celestine' ),
-				'body'  => __( 'Every colour in the theme is one of six presets, so editing a preset changes it everywhere at once, in both light and dark. Dark mode follows the visitor\'s system setting; there is no toggle by design.', 'celestine' ),
-				'label' => __( 'Open Styles', 'celestine' ),
-				'url'   => admin_url( 'site-editor.php?p=%2Fstyles' ),
-			),
-		);
-	}
-}
-
-if ( ! function_exists( 'celestine_admin_shortcuts' ) ) {
-	/**
-	 * Deep links into the parts of the Site Editor this theme uses.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return array<int, array<string, string>> Shortcut definitions.
-	 */
-	function celestine_admin_shortcuts() {
-		return array(
-			array(
-				'title' => __( 'Templates', 'celestine' ),
-				'body'  => __( 'The seven page layouts: front page, blog index, single post, page, archive, search and 404.', 'celestine' ),
-				'url'   => admin_url( 'site-editor.php?p=%2Ftemplate' ),
-			),
-			array(
-				'title' => __( 'Patterns', 'celestine' ),
-				'body'  => __( 'The reusable sections, plus the header and footer template parts.', 'celestine' ),
-				'url'   => admin_url( 'site-editor.php?p=%2Fpattern' ),
-			),
-			array(
-				'title' => __( 'Styles', 'celestine' ),
-				'body'  => __( 'Colour presets, typography, spacing and layout widths.', 'celestine' ),
-				'url'   => admin_url( 'site-editor.php?p=%2Fstyles' ),
-			),
-			array(
-				'title' => __( 'Navigation', 'celestine' ),
-				'body'  => __( 'The menus used in the header and footer.', 'celestine' ),
-				'url'   => admin_url( 'site-editor.php?p=%2Fnavigation' ),
-			),
-		);
-	}
-}
-
-if ( ! function_exists( 'celestine_admin_sections' ) ) {
-	/**
-	 * The front-page sections the theme ships, in the order they appear.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return array<int, array<string, string>> Section definitions.
-	 */
-	function celestine_admin_sections() {
-		return array(
-			array(
-				'name' => __( 'Hero', 'celestine' ),
-				'body' => __( 'Availability, name, role and two calls to action.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Tech stack', 'celestine' ),
-				'body' => __( 'A three-column specification sheet set in monospace.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Experience timeline', 'celestine' ),
-				'body' => __( 'A ruled rail of roles, companies and dates.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Client strip', 'celestine' ),
-				'body' => __( 'Companies worked with, as monospace wordmarks.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Portfolio grid', 'celestine' ),
-				'body' => __( 'A Query Loop laid out as project cards.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Consulting rates', 'celestine' ),
-				'body' => __( 'Hourly, project and retainer packages.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Writing index', 'celestine' ),
-				'body' => __( 'A ruled list of recent posts.', 'celestine' ),
-			),
-			array(
-				'name' => __( 'Closing call to action', 'celestine' ),
-				'body' => __( 'A contact section above the site footer.', 'celestine' ),
-			),
-		);
-	}
-}
-
-if ( ! function_exists( 'celestine_render_admin_page' ) ) {
-	/**
-	 * Renders the page.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return void
-	 */
-	function celestine_render_admin_page() {
-		if ( ! current_user_can( 'edit_theme_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to customise this site.', 'celestine' ) );
+	function batavia_enqueue_admin_assets( $hook_suffix ) {
+		if ( 'appearance_page_batavia' !== $hook_suffix ) {
+			return;
 		}
 
 		$theme   = wp_get_theme();
 		$version = $theme->get( 'Version' );
-		?>
-		<div class="wrap celestine-admin">
+		$version = is_string( $version ) && '' !== $version ? $version : false;
 
-			<div class="celestine-admin__masthead">
-				<p class="celestine-admin__eyebrow"><?php esc_html_e( 'Block theme', 'celestine' ); ?></p>
+		wp_enqueue_style(
+			'batavia-admin',
+			get_theme_file_uri( 'assets/css/admin.css' ),
+			array(),
+			$version
+		);
+
+		$tab = batavia_current_admin_tab();
+
+		if ( ! in_array( $tab, array( 'identity', 'homepage' ), true ) || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		if ( 'identity' === $tab ) {
+			wp_enqueue_media();
+		}
+
+		wp_enqueue_script(
+			'batavia-admin',
+			get_theme_file_uri( 'assets/js/settings-page.js' ),
+			array( 'jquery' ),
+			$version,
+			true
+		);
+
+		wp_localize_script(
+			'batavia-admin',
+			'bataviaAdmin',
+			array(
+				'useImage' => __( 'Use this image', 'batavia' ),
+				'choose'   => __( 'Choose image', 'batavia' ),
+				'replace'  => __( 'Replace', 'batavia' ),
+			)
+		);
+	}
+}
+add_action( 'admin_enqueue_scripts', 'batavia_enqueue_admin_assets' );
+
+if ( ! function_exists( 'batavia_render_admin_page' ) ) {
+	/**
+	 * Renders the page: masthead, tabs, then the current tab.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	function batavia_render_admin_page() {
+		if ( ! current_user_can( 'edit_theme_options' ) ) {
+			wp_die( esc_html__( 'You do not have permission to customise this site.', 'batavia' ) );
+		}
+
+		$theme   = wp_get_theme();
+		$version = $theme->get( 'Version' );
+		$current = batavia_current_admin_tab();
+		?>
+		<div class="wrap batavia-admin">
+
+			<div class="batavia-admin__masthead">
+				<p class="batavia-admin__eyebrow"><?php esc_html_e( 'Block theme', 'batavia' ); ?></p>
 				<h1>
 					<?php echo esc_html( $theme->get( 'Name' ) ); ?>
 					<?php if ( $version ) : ?>
-						<span class="celestine-admin__version"><?php echo esc_html( $version ); ?></span>
+						<span class="batavia-admin__version"><?php echo esc_html( $version ); ?></span>
 					<?php endif; ?>
 				</h1>
-				<p class="celestine-admin__standfirst">
-					<?php esc_html_e( 'A portfolio, a technical blog and a consulting rate card in one site. Everything below is edited in the Site Editor -- this theme adds no settings of its own.', 'celestine' ); ?>
+				<p class="batavia-admin__standfirst">
+					<?php esc_html_e( 'A portfolio, a technical blog and a rate card in one site. Layout is edited in the Site Editor; the handful of details that appear in more than one place are edited here.', 'batavia' ); ?>
 				</p>
 			</div>
 
-			<h2 class="celestine-admin__heading"><?php esc_html_e( 'Set up, in order', 'celestine' ); ?></h2>
-
-			<ol class="celestine-admin__steps">
-				<?php foreach ( celestine_admin_steps() as $step ) : ?>
-					<li class="celestine-admin__step">
-						<h3><?php echo esc_html( $step['title'] ); ?></h3>
-						<p><?php echo esc_html( $step['body'] ); ?></p>
-						<a class="button button-secondary" href="<?php echo esc_url( $step['url'] ); ?>">
-							<?php echo esc_html( $step['label'] ); ?>
-						</a>
-					</li>
-				<?php endforeach; ?>
-			</ol>
-
-			<h2 class="celestine-admin__heading"><?php esc_html_e( 'Where things are edited', 'celestine' ); ?></h2>
-
-			<div class="celestine-admin__grid">
-				<?php foreach ( celestine_admin_shortcuts() as $shortcut ) : ?>
-					<a class="celestine-admin__card" href="<?php echo esc_url( $shortcut['url'] ); ?>">
-						<span class="celestine-admin__card-title"><?php echo esc_html( $shortcut['title'] ); ?></span>
-						<span class="celestine-admin__card-body"><?php echo esc_html( $shortcut['body'] ); ?></span>
+			<nav class="nav-tab-wrapper wp-clearfix" aria-label="<?php esc_attr_e( 'Batavia sections', 'batavia' ); ?>">
+				<?php foreach ( batavia_admin_tabs() as $slug => $label ) : ?>
+					<a
+						href="<?php echo esc_url( batavia_admin_page_url( $slug ) ); ?>"
+						class="nav-tab <?php echo $slug === $current ? 'nav-tab-active' : ''; ?>"
+						<?php echo $slug === $current ? 'aria-current="page"' : ''; ?>
+					>
+						<?php echo esc_html( $label ); ?>
 					</a>
 				<?php endforeach; ?>
-			</div>
+			</nav>
 
-			<h2 class="celestine-admin__heading"><?php esc_html_e( 'Sections included', 'celestine' ); ?></h2>
+			<?php
+			switch ( $current ) {
+				case 'homepage':
+					batavia_render_homepage_tab();
+					break;
 
-			<p class="celestine-admin__note">
-				<?php esc_html_e( 'These are patterns, not custom blocks. Insert one and it becomes ordinary core blocks you can take apart -- and nothing breaks if you switch themes later. Find them under the Celestine category in the block inserter.', 'celestine' ); ?>
-			</p>
+				case 'profile':
+					batavia_render_settings_group_tab( 'profile', __( 'Save profile', 'batavia' ) );
+					break;
 
-			<ul class="celestine-admin__sections">
-				<?php foreach ( celestine_admin_sections() as $section ) : ?>
-					<li>
-						<strong><?php echo esc_html( $section['name'] ); ?></strong>
-						<span><?php echo esc_html( $section['body'] ); ?></span>
-					</li>
-				<?php endforeach; ?>
-			</ul>
+				case 'contact':
+					batavia_render_settings_group_tab( 'contact', __( 'Save contact', 'batavia' ) );
+					break;
 
-			<h2 class="celestine-admin__heading"><?php esc_html_e( 'Learn more', 'celestine' ); ?></h2>
+				case 'social':
+					batavia_render_settings_group_tab( 'social', __( 'Save social media', 'batavia' ) );
+					break;
 
-			<ul class="celestine-admin__links">
-				<li>
-					<a href="https://developer.wordpress.org/themes/block-themes/" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'How block themes work', 'celestine' ); ?>
-					</a>
-				</li>
-				<li>
-					<a href="https://developer.wordpress.org/themes/patterns/" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Working with patterns', 'celestine' ); ?>
-					</a>
-				</li>
-				<li>
-					<a href="https://wordpress.org/documentation/article/site-editor/" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'Using the Site Editor', 'celestine' ); ?>
-					</a>
-				</li>
-			</ul>
+				default:
+					batavia_render_identity_tab();
+					break;
+			}
+			?>
 
 		</div>
 		<?php

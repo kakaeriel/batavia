@@ -1,31 +1,33 @@
-# Celestine
+# Batavia
 
-A WordPress block theme for engineers who want one site instead of three: a
-project portfolio, a technical blog and a consulting rate card under a single
-typographic system.
+A WordPress block theme for a personal site: a home page, a notes index,
+selected work and a rate card, built entirely from core blocks.
 
 Ink on paper, a monospace accent for the parts of the page that are really data,
 and hairline rules doing the work that boxes and shadows usually do. Dark mode
-follows the operating system. No external requests, no theme JavaScript, no
-settings screen.
+follows the operating system. No external requests, no contact page -- buttons
+open WhatsApp or email from the theme settings.
 
 - **Requires** WordPress 6.6+, PHP 7.4+
 - **Licence** GPL-2.0-or-later
-- **Text domain** `celestine`
+- **Text domain** `batavia`
 
-The `celestine` slug was confirmed available on the WordPress.org theme
+The `batavia` slug was confirmed available on the WordPress.org theme
 directory before this theme was renamed to it; re-verify immediately before
 submitting, since availability is first-come-first-served.
 
 ## Design constraints
 
-Celestine is built to pass the WordPress.org theme review, which shapes the code
+Batavia is built to pass the WordPress.org theme review, which shapes the code
 more than any aesthetic decision does:
 
 - **No custom post types, taxonomies or meta boxes.** Content types are
   separated with the built-in Category taxonomy, so a user who switches away
   keeps everything they wrote.
-- **No settings screen.** Everything configurable lives in `theme.json`.
+- **One settings option.** Personal details (name, contact, social profiles)
+  live in a single `batavia_settings` option, written through the Settings
+  API and read into patterns via the Block Bindings API. Everything else
+  configurable lives in `theme.json`.
 - **No external requests.** Fonts are bundled and served from the site's own
   domain.
 - **Everything is a core block.** The theme registers block *styles*, never
@@ -34,19 +36,25 @@ more than any aesthetic decision does:
 ## Layout
 
 ```
-celestine/
+batavia/
 ├── theme.json              Colour, type, spacing, layout. Nearly all styling.
 ├── style.css               Only what theme.json cannot express.
 ├── functions.php           Theme supports, two stylesheets, block styles,
 │                           pattern category, font preloading.
+├── inc/
+│   ├── settings.php         The settings schema, sanitisation, accessors.
+│   ├── bindings.php          Connects settings to core blocks via Block Bindings.
+│   └── admin/                The Appearance sub-page: tabs, homepage view, settings view.
 ├── assets/
 │   ├── css/color-scheme.css  The prefers-color-scheme dark palette.
+│   ├── js/                    Editor bindings UI and the settings-page script.
 │   └── fonts/                IBM Plex woff2 subsets + OFL licence.
-├── parts/                  header.html, footer.html
-├── patterns/               Twelve patterns; four are template plumbing.
-├── templates/              Seven templates.
-├── languages/celestine.pot Translation template.
-└── tools/                  Development tooling. Not distributed.
+├── styles/                  Four style variations (forest, indigo, newsprint, slate).
+├── parts/                   header.html, footer.html
+├── patterns/                Fifteen patterns; four are template plumbing.
+├── templates/               Seven templates.
+├── languages/batavia.pot   Translation template.
+└── tools/                   Development tooling. Not distributed.
 ```
 
 ## Local development
@@ -82,9 +90,12 @@ npm install && composer install && npm run dev
 
 ## The Appearance sub-page
 
-`Appearance -> Celestine` explains the theme's content model, links into the
-Site Editor, and lists the sections it ships. It lives in `inc/admin/` and loads
-only in the admin.
+`Appearance -> Batavia` has five tabs: Site identity, Profile, Contact, Social
+media and Homepage. The first four hold the personal details the patterns read
+through Block Bindings -- name, role, availability, email, WhatsApp number and
+up to fourteen social profiles. Homepage explains the theme's content model and
+links into the Site Editor. It lives in `inc/admin/` and loads only in the
+admin.
 
 Theme review permits an Appearance sub-page but forbids demo importers, outbound
 HTTP requests and usage tracking inside a theme. This page does none of those --
@@ -97,10 +108,10 @@ link. Anything requiring more belongs in a companion plugin.
 which annotates the output:
 
 ```html
-<!-- celestine: template = celestine//front-page -->
-<!-- celestine: part/header --> … <!-- /celestine: part/header -->
-<!-- celestine: pattern/celestine/hero --> … <!-- /celestine: pattern/celestine/hero -->
-<!-- celestine: theme stylesheets in order = celestine-style, celestine-color-scheme -->
+<!-- batavia: template = batavia//front-page -->
+<!-- batavia: part/header --> … <!-- /batavia: part/header -->
+<!-- batavia: pattern/batavia/hero --> … <!-- /batavia: pattern/batavia/hero -->
+<!-- batavia: theme stylesheets in order = batavia-style, batavia-color-scheme -->
 ```
 
 **PHP notices:** `npm run start:log`. Should be empty.
@@ -162,10 +173,10 @@ do not commit to WordPress.org's SVN; the directory imports the uploaded zip.
 
 ## Before the first submission
 
-- **`screenshot.png`**, 1200×900, 4:3. Recommended: the front page in light mode
-  at a ~1600px viewport, scaled down — the hero with its label rule, the
-  tech-stack columns, the top of the timeline. It renders at ~387×290 in the
-  directory, so favour readable type over a zoomed-out full page.
+- **`screenshot.png`**, 1200×900, 4:3. Bundled already; regenerate it if the
+  front page changes -- the hero with its label rule and the top of the
+  experience timeline. It renders at ~387×290 in the directory, so favour
+  readable type over a zoomed-out full page.
 - **`Author`, `Author URI`, `Theme URI`** in `style.css`, and `Contributors` in
   `readme.txt` (a WordPress.org username).
 - **`accessibility-ready`** routes you into a separate, slower audit queue.
@@ -177,7 +188,7 @@ do not commit to WordPress.org's SVN; the directory imports the uploaded zip.
 (`composer lint:fix` applies them). Block markup is easiest to write by building
 in the Site Editor and pulling it back; `npm run lint:blocks` catches hand-edits
 that broke it. New user-facing strings need `esc_html_e()` or a sibling with the
-`celestine` text domain, and a regenerated POT.
+`batavia` text domain, and a regenerated POT.
 
 ## Licence
 

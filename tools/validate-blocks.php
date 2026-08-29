@@ -1,6 +1,6 @@
 <?php
 /**
- * Static validator for Celestine's block markup.
+ * Static validator for Batavia's block markup.
  *
  * Block themes fail in quiet ways: a mistyped block name renders as nothing, a
  * malformed attribute JSON blob silently drops the attribute, and raw HTML that
@@ -17,7 +17,7 @@
  *   php tools/validate-blocks.php --core=/path/to/wordpress
  *   WP_CORE_PATH=/path/to/wordpress php tools/validate-blocks.php
  *
- * @package Celestine
+ * @package Batavia
  */
 
 declare( strict_types=1 );
@@ -26,7 +26,7 @@ if ( PHP_SAPI !== 'cli' ) {
 	exit( 1 );
 }
 
-const CELESTINE_THEME_DIR = __DIR__ . '/..';
+const BATAVIA_THEME_DIR = __DIR__ . '/..';
 
 /**
  * Resolves the path to a WordPress core checkout.
@@ -34,7 +34,7 @@ const CELESTINE_THEME_DIR = __DIR__ . '/..';
  * @param array<int, string> $argv Command line arguments.
  * @return string Absolute path to WordPress core.
  */
-function celestine_resolve_core( array $argv ): string {
+function batavia_resolve_core( array $argv ): string {
 	$path = getenv( 'WP_CORE_PATH' );
 
 	foreach ( $argv as $arg ) {
@@ -65,8 +65,8 @@ function celestine_resolve_core( array $argv ): string {
  * @param string $file Absolute or relative path to a theme file.
  * @return string Path relative to the theme root.
  */
-function celestine_relative_path( string $file ): string {
-	$root = realpath( CELESTINE_THEME_DIR );
+function batavia_relative_path( string $file ): string {
+	$root = realpath( BATAVIA_THEME_DIR );
 	$real = realpath( $file );
 
 	if ( false === $root || false === $real ) {
@@ -82,7 +82,7 @@ function celestine_relative_path( string $file ): string {
  * @param string $core Path to WordPress core.
  * @return array<string, array<int, string>> Block name mapped to its declared attribute names.
  */
-function celestine_core_blocks( string $core ): array {
+function batavia_core_blocks( string $core ): array {
 	$blocks = array();
 
 	foreach ( glob( $core . '/wp-includes/blocks/*/block.json' ) as $file ) {
@@ -105,7 +105,7 @@ function celestine_core_blocks( string $core ): array {
 /*
  * Attributes contributed by block supports rather than declared in block.json.
  */
-const CELESTINE_SUPPORT_ATTRS = array(
+const BATAVIA_SUPPORT_ATTRS = array(
 	'align',
 	'backgroundColor',
 	'borderColor',
@@ -125,10 +125,10 @@ const CELESTINE_SUPPORT_ATTRS = array(
  *
  * @return array<string, string> File path mapped to rendered block markup.
  */
-function celestine_render_patterns(): array {
+function batavia_render_patterns(): array {
 	$rendered = array();
 
-	foreach ( glob( CELESTINE_THEME_DIR . '/patterns/*.php' ) as $file ) {
+	foreach ( glob( BATAVIA_THEME_DIR . '/patterns/*.php' ) as $file ) {
 		ob_start();
 		include $file;
 		$rendered[ $file ] = (string) ob_get_clean();
@@ -145,24 +145,24 @@ function celestine_render_patterns(): array {
  * @param int                              $depth    Current depth.
  * @return void
  */
-function celestine_walk( array $blocks, callable $callback, int $depth = 0 ): void {
+function batavia_walk( array $blocks, callable $callback, int $depth = 0 ): void {
 	foreach ( $blocks as $block ) {
 		$callback( $block, $depth );
 
 		if ( ! empty( $block['innerBlocks'] ) ) {
-			celestine_walk( $block['innerBlocks'], $callback, $depth + 1 );
+			batavia_walk( $block['innerBlocks'], $callback, $depth + 1 );
 		}
 	}
 }
 
-$core = celestine_resolve_core( $argv );
+$core = batavia_resolve_core( $argv );
 
 require_once $core . '/wp-includes/class-wp-block-parser-block.php';
 require_once $core . '/wp-includes/class-wp-block-parser-frame.php';
 require_once $core . '/wp-includes/class-wp-block-parser.php';
 require_once __DIR__ . '/stubs.php';
 
-$core_blocks = celestine_core_blocks( $core );
+$core_blocks = batavia_core_blocks( $core );
 $parser      = new WP_Block_Parser();
 
 $problems = array();
@@ -179,20 +179,20 @@ $stats    = array(
 $documents = array();
 
 foreach ( array( 'templates', 'parts' ) as $dir ) {
-	foreach ( glob( CELESTINE_THEME_DIR . '/' . $dir . '/*.html' ) as $file ) {
+	foreach ( glob( BATAVIA_THEME_DIR . '/' . $dir . '/*.html' ) as $file ) {
 		$documents[ $file ] = (string) file_get_contents( $file );
 	}
 }
 
-$documents += celestine_render_patterns();
+$documents += batavia_render_patterns();
 
 $part_slugs = array_map(
 	static fn( string $f ): string => basename( $f, '.html' ),
-	glob( CELESTINE_THEME_DIR . '/parts/*.html' )
+	glob( BATAVIA_THEME_DIR . '/parts/*.html' )
 );
 
 $pattern_slugs = array();
-foreach ( glob( CELESTINE_THEME_DIR . '/patterns/*.php' ) as $file ) {
+foreach ( glob( BATAVIA_THEME_DIR . '/patterns/*.php' ) as $file ) {
 	$head = (string) file_get_contents( $file );
 	if ( preg_match( '/^\s*\*\s*Slug:\s*(\S+)\s*$/m', $head, $m ) ) {
 		$pattern_slugs[] = $m[1];
@@ -202,12 +202,12 @@ foreach ( glob( CELESTINE_THEME_DIR . '/patterns/*.php' ) as $file ) {
 foreach ( $documents as $file => $markup ) {
 	++$stats['files'];
 
-	$relative = celestine_relative_path( $file );
+	$relative = batavia_relative_path( $file );
 	$blocks   = $parser->parse( $markup );
 	$is_part  = false !== strpos( $relative, 'parts/' );
 	$is_tpl   = false !== strpos( $relative, 'templates/' );
 
-	celestine_walk(
+	batavia_walk(
 		$blocks,
 		function ( array $block ) use ( $relative, $core_blocks, $part_slugs, $pattern_slugs, &$problems, &$warnings, &$stats ): void {
 			$name = $block['blockName'];
@@ -231,7 +231,7 @@ foreach ( $documents as $file => $markup ) {
 				return;
 			}
 
-			$allowed = array_merge( $core_blocks[ $name ], CELESTINE_SUPPORT_ATTRS );
+			$allowed = array_merge( $core_blocks[ $name ], BATAVIA_SUPPORT_ATTRS );
 
 			foreach ( array_keys( (array) $block['attrs'] ) as $attr ) {
 				if ( ! in_array( $attr, $allowed, true ) ) {
@@ -283,7 +283,7 @@ foreach ( $documents as $file => $markup ) {
 }
 
 // Patterns must carry the headers WordPress reads when auto-registering them.
-foreach ( glob( CELESTINE_THEME_DIR . '/patterns/*.php' ) as $file ) {
+foreach ( glob( BATAVIA_THEME_DIR . '/patterns/*.php' ) as $file ) {
 	$head     = (string) file_get_contents( $file );
 	$relative = 'patterns/' . basename( $file );
 
@@ -297,7 +297,7 @@ foreach ( glob( CELESTINE_THEME_DIR . '/patterns/*.php' ) as $file ) {
 		}
 	}
 
-	if ( preg_match( '/^\s*\*\s*Slug:\s*(\S+)\s*$/m', $head, $m ) && 0 !== strpos( $m[1], 'celestine/' ) ) {
+	if ( preg_match( '/^\s*\*\s*Slug:\s*(\S+)\s*$/m', $head, $m ) && 0 !== strpos( $m[1], 'batavia/' ) ) {
 		$problems[] = sprintf( '%s: pattern slug "%s" is not namespaced to the theme', $relative, $m[1] );
 	}
 }

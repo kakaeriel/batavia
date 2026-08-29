@@ -4,14 +4,14 @@
 #
 # The repository carries development tooling that must not reach a user's
 # wp-content/themes directory. This copies only the files listed for
-# distribution into build/celestine, zips that, and then asserts nothing excluded
+# distribution into build/batavia, zips that, and then asserts nothing excluded
 # slipped through -- worth having, because a stray node_modules is an instant
 # rejection from the theme directory.
 #
 # Usage: bash tools/build-zip.sh
 set -euo pipefail
 
-THEME_SLUG="celestine"
+THEME_SLUG="batavia"
 THEME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BUILD_DIR="${THEME_DIR}/build"
 STAGE_DIR="${BUILD_DIR}/${THEME_SLUG}"

@@ -1,7 +1,7 @@
 {
-  "name": "celestine",
-  "version": "1.1.0",
-  "description": "A precise block theme for senior software engineers: portfolio, technical blog and consulting rate card.",
+  "name": "batavia",
+  "version": "1.4.0",
+  "description": "A precise block theme for a personal site: home page, notes, selected work and a rate card.",
   "license": "GPL-2.0-or-later",
   "private": true,
   "engines": {
@@ -27,9 +27,9 @@
     "lint:contrast": "node tools/check-contrast.js",
     "lint:php": "composer lint",
     "theme-check": "wp --path=.wp-local eval-file tools/run-theme-check.php",
-    "theme-check:wp-env": "wp-env run --quiet cli wp plugin install theme-check --activate && wp-env run --quiet --env-cwd=/var/www/html/wp-content/themes/celestine cli wp eval-file tools/run-theme-check.php",
+    "theme-check:wp-env": "wp-env run --quiet cli wp plugin install theme-check --activate && wp-env run --quiet --env-cwd=/var/www/html/wp-content/themes/batavia cli wp eval-file tools/run-theme-check.php",
     "preflight": "bash tools/preflight.sh",
-    "make-pot": "wp-env run --env-cwd=/var/www/html/wp-content/themes/celestine cli wp i18n make-pot . languages/celestine.pot --domain=celestine --exclude=tools,node_modules,vendor,.wp-core",
+    "make-pot": "wp-env run --env-cwd=/var/www/html/wp-content/themes/batavia cli wp i18n make-pot . languages/batavia.pot --domain=batavia --exclude=tools,node_modules,vendor,.wp-core",
     "zip": "bash tools/build-zip.sh"
   },
   "devDependencies": {

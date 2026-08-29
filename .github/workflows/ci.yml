@@ -99,6 +99,6 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: celestine-theme
+          name: batavia-theme
           path: build/*.zip
           if-no-files-found: error

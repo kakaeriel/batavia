@@ -14,7 +14,7 @@
  *   wp eval-file tools/pull-from-editor.php            templates and parts
  *   wp eval-file tools/pull-from-editor.php styles     also merge theme.json
  *
- * @package Celestine
+ * @package Batavia
  */
 
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
@@ -22,16 +22,16 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
 	exit( 1 );
 }
 
-$celestine_apply_styles = isset( $args ) && in_array( 'styles', (array) $args, true );
-$celestine_root         = realpath( get_stylesheet_directory() );
+$batavia_apply_styles = isset( $args ) && in_array( 'styles', (array) $args, true );
+$batavia_root         = realpath( get_stylesheet_directory() );
 
-if ( false === $celestine_root || ! is_writable( $celestine_root ) ) {
+if ( false === $batavia_root || ! is_writable( $batavia_root ) ) {
 	echo "The theme directory is not writable.\n";
 	exit( 1 );
 }
 
-$celestine_written   = 0;
-$celestine_unchanged = 0;
+$batavia_written   = 0;
+$batavia_unchanged = 0;
 
 /**
  * Writes content to a theme file when it differs, reporting either way.
@@ -41,7 +41,7 @@ $celestine_unchanged = 0;
  * @param string $relative Path shown in output.
  * @return string One of "written", "unchanged".
  */
-function celestine_pull_write( $path, $content, $relative ) {
+function batavia_pull_write( $path, $content, $relative ) {
 	$content = rtrim( $content, "\n" ) . "\n";
 
 	if ( is_file( $path ) && file_get_contents( $path ) === $content ) {
@@ -66,14 +66,14 @@ function celestine_pull_write( $path, $content, $relative ) {
  * @param string $prefix Path accumulated so far.
  * @return string[] Dot-separated paths.
  */
-function celestine_pull_paths( $data, $prefix = '' ) {
+function batavia_pull_paths( $data, $prefix = '' ) {
 	$paths = array();
 
 	foreach ( $data as $key => $value ) {
 		$path = '' === $prefix ? (string) $key : $prefix . '.' . $key;
 
 		if ( is_array( $value ) && $value && ! isset( $value[0] ) ) {
-			$paths = array_merge( $paths, celestine_pull_paths( $value, $path ) );
+			$paths = array_merge( $paths, batavia_pull_paths( $value, $path ) );
 		} else {
 			$paths[] = $path;
 		}
@@ -92,10 +92,10 @@ function celestine_pull_paths( $data, $prefix = '' ) {
  * @param array $override User values.
  * @return array Merged result.
  */
-function celestine_pull_merge( $base, $override ) {
+function batavia_pull_merge( $base, $override ) {
 	foreach ( $override as $key => $value ) {
 		if ( is_array( $value ) && $value && ! isset( $value[0] ) && isset( $base[ $key ] ) && is_array( $base[ $key ] ) ) {
-			$base[ $key ] = celestine_pull_merge( $base[ $key ], $value );
+			$base[ $key ] = batavia_pull_merge( $base[ $key ], $value );
 		} else {
 			$base[ $key ] = $value;
 		}
@@ -104,15 +104,15 @@ function celestine_pull_merge( $base, $override ) {
 	return $base;
 }
 
-$celestine_kinds = array(
+$batavia_kinds = array(
 	'wp_template'      => 'templates',
 	'wp_template_part' => 'parts',
 );
 
-foreach ( $celestine_kinds as $celestine_type => $celestine_dir ) {
-	$celestine_posts = get_posts(
+foreach ( $batavia_kinds as $batavia_type => $batavia_dir ) {
+	$batavia_posts = get_posts(
 		array(
-			'post_type'      => $celestine_type,
+			'post_type'      => $batavia_type,
 			'post_status'    => array( 'publish', 'draft' ),
 			'posts_per_page' => -1,
 			'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
@@ -125,76 +125,76 @@ foreach ( $celestine_kinds as $celestine_type => $celestine_dir ) {
 		)
 	);
 
-	if ( ! $celestine_posts ) {
+	if ( ! $batavia_posts ) {
 		continue;
 	}
 
-	printf( "\n%s (%d customised)\n", $celestine_dir, count( $celestine_posts ) );
+	printf( "\n%s (%d customised)\n", $batavia_dir, count( $batavia_posts ) );
 
-	foreach ( $celestine_posts as $celestine_post ) {
-		$celestine_relative = $celestine_dir . '/' . $celestine_post->post_name . '.html';
-		$celestine_result   = celestine_pull_write(
-			$celestine_root . '/' . $celestine_relative,
-			$celestine_post->post_content,
-			$celestine_relative
+	foreach ( $batavia_posts as $batavia_post ) {
+		$batavia_relative = $batavia_dir . '/' . $batavia_post->post_name . '.html';
+		$batavia_result   = batavia_pull_write(
+			$batavia_root . '/' . $batavia_relative,
+			$batavia_post->post_content,
+			$batavia_relative
 		);
 
-		if ( 'written' === $celestine_result ) {
-			++$celestine_written;
+		if ( 'written' === $batavia_result ) {
+			++$batavia_written;
 		} else {
-			++$celestine_unchanged;
+			++$batavia_unchanged;
 		}
 	}
 }
 
-$celestine_gs_id = WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
-$celestine_gs    = $celestine_gs_id ? get_post( $celestine_gs_id ) : null;
+$batavia_gs_id = WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
+$batavia_gs    = $batavia_gs_id ? get_post( $batavia_gs_id ) : null;
 
-if ( $celestine_gs && trim( (string) $celestine_gs->post_content ) !== '' ) {
-	$celestine_user = json_decode( $celestine_gs->post_content, true );
+if ( $batavia_gs && trim( (string) $batavia_gs->post_content ) !== '' ) {
+	$batavia_user = json_decode( $batavia_gs->post_content, true );
 
-	unset( $celestine_user['isGlobalStylesUserThemeJSON'], $celestine_user['version'] );
-	$celestine_user = array_filter(
+	unset( $batavia_user['isGlobalStylesUserThemeJSON'], $batavia_user['version'] );
+	$batavia_user = array_filter(
 		array(
-			'settings' => isset( $celestine_user['settings'] ) ? $celestine_user['settings'] : null,
-			'styles'   => isset( $celestine_user['styles'] ) ? $celestine_user['styles'] : null,
+			'settings' => isset( $batavia_user['settings'] ) ? $batavia_user['settings'] : null,
+			'styles'   => isset( $batavia_user['styles'] ) ? $batavia_user['styles'] : null,
 		)
 	);
 
-	if ( $celestine_user ) {
+	if ( $batavia_user ) {
 		printf( "\nglobal styles (Appearance > Editor > Styles)\n" );
 
-		foreach ( celestine_pull_paths( $celestine_user ) as $celestine_path ) {
-			printf( "  %s  %s\n", $celestine_apply_styles ? 'merging  ' : 'would set', $celestine_path );
+		foreach ( batavia_pull_paths( $batavia_user ) as $batavia_path ) {
+			printf( "  %s  %s\n", $batavia_apply_styles ? 'merging  ' : 'would set', $batavia_path );
 		}
 
-		if ( $celestine_apply_styles ) {
-			$celestine_theme_json = json_decode( file_get_contents( $celestine_root . '/theme.json' ), true );
-			$celestine_theme_json = celestine_pull_merge( $celestine_theme_json, $celestine_user );
+		if ( $batavia_apply_styles ) {
+			$batavia_theme_json = json_decode( file_get_contents( $batavia_root . '/theme.json' ), true );
+			$batavia_theme_json = batavia_pull_merge( $batavia_theme_json, $batavia_user );
 
-			$celestine_encoded = wp_json_encode( $celestine_theme_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+			$batavia_encoded = wp_json_encode( $batavia_theme_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 			// theme.json is tab-indented in this repo; json_encode uses four spaces.
-			$celestine_encoded = preg_replace_callback(
+			$batavia_encoded = preg_replace_callback(
 				'/^(?: {4})+/m',
 				static function ( $m ) {
 					return str_repeat( "\t", strlen( $m[0] ) / 4 );
 				},
-				$celestine_encoded
+				$batavia_encoded
 			);
 
-			celestine_pull_write( $celestine_root . '/theme.json', $celestine_encoded, 'theme.json' );
-			++$celestine_written;
+			batavia_pull_write( $batavia_root . '/theme.json', $batavia_encoded, 'theme.json' );
+			++$batavia_written;
 		} else {
 			printf( "\n  Pass \"styles\" to merge these into theme.json.\n" );
 		}
 	}
 }
 
-if ( 0 === $celestine_written && 0 === $celestine_unchanged ) {
+if ( 0 === $batavia_written && 0 === $batavia_unchanged ) {
 	echo "\nNothing has been customised in the editor.\n";
 	exit( 0 );
 }
 
-printf( "\n%d file(s) written, %d already current.\n", $celestine_written, $celestine_unchanged );
+printf( "\n%d file(s) written, %d already current.\n", $batavia_written, $batavia_unchanged );
 echo "Run tools/reset-editor.php to clear the database copies.\n";

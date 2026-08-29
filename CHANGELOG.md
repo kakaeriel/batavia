@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Celestine are recorded here, following
+All notable changes to Batavia are recorded here, following
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -8,6 +8,40 @@ The version in `style.css` is the source of truth and must match the
 `Stable tag` in `readme.txt` for every release.
 
 ## [Unreleased]
+
+## [1.4.0] - 2026-08-29
+
+The git history between 1.1.0 and 1.4.0 was lost, both locally and on GitHub.
+This snapshot is restored from a local backup (`batavia.1.4.0.zip`) known to
+match the state last published, so the changes below are reconstructed from a
+diff against 1.1.0 rather than recorded as they happened; per-version detail
+for 1.2.0 and 1.3.0 could not be recovered.
+
+### Changed
+
+- Renamed the theme from Celestine to Batavia, across the text domain, slug,
+  function and constant prefixes, block/pattern namespaces, and CSS class
+  names.
+- Repositioned from a portfolio/blog/rate-card theme for engineers to a
+  two-page personal site (home and notes), with no dedicated contact page --
+  patterns open WhatsApp or email instead.
+- `Appearance -> Batavia` grew from one explanatory page into a five-tab
+  settings screen (Site identity, Profile, Contact, Social media, Homepage).
+- Four style variations: Forest, Indigo, Newsprint, Slate.
+
+### Added
+
+- `inc/settings.php` and `inc/bindings.php`: a single `batavia_settings`
+  option, read into patterns through the Block Bindings API, so a value like
+  an email address is entered once and stays consistent everywhere it is used.
+- Five new patterns for the middle of an article: Note, Specification table,
+  Numbered steps, Questions and answers, About the author.
+- `screenshot.png` for the theme directory listing.
+
+### Removed
+
+- The technical-blog-oriented patterns (`tech-stack`, `cta-footer`,
+  `hidden-blog-heading`) that do not fit the personal-site scope.
 
 ## [1.1.0] - 2026-08-22
 
@@ -64,5 +98,6 @@ Initial release.
 - Development tooling: canonical block markup validation against the editor's
   own parser, structural validation, a WCAG contrast audit, and PHPCS.
 
-[Unreleased]: https://github.com/celestine-theme/celestine/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/celestine-theme/celestine/releases/tag/v1.0.0
+[Unreleased]: https://github.com/batavia-theme/batavia/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.4.0
+[1.0.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.0.0

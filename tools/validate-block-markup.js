@@ -1,5 +1,5 @@
 /**
- * Canonical-markup check for Celestine's templates, parts and patterns.
+ * Canonical-markup check for Batavia's templates, parts and patterns.
  *
  * Block markup written by hand drifts from what the editor would save: a
  * missing `has-small-font-size` class, colour classes in a different order, an
@@ -17,7 +17,7 @@
  * Usage: node tools/validate-block-markup.js
  * Exits 0 when every block is canonical, 1 otherwise.
  *
- * @package Celestine
+ * @package Batavia
  */
 
 'use strict';
@@ -41,7 +41,7 @@ const RESET = '\x1b[0m';
  */
 function maskPhp( source ) {
 	let n = 0;
-	return source.replace( /<\?php[\s\S]*?\?>/g, () => `CELESTINEPHPTOKEN${ n++ }` );
+	return source.replace( /<\?php[\s\S]*?\?>/g, () => `BATAVIAPHPTOKEN${ n++ }` );
 }
 
 /**

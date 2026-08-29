@@ -107,7 +107,7 @@ else
 	pass "the slug '${SLUG}' is not taken on WordPress.org"
 fi
 
-grep -qiE '^Author:[[:space:]]*(Celestine Contributors|Your Name)' "${T}/style.css" \
+grep -qiE '^Author:[[:space:]]*(Batavia Contributors|Your Name)' "${T}/style.css" \
 	&& warn "style.css Author is still a placeholder" || true
 grep -qiE '^Contributors:[[:space:]]*yourwporgusername' "${T}/readme.txt" \
 	&& warn "readme.txt Contributors is still a placeholder (needs a WordPress.org username)" || true

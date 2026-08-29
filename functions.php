@@ -1,24 +1,31 @@
 <?php
 /**
- * Celestine theme setup.
+ * Batavia theme setup.
  *
- * Celestine is a block theme: presentation lives in theme.json, layout lives in
- * the template and pattern files. This file is deliberately small and does
- * four things only -- declares theme support, enqueues two stylesheets,
- * registers the custom block styles, and registers the pattern category.
+ * Batavia is a block theme: presentation lives in theme.json, layout lives in
+ * the template and pattern files. This file is deliberately small -- it declares
+ * theme support, enqueues two stylesheets, registers the custom block styles and
+ * the pattern category, and loads the four files under inc/.
  *
  * It intentionally registers no post types, no taxonomies and no meta boxes.
  * Content is separated using the built-in Category taxonomy so the theme stays
  * within the WordPress.org theme scope and a user's content survives a theme
  * switch.
  *
- * @package Celestine
+ * @package Batavia
  * @since   1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/*
+ * The theme's own settings, and the binding source that carries them into core
+ * blocks. Both are needed on the front end, so neither is behind is_admin().
+ */
+require_once get_theme_file_path( 'inc/settings.php' );
+require_once get_theme_file_path( 'inc/bindings.php' );
 
 /*
  * The Appearance sub-page. Loaded only in the admin, so the front end carries
@@ -28,7 +35,7 @@ if ( is_admin() ) {
 	require_once get_theme_file_path( 'inc/admin/admin-page.php' );
 }
 
-if ( ! function_exists( 'celestine_setup' ) ) {
+if ( ! function_exists( 'batavia_setup' ) ) {
 	/**
 	 * Declare theme support.
 	 *
@@ -40,8 +47,8 @@ if ( ! function_exists( 'celestine_setup' ) ) {
 	 *
 	 * @return void
 	 */
-	function celestine_setup() {
-		load_theme_textdomain( 'celestine', get_template_directory() . '/languages' );
+	function batavia_setup() {
+		load_theme_textdomain( 'batavia', get_template_directory() . '/languages' );
 
 		add_theme_support( 'automatic-feed-links' );
 		add_theme_support( 'post-thumbnails' );
@@ -82,20 +89,21 @@ if ( ! function_exists( 'celestine_setup' ) ) {
 		add_editor_style( 'style.css' );
 	}
 }
-add_action( 'after_setup_theme', 'celestine_setup' );
+add_action( 'after_setup_theme', 'batavia_setup' );
 
-if ( ! function_exists( 'celestine_enqueue_assets' ) ) {
+if ( ! function_exists( 'batavia_enqueue_assets' ) ) {
 	/**
 	 * Enqueue front-end styles.
 	 *
-	 * Two small stylesheets, no JavaScript. Fonts are declared in theme.json
-	 * and served from assets/fonts, so nothing is fetched from a third party.
+	 * Two small stylesheets and no front-end JavaScript. Fonts are declared in
+	 * theme.json and served from assets/fonts, so nothing is fetched from a
+	 * third party.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
-	function celestine_enqueue_assets() {
+	function batavia_enqueue_assets() {
 		$version = wp_get_theme()->get( 'Version' );
 
 		if ( ! is_string( $version ) || '' === $version ) {
@@ -103,23 +111,23 @@ if ( ! function_exists( 'celestine_enqueue_assets' ) ) {
 		}
 
 		wp_enqueue_style(
-			'celestine-style',
+			'batavia-style',
 			get_stylesheet_uri(),
 			array(),
 			$version
 		);
 
 		wp_enqueue_style(
-			'celestine-color-scheme',
+			'batavia-color-scheme',
 			get_theme_file_uri( 'assets/css/color-scheme.css' ),
-			array( 'celestine-style' ),
+			array( 'batavia-style' ),
 			$version
 		);
 	}
 }
-add_action( 'wp_enqueue_scripts', 'celestine_enqueue_assets' );
+add_action( 'wp_enqueue_scripts', 'batavia_enqueue_assets' );
 
-if ( ! function_exists( 'celestine_preload_fonts' ) ) {
+if ( ! function_exists( 'batavia_preload_fonts' ) ) {
 	/**
 	 * Preloads the two font files every page needs.
 	 *
@@ -135,7 +143,7 @@ if ( ! function_exists( 'celestine_preload_fonts' ) ) {
 	 * @param array $preload_resources Resources to preload.
 	 * @return array Filtered resources.
 	 */
-	function celestine_preload_fonts( $preload_resources ) {
+	function batavia_preload_fonts( $preload_resources ) {
 		if ( ! is_array( $preload_resources ) ) {
 			return $preload_resources;
 		}
@@ -158,11 +166,11 @@ if ( ! function_exists( 'celestine_preload_fonts' ) ) {
 		return $preload_resources;
 	}
 }
-add_filter( 'wp_preload_resources', 'celestine_preload_fonts' );
+add_filter( 'wp_preload_resources', 'batavia_preload_fonts' );
 
-if ( ! function_exists( 'celestine_register_block_styles' ) ) {
+if ( ! function_exists( 'batavia_register_block_styles' ) ) {
 	/**
-	 * Register Celestine's custom block styles.
+	 * Register Batavia's custom block styles.
 	 *
 	 * Each style's CSS lives in style.css under section 4. Registering them
 	 * here rather than hard-coding classes in patterns means users can apply
@@ -172,31 +180,40 @@ if ( ! function_exists( 'celestine_register_block_styles' ) ) {
 	 *
 	 * @return void
 	 */
-	function celestine_register_block_styles() {
+	function batavia_register_block_styles() {
 		$styles = array(
 			'core/group'     => array(
-				'celestine-panel'    => __( 'Panel', 'celestine' ),
-				'celestine-timeline' => __( 'Timeline', 'celestine' ),
+				'batavia-panel'    => __( 'Panel', 'batavia' ),
+				'batavia-timeline' => __( 'Timeline', 'batavia' ),
+				'batavia-mark'     => __( 'Company mark', 'batavia' ),
+				'batavia-entry'    => __( 'Article entry', 'batavia' ),
 			),
 			'core/columns'   => array(
-				'celestine-panel' => __( 'Panel', 'celestine' ),
+				'batavia-panel' => __( 'Panel', 'batavia' ),
 			),
 			'core/heading'   => array(
-				'celestine-label' => __( 'Spec label', 'celestine' ),
+				'batavia-label' => __( 'Spec label', 'batavia' ),
 			),
 			'core/paragraph' => array(
-				'celestine-label'  => __( 'Spec label', 'celestine' ),
-				'celestine-figure' => __( 'Figure', 'celestine' ),
+				'batavia-label'  => __( 'Spec label', 'batavia' ),
+				'batavia-figure' => __( 'Figure', 'batavia' ),
 			),
 			'core/list'      => array(
-				'celestine-mono'  => __( 'Monospaced', 'celestine' ),
-				'celestine-ruled' => __( 'Ruled', 'celestine' ),
+				'batavia-mono'  => __( 'Monospaced', 'batavia' ),
+				'batavia-ruled' => __( 'Ruled', 'batavia' ),
+				'batavia-steps' => __( 'Numbered steps', 'batavia' ),
+			),
+			'core/table'     => array(
+				'batavia-spec' => __( 'Spec sheet', 'batavia' ),
+			),
+			'core/details'   => array(
+				'batavia-ruled' => __( 'Ruled', 'batavia' ),
 			),
 			'core/separator' => array(
-				'celestine-dotted' => __( 'Dotted', 'celestine' ),
+				'batavia-dotted' => __( 'Dotted', 'batavia' ),
 			),
 			'core/image'     => array(
-				'celestine-logo' => __( 'Logo mark', 'celestine' ),
+				'batavia-logo' => __( 'Logo mark', 'batavia' ),
 			),
 		);
 
@@ -213,9 +230,9 @@ if ( ! function_exists( 'celestine_register_block_styles' ) ) {
 		}
 	}
 }
-add_action( 'init', 'celestine_register_block_styles' );
+add_action( 'init', 'batavia_register_block_styles' );
 
-if ( ! function_exists( 'celestine_register_pattern_category' ) ) {
+if ( ! function_exists( 'batavia_register_pattern_category' ) ) {
 	/**
 	 * Register the pattern category used by the bundled patterns.
 	 *
@@ -223,14 +240,14 @@ if ( ! function_exists( 'celestine_register_pattern_category' ) ) {
 	 *
 	 * @return void
 	 */
-	function celestine_register_pattern_category() {
+	function batavia_register_pattern_category() {
 		register_block_pattern_category(
-			'celestine',
+			'batavia',
 			array(
-				'label'       => _x( 'Celestine', 'Block pattern category', 'celestine' ),
-				'description' => __( 'Sections for an engineering portfolio: hero, tech stack, experience, clients, projects, pricing and calls to action.', 'celestine' ),
+				'label'       => _x( 'Batavia', 'Block pattern category', 'batavia' ),
+				'description' => __( 'Sections for an engineering portfolio: hero, tech stack, experience, clients, projects, pricing and calls to action.', 'batavia' ),
 			)
 		);
 	}
 }
-add_action( 'init', 'celestine_register_pattern_category' );
+add_action( 'init', 'batavia_register_pattern_category' );

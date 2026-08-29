@@ -11,11 +11,13 @@
 .wp-core
 .wp-local
 .DS_Store
+.claude
 
 node_modules
 vendor
 build
 tools
+bak
 
 composer.json
 composer.lock

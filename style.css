@@ -1,25 +1,25 @@
 /*
-Theme Name: Celestine
-Theme URI: https://github.com/celestine-theme/celestine
-Author: Celestine Contributors
-Author URI: https://github.com/celestine-theme
-Description: A precise, typographically restrained block theme for senior software engineers. Combines a portfolio, a technical blog, and a consulting rate card in one site, built entirely from core blocks. IBM Plex Sans and Plex Mono are self-hosted, the palette reads like ink on paper, and dark mode follows the visitor's system preference. No custom post types, no settings panel, no external requests.
-Requires at least: 6.6
+Theme Name: Batavia
+Theme URI: https://hairil.com/batavia
+Author: Hairil
+Author URI: https://hairil.com
+Description: A precise block theme for a personal site: home page, notes, selected work and a rate card, built entirely from core blocks. IBM Plex Sans and Plex Mono are self-hosted, the palette reads like ink on paper, and dark mode follows the visitor's system preference. Your name, contact details and social profiles are entered once under Appearance and read by every pattern that mentions them. No custom post types, no external requests.
+Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Version: 1.1.0
+Version: 1.4.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: celestine
+Text Domain: batavia
 Tags: accessibility-ready, block-patterns, block-styles, blog, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, portfolio, sticky-post, template-editing, threaded-comments, translation-ready, wide-blocks
 
-Celestine is distributed under the terms of the GNU GPL v2 or later.
+Batavia is distributed under the terms of the GNU GPL v2 or later.
 Bundled font files are licensed separately under the SIL Open Font License 1.1;
 see assets/fonts/LICENSE-IBM-Plex.txt and the Credits section of readme.txt.
 */
 
 /*
- * Celestine keeps nearly all styling in theme.json so users can override it from
+ * Batavia keeps nearly all styling in theme.json so users can override it from
  * the Styles interface. This file holds only what theme.json cannot express:
  * pseudo-elements, focus behaviour, and the custom block styles registered in
  * functions.php. Dark mode lives in assets/css/color-scheme.css.
@@ -28,7 +28,7 @@ see assets/fonts/LICENSE-IBM-Plex.txt and the Credits section of readme.txt.
 /* -------------------------------------------------------------------------
  * 1. Skip link
  * WordPress 7.0+ inserts the skip link server-side in _block_template_add_skip_link(),
- * but only when the template contains a MAIN element -- every Celestine template
+ * but only when the template contains a MAIN element -- every Batavia template
  * therefore wraps its content in a <main> group. Core ships its own skip-link
  * stylesheet whose load order relative to the theme's is not guaranteed, so the
  * :root prefix below raises specificity to (0,4,0) and wins either way.
@@ -84,7 +84,7 @@ see assets/fonts/LICENSE-IBM-Plex.txt and the Credits section of readme.txt.
  * 3. Global refinements
  * ---------------------------------------------------------------------- */
 
-/* Celestine is built on a sharp grid; nothing is rounded by default. */
+/* Batavia is built on a sharp grid; nothing is rounded by default. */
 .wp-block-image img,
 .wp-block-post-featured-image img,
 .wp-block-cover {
@@ -94,8 +94,8 @@ see assets/fonts/LICENSE-IBM-Plex.txt and the Credits section of readme.txt.
 /* Mono text is used for figures and dates, so keep digits on a fixed pitch. */
 .wp-block-post-date,
 .wp-block-query-pagination,
-.is-style-celestine-label,
-.is-style-celestine-figure {
+.is-style-batavia-label,
+.is-style-batavia-figure {
 	font-variant-numeric: tabular-nums;
 }
 
@@ -130,7 +130,7 @@ h1, h2, h3,
 
 /*
  * Core's outline button style hard-codes a 2px border and its own padding.
- * Celestine keeps every control on the same 1px hairline grid, and states the
+ * Batavia keeps every control on the same 1px hairline grid, and states the
  * hover and focus colours explicitly so they do not depend on load order.
  */
 .wp-block-button.is-style-outline > .wp-block-button__link {
@@ -153,7 +153,7 @@ h1, h2, h3,
  * ---------------------------------------------------------------------- */
 
 /* 4.1 Spec label -- a mono micro-heading trailed by a hairline rule. */
-.is-style-celestine-label {
+.is-style-batavia-label {
 	align-items: center;
 	color: var(--wp--preset--color--muted);
 	display: flex;
@@ -166,7 +166,7 @@ h1, h2, h3,
 	text-transform: uppercase;
 }
 
-.is-style-celestine-label::after {
+.is-style-batavia-label::after {
 	background-color: var(--wp--preset--color--rule);
 	content: "";
 	flex: 1 1 auto;
@@ -175,22 +175,22 @@ h1, h2, h3,
 }
 
 /* 4.2 Panel -- a hairline-boxed group, the theme's default container. */
-.is-style-celestine-panel {
+.is-style-batavia-panel {
 	border: 1px solid var(--wp--preset--color--rule);
 	padding: var(--wp--preset--spacing--40);
 }
 
 /* 4.3 Timeline -- a ruled rail with a tick against each direct child. */
-.is-style-celestine-timeline {
+.is-style-batavia-timeline {
 	border-inline-start: 1px solid var(--wp--preset--color--rule);
 	padding-inline-start: var(--wp--preset--spacing--40);
 }
 
-.is-style-celestine-timeline > * {
+.is-style-batavia-timeline > * {
 	position: relative;
 }
 
-.is-style-celestine-timeline > *::before {
+.is-style-batavia-timeline > *::before {
 	background-color: var(--wp--preset--color--accent);
 	content: "";
 	height: 1px;
@@ -200,25 +200,86 @@ h1, h2, h3,
 	width: calc(var(--wp--preset--spacing--20) + 1px);
 }
 
+/*
+ * 4.3.1 Company mark -- a square that holds either an initial or a logo.
+ * Sized in ems so it tracks the type around it, and fixed against flex
+ * shrinking so a long job title cannot squash it.
+ */
+.is-style-batavia-mark {
+	align-items: center;
+	border: 1px solid var(--wp--preset--color--rule);
+	display: flex;
+	flex: 0 0 auto;
+	height: 3rem;
+	justify-content: center;
+	overflow: hidden;
+	width: 3rem;
+}
+
+.is-style-batavia-mark > * {
+	color: var(--wp--preset--color--muted);
+	margin: 0;
+}
+
+/* A logo dropped in place of the initial fills the square without stretching. */
+.is-style-batavia-mark img {
+	height: 100%;
+	object-fit: contain;
+	padding: 0.375rem;
+	width: 100%;
+}
+
+/*
+ * 4.3.2 Article entry -- a thumbnail beside a column of text.
+ * The text column is allowed to grow but not to become narrower than a
+ * readable measure, so the row wraps to two lines on a phone instead of
+ * squeezing a title into four words per line. A post with no featured image
+ * simply renders the text column full width.
+ */
+.is-style-batavia-entry > .wp-block-group {
+	flex: 1 1 22rem;
+	min-width: 0;
+}
+
+.is-style-batavia-entry > .wp-block-post-featured-image {
+	flex: 0 0 auto;
+	margin-block: 0;
+}
+
+.is-style-batavia-entry > .wp-block-post-featured-image img {
+	width: 100%;
+}
+
 /* 4.4 Ruled list -- entries separated by hairlines, no bullets. */
-.is-style-celestine-ruled {
+.is-style-batavia-ruled {
 	list-style: none;
 	margin-inline-start: 0;
 	padding-inline-start: 0;
 }
 
-.is-style-celestine-ruled li {
+.is-style-batavia-ruled li {
 	border-bottom: 1px solid var(--wp--preset--color--rule);
 	padding-bottom: 0.5rem;
 	padding-top: 0.5rem;
 }
 
-.is-style-celestine-ruled li:last-child {
+.is-style-batavia-ruled li:last-child {
 	border-bottom: 0;
 }
 
+/* The same treatment on a Details block, so a run of questions reads as a list. */
+.wp-block-details.is-style-batavia-ruled {
+	border-bottom: 1px solid var(--wp--preset--color--rule);
+	padding-bottom: var(--wp--preset--spacing--20);
+}
+
+.wp-block-details.is-style-batavia-ruled summary {
+	cursor: pointer;
+	font-weight: 500;
+}
+
 /* 4.5 Mono list -- for tech-stack columns and spec sheets. */
-.is-style-celestine-mono {
+.is-style-batavia-mono {
 	font-family: var(--wp--preset--font-family--mono);
 	font-size: var(--wp--preset--font-size--small);
 	line-height: 2;
@@ -228,7 +289,7 @@ h1, h2, h3,
 }
 
 /* 4.6 Dotted rule. */
-.wp-block-separator.is-style-celestine-dotted {
+.wp-block-separator.is-style-batavia-dotted {
 	background: none;
 	border: 0;
 	border-top: 1px dashed currentColor;
@@ -237,14 +298,14 @@ h1, h2, h3,
 }
 
 /* 4.7 Logo mark -- neutralised until hovered, so a logo strip stays quiet. */
-.is-style-celestine-logo img {
+.is-style-batavia-logo img {
 	filter: grayscale(100%);
 	opacity: 0.55;
 	transition: opacity 150ms ease, filter 150ms ease;
 }
 
-.is-style-celestine-logo:hover img,
-.is-style-celestine-logo:focus-within img {
+.is-style-batavia-logo:hover img,
+.is-style-batavia-logo:focus-within img {
 	filter: grayscale(0%);
 	opacity: 1;
 }
@@ -258,12 +319,60 @@ h1, h2, h3,
 }
 
 /* 4.9 Figure -- a large mono number, for prices and metrics. */
-.is-style-celestine-figure {
+.is-style-batavia-figure {
 	font-family: var(--wp--preset--font-family--mono);
 	font-size: var(--wp--preset--font-size--xx-large);
 	font-weight: 400;
 	letter-spacing: -0.03em;
 	line-height: 1.1;
+}
+
+/* 4.10 Spec sheet -- a table of values, ruled rather than boxed. */
+.wp-block-table.is-style-batavia-spec table {
+	border-collapse: collapse;
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--small);
+	font-variant-numeric: tabular-nums;
+}
+
+.wp-block-table.is-style-batavia-spec td,
+.wp-block-table.is-style-batavia-spec th {
+	border: 0;
+	border-bottom: 1px solid var(--wp--preset--color--rule);
+	padding: 0.5rem 0;
+}
+
+.wp-block-table.is-style-batavia-spec tr:last-child td,
+.wp-block-table.is-style-batavia-spec tr:last-child th {
+	border-bottom: 0;
+}
+
+/* The first cell of a row is its label, so it recedes like one. */
+.wp-block-table.is-style-batavia-spec td:first-child {
+	color: var(--wp--preset--color--muted);
+	padding-inline-end: var(--wp--preset--spacing--30);
+}
+
+/* 4.11 Numbered steps -- ruled entries with the number as an accent. */
+.is-style-batavia-steps {
+	list-style: decimal;
+	padding-inline-start: 2.5rem;
+}
+
+.is-style-batavia-steps li {
+	border-bottom: 1px solid var(--wp--preset--color--rule);
+	padding-bottom: 0.75rem;
+	padding-top: 0.75rem;
+}
+
+.is-style-batavia-steps li:last-child {
+	border-bottom: 0;
+}
+
+.is-style-batavia-steps li::marker {
+	color: var(--wp--preset--color--accent);
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--small);
 }
 
 /* -------------------------------------------------------------------------

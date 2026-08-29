@@ -7,6 +7,9 @@ vendor/
 .wp-core/
 .wp-local/
 
+# Local backups, not part of the repository
+bak/
+
 # Build output
 build/
 *.zip

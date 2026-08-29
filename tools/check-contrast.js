@@ -1,5 +1,5 @@
 /**
- * Contrast audit for Celestine's colour presets.
+ * Contrast audit for Batavia's colour presets.
  *
  * The theme claims accessibility-ready, which means every combination it
  * actually paints has to clear WCAG 2.1 AA. Both palettes are checked: the
@@ -11,7 +11,7 @@
  * Usage: node tools/check-contrast.js
  * Exits 0 when every required pair passes, 1 otherwise.
  *
- * @package Celestine
+ * @package Batavia
  */
 
 'use strict';

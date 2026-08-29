@@ -10,10 +10,10 @@
 		"WP_DEVELOPMENT_MODE": "theme"
 	},
 	"mappings": {
-		"wp-content/mu-plugins/celestine-dev-guard.php": "./tools/dev-guard.php",
-		"wp-content/mu-plugins/celestine-dev-markers.php": "./tools/dev-markers.php"
+		"wp-content/mu-plugins/batavia-dev-guard.php": "./tools/dev-guard.php",
+		"wp-content/mu-plugins/batavia-dev-markers.php": "./tools/dev-markers.php"
 	},
 	"lifecycleScripts": {
-		"afterStart": "wp-env run cli wp theme activate celestine"
+		"afterStart": "wp-env run cli wp theme activate batavia"
 	}
 }

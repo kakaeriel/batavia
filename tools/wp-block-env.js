@@ -6,7 +6,7 @@
  * first installs a jsdom window as the global scope, registers every core
  * block, and returns the blocks API ready to parse.
  *
- * @package Celestine
+ * @package Batavia
  */
 
 'use strict';

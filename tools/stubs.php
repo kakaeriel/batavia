@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimal stand-ins for the WordPress functions Celestine's patterns call.
+ * Minimal stand-ins for the WordPress functions Batavia's patterns call.
  *
  * The validator executes each pattern file to capture its output. Bootstrapping
  * WordPress for that would require a database, so instead the handful of i18n,
@@ -9,12 +9,12 @@
  * error, which is the desired outcome -- patterns should not reach for
  * WordPress APIs beyond this set.
  *
- * @package Celestine
+ * @package Batavia
  */
 
 declare( strict_types=1 );
 
-const CELESTINE_STUB_THEME_URI = 'https://example.test/wp-content/themes/celestine';
+const BATAVIA_STUB_THEME_URI = 'https://example.test/wp-content/themes/batavia';
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
@@ -184,7 +184,7 @@ if ( ! function_exists( 'get_theme_file_uri' ) ) {
 	 * @return string Absolute URL.
 	 */
 	function get_theme_file_uri( $file = '' ) {
-		return CELESTINE_STUB_THEME_URI . '/' . ltrim( (string) $file, '/' );
+		return BATAVIA_STUB_THEME_URI . '/' . ltrim( (string) $file, '/' );
 	}
 }
 
@@ -195,7 +195,7 @@ if ( ! function_exists( 'get_template_directory_uri' ) ) {
 	 * @return string Absolute URL.
 	 */
 	function get_template_directory_uri() {
-		return CELESTINE_STUB_THEME_URI;
+		return BATAVIA_STUB_THEME_URI;
 	}
 }
 
@@ -206,7 +206,7 @@ if ( ! function_exists( 'get_stylesheet_directory_uri' ) ) {
 	 * @return string Absolute URL.
 	 */
 	function get_stylesheet_directory_uri() {
-		return CELESTINE_STUB_THEME_URI;
+		return BATAVIA_STUB_THEME_URI;
 	}
 }
 

@@ -13,7 +13,7 @@
  *   wp eval-file tools/reset-editor.php          list what would be deleted
  *   wp eval-file tools/reset-editor.php delete   delete it
  *
- * @package Celestine
+ * @package Batavia
  */
 
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
@@ -21,13 +21,13 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
 	exit( 1 );
 }
 
-$celestine_confirmed = isset( $args ) && in_array( 'delete', (array) $args, true );
-$celestine_found     = 0;
+$batavia_confirmed = isset( $args ) && in_array( 'delete', (array) $args, true );
+$batavia_found     = 0;
 
-foreach ( array( 'wp_template', 'wp_template_part' ) as $celestine_type ) {
-	$celestine_posts = get_posts(
+foreach ( array( 'wp_template', 'wp_template_part' ) as $batavia_type ) {
+	$batavia_posts = get_posts(
 		array(
-			'post_type'      => $celestine_type,
+			'post_type'      => $batavia_type,
 			'post_status'    => array( 'publish', 'draft', 'trash', 'auto-draft' ),
 			'posts_per_page' => -1,
 			'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
@@ -40,43 +40,43 @@ foreach ( array( 'wp_template', 'wp_template_part' ) as $celestine_type ) {
 		)
 	);
 
-	foreach ( $celestine_posts as $celestine_post ) {
-		++$celestine_found;
+	foreach ( $batavia_posts as $batavia_post ) {
+		++$batavia_found;
 		printf(
 			"  %s  %s/%s\n",
-			$celestine_confirmed ? 'deleted ' : 'would delete',
-			'wp_template' === $celestine_type ? 'templates' : 'parts',
-			$celestine_post->post_name
+			$batavia_confirmed ? 'deleted ' : 'would delete',
+			'wp_template' === $batavia_type ? 'templates' : 'parts',
+			$batavia_post->post_name
 		);
 
-		if ( $celestine_confirmed ) {
-			wp_delete_post( $celestine_post->ID, true );
+		if ( $batavia_confirmed ) {
+			wp_delete_post( $batavia_post->ID, true );
 		}
 	}
 }
 
-$celestine_gs_id = WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
+$batavia_gs_id = WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
 
-if ( $celestine_gs_id ) {
-	$celestine_gs = get_post( $celestine_gs_id );
+if ( $batavia_gs_id ) {
+	$batavia_gs = get_post( $batavia_gs_id );
 
 	/*
 	 * get_user_global_styles_post_id() creates the post on first call, so its
 	 * existence means nothing. Only settings or styles actually being present
 	 * counts as a customisation.
 	 */
-	$celestine_gs_data = $celestine_gs ? json_decode( (string) $celestine_gs->post_content, true ) : null;
-	$celestine_gs_used = is_array( $celestine_gs_data )
-		&& ( ! empty( $celestine_gs_data['settings'] ) || ! empty( $celestine_gs_data['styles'] ) );
+	$batavia_gs_data = $batavia_gs ? json_decode( (string) $batavia_gs->post_content, true ) : null;
+	$batavia_gs_used = is_array( $batavia_gs_data )
+		&& ( ! empty( $batavia_gs_data['settings'] ) || ! empty( $batavia_gs_data['styles'] ) );
 
-	if ( $celestine_gs_used ) {
-		++$celestine_found;
-		printf( "  %s  global styles\n", $celestine_confirmed ? 'reset   ' : 'would reset' );
+	if ( $batavia_gs_used ) {
+		++$batavia_found;
+		printf( "  %s  global styles\n", $batavia_confirmed ? 'reset   ' : 'would reset' );
 
-		if ( $celestine_confirmed ) {
+		if ( $batavia_confirmed ) {
 			wp_update_post(
 				array(
-					'ID'           => $celestine_gs_id,
+					'ID'           => $batavia_gs_id,
 					'post_content' => '{"version":3,"isGlobalStylesUserThemeJSON":true}',
 				)
 			);
@@ -84,15 +84,15 @@ if ( $celestine_gs_id ) {
 	}
 }
 
-if ( 0 === $celestine_found ) {
+if ( 0 === $batavia_found ) {
 	echo "Nothing customised. The theme's files are already authoritative.\n";
 	exit( 0 );
 }
 
-if ( ! $celestine_confirmed ) {
-	printf( "\n%d item(s). Pass \"delete\" to remove them.\n", $celestine_found );
+if ( ! $batavia_confirmed ) {
+	printf( "\n%d item(s). Pass \"delete\" to remove them.\n", $batavia_found );
 	exit( 0 );
 }
 
 wp_cache_flush();
-printf( "\n%d item(s) removed. The theme's files are authoritative again.\n", $celestine_found );
+printf( "\n%d item(s) removed. The theme's files are authoritative again.\n", $batavia_found );

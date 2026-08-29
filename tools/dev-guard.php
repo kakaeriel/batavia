@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Celestine dev guard
+ * Plugin Name: Batavia dev guard
  * Description: Stops WordPress from offering to "update" the theme under development.
  * Version:     1.0.0
  * License:     GPL-2.0-or-later
@@ -22,7 +22,7 @@
  * Development-only. Loaded as a mu-plugin by the local environment and never
  * distributed with the theme.
  *
- * @package Celestine
+ * @package Batavia
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param mixed $value The update_themes site transient.
  * @return mixed Filtered transient.
  */
-function celestine_dev_block_theme_update( $value ) {
+function batavia_dev_block_theme_update( $value ) {
 	$slug = get_stylesheet();
 
 	if ( is_object( $value ) && isset( $value->response[ $slug ] ) ) {
@@ -52,8 +52,8 @@ function celestine_dev_block_theme_update( $value ) {
 
 	return $value;
 }
-add_filter( 'site_transient_update_themes', 'celestine_dev_block_theme_update', 99 );
-add_filter( 'transient_update_themes', 'celestine_dev_block_theme_update', 99 );
+add_filter( 'site_transient_update_themes', 'batavia_dev_block_theme_update', 99 );
+add_filter( 'transient_update_themes', 'batavia_dev_block_theme_update', 99 );
 
 /**
  * Refuses an upgrade of the theme under development, whatever triggered it.
@@ -67,14 +67,14 @@ add_filter( 'transient_update_themes', 'celestine_dev_block_theme_update', 99 );
  * @param array         $hook_extra Extra arguments.
  * @return bool|WP_Error Error when the package targets the theme in development.
  */
-function celestine_dev_refuse_theme_upgrade( $reply, $package, $upgrader, $hook_extra = array() ) {
+function batavia_dev_refuse_theme_upgrade( $reply, $package, $upgrader, $hook_extra = array() ) {
 	unset( $upgrader );
 
 	$slug = get_stylesheet();
 
 	if ( isset( $hook_extra['theme'] ) && $hook_extra['theme'] === $slug ) {
 		return new WP_Error(
-			'celestine_dev_guard',
+			'batavia_dev_guard',
 			sprintf(
 				/* translators: %s: Theme directory name. */
 				'Refused to update "%s": this directory is a working copy, and updating would delete it. Remove tools/dev-guard.php if this is really what you want.',
@@ -85,4 +85,4 @@ function celestine_dev_refuse_theme_upgrade( $reply, $package, $upgrader, $hook_
 
 	return $reply;
 }
-add_filter( 'upgrader_pre_download', 'celestine_dev_refuse_theme_upgrade', 10, 4 );
+add_filter( 'upgrader_pre_download', 'batavia_dev_refuse_theme_upgrade', 10, 4 );

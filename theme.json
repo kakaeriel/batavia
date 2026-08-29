@@ -23,32 +23,32 @@
 			"link": true,
 			"palette": [
 				{
-					"color": "#FAF7F2",
+					"color": "#F4F3EF",
 					"name": "Paper",
 					"slug": "base"
 				},
 				{
-					"color": "#F0EBE1",
+					"color": "#E6E3DB",
 					"name": "Panel",
 					"slug": "surface"
 				},
 				{
-					"color": "#1A1613",
+					"color": "#141414",
 					"name": "Ink",
 					"slug": "ink"
 				},
 				{
-					"color": "#57504A",
+					"color": "#5A5752",
 					"name": "Annotation",
 					"slug": "muted"
 				},
 				{
-					"color": "#8C2F26",
+					"color": "#9A3B2F",
 					"name": "Accent",
 					"slug": "accent"
 				},
 				{
-					"color": "#C4B7A2",
+					"color": "#A8A39A",
 					"name": "Rule",
 					"slug": "rule"
 				}
@@ -321,6 +321,7 @@
 		}
 	},
 	"styles": {
+		"css": ":root{--batavia-dark-base:#121211;--batavia-dark-surface:#1C1B18;--batavia-dark-ink:#EDECE8;--batavia-dark-muted:#A3A09A;--batavia-dark-accent:#D07060;--batavia-dark-rule:#4A4842;}",
 		"color": {
 			"background": "var:preset|color|base",
 			"text": "var:preset|color|ink"
