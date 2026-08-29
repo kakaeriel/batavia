@@ -1,0 +1,28 @@
+{
+	"name": "celestine/celestine",
+	"description": "A precise block theme for senior software engineers: portfolio, technical blog and consulting rate card.",
+	"type": "wordpress-theme",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"php-parallel-lint/php-parallel-lint": "^1.4",
+		"wp-coding-standards/wpcs": "^3.1"
+	},
+	"scripts": {
+		"lint": [
+			"@lint:syntax",
+			"@lint:standards"
+		],
+		"lint:syntax": "parallel-lint --colors --exclude vendor --exclude node_modules --exclude .wp-core --exclude .wp-local --exclude build .",
+		"lint:standards": "phpcs",
+		"lint:fix": "phpcbf"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}

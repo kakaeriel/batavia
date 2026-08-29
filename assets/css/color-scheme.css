@@ -1,0 +1,47 @@
+/*
+ * Celestine -- automatic dark mode.
+ *
+ * The theme ships a single palette. Rather than duplicating every style rule,
+ * this file repaints the six colour presets that theme.json emits, so anything
+ * referencing a preset slug follows the visitor's system preference.
+ *
+ * The doubled :root selector raises specificity to (0,2,0) so these values win
+ * over the global-styles block regardless of stylesheet order. This file is
+ * enqueued on the front end only -- the editor keeps the canonical light
+ * palette so colour choices in Styles stay legible.
+ *
+ * Contrast ratios against Paper (light) / Ink (dark) grounds:
+ *   ink on base     16.8 : 1  |  15.3 : 1
+ *   muted on base    7.4 : 1  |   7.0 : 1
+ *   accent on base   7.7 : 1  |   6.4 : 1
+ * All exceed the WCAG 2.1 AA threshold of 4.5:1 for body text. The hairline
+ * rule is decorative and sits at 1.85 : 1 / 1.80 : 1 -- quiet, but not invisible.
+ * Run `npm run lint:contrast` to verify these against what actually ships.
+ */
+
+@media (prefers-color-scheme: dark) {
+
+	:root:root {
+		--wp--preset--color--base: #14110E;
+		--wp--preset--color--surface: #1E1A16;
+		--wp--preset--color--ink: #EDE7DD;
+		--wp--preset--color--muted: #A79C8D;
+		--wp--preset--color--accent: #D97D6E;
+		--wp--preset--color--rule: #473E34;
+
+		/* Let the browser paint form controls, scrollbars and
+		   spellcheck underlines to match. */
+		color-scheme: dark;
+	}
+
+	/* Photographic content is left untouched, but a logo strip sitting on a
+	   dark ground needs its marks lightened rather than darkened. */
+	.is-style-celestine-logo img {
+		filter: grayscale(100%) invert(100%);
+	}
+
+	.is-style-celestine-logo:hover img,
+	.is-style-celestine-logo:focus-within img {
+		filter: grayscale(0%);
+	}
+}

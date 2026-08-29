@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"core": null,
+	"themes": [ "." ],
+	"config": {
+		"WP_DEBUG": true,
+		"WP_DEBUG_LOG": true,
+		"WP_DEBUG_DISPLAY": false,
+		"SCRIPT_DEBUG": true,
+		"WP_DEVELOPMENT_MODE": "theme"
+	},
+	"mappings": {
+		"wp-content/mu-plugins/celestine-dev-guard.php": "./tools/dev-guard.php",
+		"wp-content/mu-plugins/celestine-dev-markers.php": "./tools/dev-markers.php"
+	},
+	"lifecycleScripts": {
+		"afterStart": "wp-env run cli wp theme activate celestine"
+	}
+}

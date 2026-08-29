@@ -1,0 +1,27 @@
+# Everything that belongs in the repository but not in the distributed theme.
+# Consumed by tools/build-zip.sh.
+
+.git
+.github
+.gitignore
+.distignore
+.editorconfig
+.wp-env.json
+.wp-env.override.json
+.wp-core
+.wp-local
+.DS_Store
+
+node_modules
+vendor
+build
+tools
+
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpcs.xml.dist
+
+CHANGELOG.md
+README.md

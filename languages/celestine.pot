@@ -1,0 +1,857 @@
+# Copyright (C) 2026 Celestine Contributors
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Celestine 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/celestine\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-22T12:39:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: celestine\n"
+
+#. Theme Name of the theme
+#. translators: Page title of the theme's Appearance sub-page.
+#. translators: Menu label of the theme's Appearance sub-page.
+#: style.css
+#: inc/admin/admin-page.php:35
+#: inc/admin/admin-page.php:37
+msgid "Celestine"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://github.com/celestine-theme/celestine"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "A precise, typographically restrained block theme for senior software engineers. Combines a portfolio, a technical blog, and a consulting rate card in one site, built entirely from core blocks. IBM Plex Sans and Plex Mono are self-hosted, the palette reads like ink on paper, and dark mode follows the visitor's system preference. No custom post types, no settings panel, no external requests."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Celestine Contributors"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://github.com/celestine-theme"
+msgstr ""
+
+#: functions.php:178
+#: functions.php:182
+msgid "Panel"
+msgstr ""
+
+#: functions.php:179
+msgid "Timeline"
+msgstr ""
+
+#: functions.php:185
+#: functions.php:188
+msgid "Spec label"
+msgstr ""
+
+#: functions.php:189
+msgid "Figure"
+msgstr ""
+
+#: functions.php:192
+msgid "Monospaced"
+msgstr ""
+
+#: functions.php:193
+msgid "Ruled"
+msgstr ""
+
+#: functions.php:196
+msgid "Dotted"
+msgstr ""
+
+#: functions.php:199
+msgid "Logo mark"
+msgstr ""
+
+#: functions.php:230
+msgctxt "Block pattern category"
+msgid "Celestine"
+msgstr ""
+
+#: functions.php:231
+msgid "Sections for an engineering portfolio: hero, tech stack, experience, clients, projects, pricing and calls to action."
+msgstr ""
+
+#: inc/admin/admin-page.php:87
+msgid "Create your categories"
+msgstr ""
+
+#: inc/admin/admin-page.php:88
+msgid "Celestine separates writing from projects using the built-in Category taxonomy rather than custom post types, so your content survives a theme switch. Add a category named Blog and one named Portfolio."
+msgstr ""
+
+#: inc/admin/admin-page.php:89
+msgid "Add categories"
+msgstr ""
+
+#: inc/admin/admin-page.php:93
+msgid "Choose a static front page"
+msgstr ""
+
+#: inc/admin/admin-page.php:94
+msgid "Create a page for your home page and another for your posts, then select them under Reading. This is what makes the composed front page appear instead of a plain list of posts."
+msgstr ""
+
+#: inc/admin/admin-page.php:95
+msgid "Open Reading settings"
+msgstr ""
+
+#: inc/admin/admin-page.php:99
+msgid "Point the loops at your categories"
+msgstr ""
+
+#: inc/admin/admin-page.php:100
+msgid "The Portfolio grid and Writing index are ordinary Query Loop blocks. Select each one, open the Filters panel in the sidebar, and choose the matching category. They ship unfiltered because a theme cannot know your category IDs in advance."
+msgstr ""
+
+#: inc/admin/admin-page.php:101
+msgid "Edit the front page"
+msgstr ""
+
+#: inc/admin/admin-page.php:105
+msgid "Make it yours"
+msgstr ""
+
+#: inc/admin/admin-page.php:106
+msgid "Every colour in the theme is one of six presets, so editing a preset changes it everywhere at once, in both light and dark. Dark mode follows the visitor's system setting; there is no toggle by design."
+msgstr ""
+
+#: inc/admin/admin-page.php:107
+msgid "Open Styles"
+msgstr ""
+
+#: inc/admin/admin-page.php:125
+msgid "Templates"
+msgstr ""
+
+#: inc/admin/admin-page.php:126
+msgid "The seven page layouts: front page, blog index, single post, page, archive, search and 404."
+msgstr ""
+
+#: inc/admin/admin-page.php:130
+msgid "Patterns"
+msgstr ""
+
+#: inc/admin/admin-page.php:131
+msgid "The reusable sections, plus the header and footer template parts."
+msgstr ""
+
+#: inc/admin/admin-page.php:135
+msgid "Styles"
+msgstr ""
+
+#: inc/admin/admin-page.php:136
+msgid "Colour presets, typography, spacing and layout widths."
+msgstr ""
+
+#: inc/admin/admin-page.php:140
+msgid "Navigation"
+msgstr ""
+
+#: inc/admin/admin-page.php:141
+msgid "The menus used in the header and footer."
+msgstr ""
+
+#: inc/admin/admin-page.php:159
+msgid "Hero"
+msgstr ""
+
+#: inc/admin/admin-page.php:160
+msgid "Availability, name, role and two calls to action."
+msgstr ""
+
+#: inc/admin/admin-page.php:163
+msgid "Tech stack"
+msgstr ""
+
+#: inc/admin/admin-page.php:164
+msgid "A three-column specification sheet set in monospace."
+msgstr ""
+
+#: inc/admin/admin-page.php:167
+msgid "Experience timeline"
+msgstr ""
+
+#: inc/admin/admin-page.php:168
+msgid "A ruled rail of roles, companies and dates."
+msgstr ""
+
+#: inc/admin/admin-page.php:171
+msgid "Client strip"
+msgstr ""
+
+#: inc/admin/admin-page.php:172
+msgid "Companies worked with, as monospace wordmarks."
+msgstr ""
+
+#: inc/admin/admin-page.php:175
+msgid "Portfolio grid"
+msgstr ""
+
+#: inc/admin/admin-page.php:176
+msgid "A Query Loop laid out as project cards."
+msgstr ""
+
+#: inc/admin/admin-page.php:179
+msgid "Consulting rates"
+msgstr ""
+
+#: inc/admin/admin-page.php:180
+msgid "Hourly, project and retainer packages."
+msgstr ""
+
+#: inc/admin/admin-page.php:183
+msgid "Writing index"
+msgstr ""
+
+#: inc/admin/admin-page.php:184
+msgid "A ruled list of recent posts."
+msgstr ""
+
+#: inc/admin/admin-page.php:187
+msgid "Closing call to action"
+msgstr ""
+
+#: inc/admin/admin-page.php:188
+msgid "A contact section above the site footer."
+msgstr ""
+
+#: inc/admin/admin-page.php:204
+msgid "You do not have permission to customise this site."
+msgstr ""
+
+#: inc/admin/admin-page.php:213
+msgid "Block theme"
+msgstr ""
+
+#: inc/admin/admin-page.php:221
+msgid "A portfolio, a technical blog and a consulting rate card in one site. Everything below is edited in the Site Editor -- this theme adds no settings of its own."
+msgstr ""
+
+#: inc/admin/admin-page.php:225
+msgid "Set up, in order"
+msgstr ""
+
+#: inc/admin/admin-page.php:239
+msgid "Where things are edited"
+msgstr ""
+
+#: inc/admin/admin-page.php:250
+msgid "Sections included"
+msgstr ""
+
+#: inc/admin/admin-page.php:253
+msgid "These are patterns, not custom blocks. Insert one and it becomes ordinary core blocks you can take apart -- and nothing breaks if you switch themes later. Find them under the Celestine category in the block inserter."
+msgstr ""
+
+#: inc/admin/admin-page.php:265
+msgid "Learn more"
+msgstr ""
+
+#: inc/admin/admin-page.php:270
+msgid "How block themes work"
+msgstr ""
+
+#: inc/admin/admin-page.php:275
+msgid "Working with patterns"
+msgstr ""
+
+#: inc/admin/admin-page.php:280
+msgid "Using the Site Editor"
+msgstr ""
+
+#: patterns/blog-listing.php
+msgctxt "Pattern title"
+msgid "Writing index"
+msgstr ""
+
+#: patterns/blog-listing.php
+msgctxt "Pattern description"
+msgid "A ruled index of recent posts, each row a title and a date. Open the block's Filters panel and choose your Blog category to limit it to written posts."
+msgstr ""
+
+#: patterns/blog-listing.php:21
+msgid "Writing"
+msgstr ""
+
+#: patterns/blog-listing.php:38
+msgid "Nothing published yet."
+msgstr ""
+
+#: patterns/blog-listing.php:47
+msgid "All posts"
+msgstr ""
+
+#: patterns/client-logos.php
+msgctxt "Pattern title"
+msgid "Client strip"
+msgstr ""
+
+#: patterns/client-logos.php
+msgctxt "Pattern description"
+msgid "A quiet strip of companies worked with, set as monospace wordmarks. Replace any entry with an Image block using the \"Logo mark\" style to use real logos instead."
+msgstr ""
+
+#: patterns/client-logos.php:20
+msgid "Worked with"
+msgstr ""
+
+#: patterns/client-logos.php:26
+msgid "Northwind"
+msgstr ""
+
+#: patterns/client-logos.php:30
+msgid "Halyard"
+msgstr ""
+
+#: patterns/client-logos.php:34
+msgid "Ferrous"
+msgstr ""
+
+#: patterns/client-logos.php:38
+msgid "Meridian"
+msgstr ""
+
+#: patterns/client-logos.php:42
+msgid "Cadence"
+msgstr ""
+
+#: patterns/client-logos.php:46
+msgid "Stillwater"
+msgstr ""
+
+#: patterns/cta-footer.php
+msgctxt "Pattern title"
+msgid "Closing call to action"
+msgstr ""
+
+#: patterns/cta-footer.php
+msgctxt "Pattern description"
+msgid "A closing section inviting the reader to get in touch, set on a tinted band above the site footer."
+msgstr ""
+
+#: patterns/cta-footer.php:20
+msgid "Next step"
+msgstr ""
+
+#: patterns/cta-footer.php:24
+msgid "Got a system that needs attention?"
+msgstr ""
+
+#: patterns/cta-footer.php:28
+msgid "Send a short description of the problem and what you have tried. If it is something I can help with, you will get a straight answer and a proposal within two working days."
+msgstr ""
+
+#: patterns/cta-footer.php:34
+#: patterns/hero.php:38
+msgid "Book a call"
+msgstr ""
+
+#: patterns/cta-footer.php:38
+msgid "Send an email"
+msgstr ""
+
+#: patterns/experience-timeline.php
+msgctxt "Pattern title"
+msgid "Experience timeline"
+msgstr ""
+
+#: patterns/experience-timeline.php
+msgctxt "Pattern description"
+msgid "A ruled chronological rail of roles and companies, each with dates and a short description."
+msgstr ""
+
+#: patterns/experience-timeline.php:20
+msgid "Experience"
+msgstr ""
+
+#: patterns/experience-timeline.php:28
+msgid "2021 — Present"
+msgstr ""
+
+#: patterns/experience-timeline.php:32
+msgid "Principal Engineer, Northwind Data"
+msgstr ""
+
+#: patterns/experience-timeline.php:36
+msgid "Owned the storage layer through a rewrite from a single Postgres primary to a sharded, multi-region cluster. Cut p99 write latency by two thirds and took the on-call page count down with it."
+msgstr ""
+
+#: patterns/experience-timeline.php:44
+msgid "2017 — 2021"
+msgstr ""
+
+#: patterns/experience-timeline.php:48
+msgid "Staff Engineer, Halyard Systems"
+msgstr ""
+
+#: patterns/experience-timeline.php:52
+msgid "Built the event pipeline that every other team eventually depended on. Wrote the runbooks, then spent two years making most of them unnecessary."
+msgstr ""
+
+#: patterns/experience-timeline.php:60
+msgid "2013 — 2017"
+msgstr ""
+
+#: patterns/experience-timeline.php:64
+msgid "Senior Engineer, Ferrous Labs"
+msgstr ""
+
+#: patterns/experience-timeline.php:68
+msgid "Backend and infrastructure for a product that went from four customers to four thousand. Learned what actually breaks at each order of magnitude."
+msgstr ""
+
+#: patterns/hero.php
+msgctxt "Pattern title"
+msgid "Hero"
+msgstr ""
+
+#: patterns/hero.php
+msgctxt "Pattern description"
+msgid "An opening statement: availability, name, role, a one-line summary of the work, and two calls to action."
+msgstr ""
+
+#: patterns/hero.php:20
+msgid "Available for new work"
+msgstr ""
+
+#: patterns/hero.php:24
+msgid "Your Name"
+msgstr ""
+
+#: patterns/hero.php:28
+msgid "Principal Engineer — distributed systems, storage, reliability"
+msgstr ""
+
+#: patterns/hero.php:32
+msgid "I work on the parts of a system that are not allowed to fail: consensus, storage engines, and the unglamorous reliability work underneath them. Fifteen years of it, mostly at companies whose outages make the news."
+msgstr ""
+
+#: patterns/hero.php:42
+msgid "Read the writing"
+msgstr ""
+
+#: patterns/hidden-404.php
+msgctxt "Pattern title"
+msgid "404 content"
+msgstr ""
+
+#: patterns/hidden-404.php
+msgctxt "Pattern description"
+msgid "The message shown when a URL does not resolve, with a search field."
+msgstr ""
+
+#: patterns/hidden-404.php:16
+msgid "Error 404"
+msgstr ""
+
+#: patterns/hidden-404.php:20
+msgid "That page is not here"
+msgstr ""
+
+#: patterns/hidden-404.php:24
+msgid "The address may be mistyped, or the page may have been moved. Searching usually finds it."
+msgstr ""
+
+#: patterns/hidden-blog-heading.php
+msgctxt "Pattern title"
+msgid "Hidden blog heading"
+msgstr ""
+
+#: patterns/hidden-blog-heading.php
+msgctxt "Pattern description"
+msgid "A level-one heading for the posts index, available to assistive technology but not shown on screen."
+msgstr ""
+
+#: patterns/hidden-blog-heading.php:14
+msgid "Posts"
+msgstr ""
+
+#: patterns/hidden-post-list.php
+msgctxt "Pattern title"
+msgid "Post list"
+msgstr ""
+
+#: patterns/hidden-post-list.php
+msgctxt "Pattern description"
+msgid "The paginated list of posts shared by the index, archive and search templates. Inherits the query from the page it appears on."
+msgstr ""
+
+#: patterns/hidden-post-list.php:43
+msgid "Nothing here yet."
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgctxt "Pattern title"
+msgid "Portfolio grid"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgctxt "Pattern description"
+msgid "A three-column grid of project cards built from a Query Loop. Open the block's Filters panel and choose your Portfolio category to limit it to project posts."
+msgstr ""
+
+#: patterns/portfolio-grid.php:21
+msgid "Selected work"
+msgstr ""
+
+#: patterns/portfolio-grid.php:42
+msgid "No projects published yet. Add a post, assign it to your Portfolio category, and point this block at that category."
+msgstr ""
+
+#: patterns/pricing-tiers.php
+msgctxt "Pattern title"
+msgid "Consulting rates"
+msgstr ""
+
+#: patterns/pricing-tiers.php
+msgctxt "Pattern description"
+msgid "Three consulting packages -- hourly, fixed-scope project and monthly retainer -- each with a rate, what it covers, and an enquiry button."
+msgstr ""
+
+#: patterns/pricing-tiers.php:20
+msgid "Consulting"
+msgstr ""
+
+#: patterns/pricing-tiers.php:24
+msgid "Three ways to work together. Rates are indicative; scope and timeline are agreed in writing before anything starts."
+msgstr ""
+
+#: patterns/pricing-tiers.php:34
+msgid "Hourly"
+msgstr ""
+
+#: patterns/pricing-tiers.php:40
+msgid "$225"
+msgstr ""
+
+#: patterns/pricing-tiers.php:44
+msgid "per hour, billed in 30-minute blocks"
+msgstr ""
+
+#: patterns/pricing-tiers.php:52
+msgid "Ad-hoc advisory"
+msgstr ""
+
+#: patterns/pricing-tiers.php:56
+msgid "Code and design review"
+msgstr ""
+
+#: patterns/pricing-tiers.php:60
+msgid "Architecture questions"
+msgstr ""
+
+#: patterns/pricing-tiers.php:64
+msgid "No minimum commitment"
+msgstr ""
+
+#: patterns/pricing-tiers.php:72
+#: patterns/pricing-tiers.php:124
+#: patterns/pricing-tiers.php:176
+msgid "Enquire"
+msgstr ""
+
+#: patterns/pricing-tiers.php:86
+msgid "Project"
+msgstr ""
+
+#: patterns/pricing-tiers.php:92
+msgid "from $18,000"
+msgstr ""
+
+#: patterns/pricing-tiers.php:96
+msgid "fixed fee, agreed up front"
+msgstr ""
+
+#: patterns/pricing-tiers.php:104
+msgid "Fixed-scope build"
+msgstr ""
+
+#: patterns/pricing-tiers.php:108
+msgid "Discovery and written spec"
+msgstr ""
+
+#: patterns/pricing-tiers.php:112
+msgid "Delivery and handover"
+msgstr ""
+
+#: patterns/pricing-tiers.php:116
+msgid "Typically 6 to 10 weeks"
+msgstr ""
+
+#: patterns/pricing-tiers.php:138
+msgid "Retainer"
+msgstr ""
+
+#: patterns/pricing-tiers.php:144
+msgid "$7,500"
+msgstr ""
+
+#: patterns/pricing-tiers.php:148
+msgid "per month, three-month minimum"
+msgstr ""
+
+#: patterns/pricing-tiers.php:156
+msgid "Ongoing capacity"
+msgstr ""
+
+#: patterns/pricing-tiers.php:160
+msgid "Around two days a week"
+msgstr ""
+
+#: patterns/pricing-tiers.php:164
+msgid "Priority async access"
+msgstr ""
+
+#: patterns/pricing-tiers.php:168
+msgid "Standing review slot"
+msgstr ""
+
+#: patterns/site-footer.php
+msgctxt "Pattern title"
+msgid "Site footer"
+msgstr ""
+
+#: patterns/site-footer.php
+msgctxt "Pattern description"
+msgid "Site identity and secondary navigation above a monospace colophon."
+msgstr ""
+
+#. translators: %s: The current year, for example 2026.
+#: patterns/site-footer.php:41
+#, php-format
+msgid "© %s"
+msgstr ""
+
+#: patterns/site-footer.php:49
+msgid "https://wordpress.org/"
+msgstr ""
+
+#: patterns/site-footer.php:49
+msgid "Proudly powered by WordPress"
+msgstr ""
+
+#: patterns/tech-stack.php
+msgctxt "Pattern title"
+msgid "Tech stack"
+msgstr ""
+
+#: patterns/tech-stack.php
+msgctxt "Pattern description"
+msgid "A three-column specification sheet of languages, data stores and infrastructure, set in monospace."
+msgstr ""
+
+#: patterns/tech-stack.php:20
+msgid "Stack"
+msgstr ""
+
+#: patterns/tech-stack.php:30
+msgid "Languages"
+msgstr ""
+
+#: patterns/tech-stack.php:36
+msgid "Go"
+msgstr ""
+
+#: patterns/tech-stack.php:40
+msgid "Rust"
+msgstr ""
+
+#: patterns/tech-stack.php:44
+msgid "TypeScript"
+msgstr ""
+
+#: patterns/tech-stack.php:48
+msgid "Python"
+msgstr ""
+
+#: patterns/tech-stack.php:52
+msgid "SQL"
+msgstr ""
+
+#: patterns/tech-stack.php:66
+msgid "Data & runtime"
+msgstr ""
+
+#: patterns/tech-stack.php:72
+msgid "PostgreSQL"
+msgstr ""
+
+#: patterns/tech-stack.php:76
+msgid "Redis"
+msgstr ""
+
+#: patterns/tech-stack.php:80
+msgid "Kafka"
+msgstr ""
+
+#: patterns/tech-stack.php:84
+msgid "ClickHouse"
+msgstr ""
+
+#: patterns/tech-stack.php:88
+msgid "Node.js"
+msgstr ""
+
+#: patterns/tech-stack.php:102
+msgid "Infrastructure"
+msgstr ""
+
+#: patterns/tech-stack.php:108
+msgid "Kubernetes"
+msgstr ""
+
+#: patterns/tech-stack.php:112
+msgid "Terraform"
+msgstr ""
+
+#: patterns/tech-stack.php:116
+msgid "AWS"
+msgstr ""
+
+#: patterns/tech-stack.php:120
+msgid "OpenTelemetry"
+msgstr ""
+
+#: patterns/tech-stack.php:124
+msgid "Prometheus"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Paper"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Panel"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Ink"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Annotation"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Accent"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Rule"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "1"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "3"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "4"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "5"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "6"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "7"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "8"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Plex Sans"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Plex Mono"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Footnote"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Body"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Lead"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Subhead"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Head"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Display"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
+msgstr ""

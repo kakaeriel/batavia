@@ -1,0 +1,41 @@
+{
+  "name": "celestine",
+  "version": "1.1.0",
+  "description": "A precise block theme for senior software engineers: portfolio, technical blog and consulting rate card.",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "bash tools/dev-server.sh",
+    "start:fresh": "bash tools/dev-server.sh --fresh",
+    "start:log": "tail -f .wp-local/wp-content/debug.log",
+    "editor:status": "wp --path=.wp-local eval-file tools/reset-editor.php",
+    "editor:pull": "wp --path=.wp-local eval-file tools/pull-from-editor.php",
+    "editor:pull:styles": "wp --path=.wp-local eval-file tools/pull-from-editor.php styles",
+    "editor:reset": "wp --path=.wp-local eval-file tools/reset-editor.php delete",
+    "dev": "wp-env start",
+    "stop": "wp-env stop",
+    "destroy": "wp-env destroy",
+    "logs": "wp-env logs all",
+    "wp": "wp-env run cli wp",
+    "core": "mkdir -p .wp-core && curl -sL https://wordpress.org/latest.tar.gz | tar -xz -C .wp-core --strip-components=1",
+    "lint": "npm run lint:blocks && npm run lint:structure && npm run lint:contrast && npm run lint:php",
+    "lint:blocks": "node tools/validate-block-markup.js",
+    "lint:structure": "php tools/validate-blocks.php --core=.wp-core",
+    "lint:contrast": "node tools/check-contrast.js",
+    "lint:php": "composer lint",
+    "theme-check": "wp --path=.wp-local eval-file tools/run-theme-check.php",
+    "theme-check:wp-env": "wp-env run --quiet cli wp plugin install theme-check --activate && wp-env run --quiet --env-cwd=/var/www/html/wp-content/themes/celestine cli wp eval-file tools/run-theme-check.php",
+    "preflight": "bash tools/preflight.sh",
+    "make-pot": "wp-env run --env-cwd=/var/www/html/wp-content/themes/celestine cli wp i18n make-pot . languages/celestine.pot --domain=celestine --exclude=tools,node_modules,vendor,.wp-core",
+    "zip": "bash tools/build-zip.sh"
+  },
+  "devDependencies": {
+    "@wordpress/block-library": "^10.4.0",
+    "@wordpress/blocks": "^15.26.0",
+    "@wordpress/env": "^11.13.0",
+    "jsdom": "^30.0.1"
+  }
+}
