@@ -75,8 +75,8 @@ if ( empty( $batavia_experience_rows ) ) {
 				// so it is clipped here rather than overflowing the box.
 				$batavia_mark = mb_substr( $batavia_mark, 0, 2 );
 				?>
-				<!-- wp:group {"style":{"border":{"bottom":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-				<div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
+				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+				<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 					<!-- wp:group {"className":"is-style-batavia-mark","layout":{"type":"constrained"}} -->
 					<div class="wp-block-group is-style-batavia-mark">
 						<?php if ( '' !== $batavia_logo_url ) : ?>

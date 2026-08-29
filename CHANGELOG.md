@@ -9,6 +9,63 @@ The version in `style.css` is the source of truth and must match the
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-08-29
+
+### Added
+
+- A third "All except one category" mode for Notes, alongside "All
+  categories" and "One specific category".
+- A Logo media field on each Experience row, alongside Mark, desaturated
+  until hovered like the Client pattern's wordmarks.
+- Closing call to action, a new pattern just above the footer: a button
+  reusing Hero's own contact_url binding, not a form.
+- Portfolio detail, a new pattern for the top of a portfolio post's own
+  content: Client, Role, Timeline and Stack as monospace rows, plus a
+  "Visit the live site" button.
+- "View all work" and "All notes" links below Selected work and Notes,
+  pointing at the relevant category archive (or the posts page, if one is
+  set) instead of doing nothing.
+- The category archive for whichever category Selected work is scoped to
+  now gets the portfolio grid's own two-column layout instead of the
+  standard post list.
+
+### Changed
+
+- Selected work: two columns instead of three, so a screenshot reads as a
+  screenshot; no crop, screenshots show at their original aspect ratio; no
+  category badge, since one is redundant once the section is scoped to a
+  single category; capped at six projects with the "View all work" link
+  carrying the rest; a hairline-to-accent hover state on the image instead
+  of a shadow or a zoom.
+- Removed the Hero status line entirely -- pattern markup, both settings
+  fields, and every doc reference.
+- Closing call to action's background changed from an Ink/Base inversion to
+  Surface, and its accent top border was removed.
+- Removed the rule between entries in Notes and between rows in Experience.
+
+### Fixed
+
+- `portfolio_category` and Notes' "One specific category" mode never
+  actually filtered anything: `query_loop_block_query_vars` fires once per
+  Query Loop descendant, never the Query block itself, so the className it
+  was read from was always empty. Now baked directly into the Query block's
+  own `query.taxQuery` attribute instead, the same mechanism a category
+  chosen by hand in the block's Filters panel already uses.
+- Experience's rows were centered instead of stretching full width, from a
+  `constrained` layout with no `contentSize` falling back to the theme's
+  global default. The same root cause, in the narrower form of a
+  `contentSize` given without `justifyContent`, also centered the text
+  column next to each Notes and post-list thumbnail, and each Consulting
+  tier's copy, instead of keeping it flush against the thumbnail -- and
+  centered the archive and search templates' page title.
+- The footer template part carried a stray 24px top margin from the root
+  layout's global blockGap, stacking on top of its own padding.
+- The Logo media picker did not open on the Homepage tab --
+  `wp_enqueue_media()` only ran on Site identity, from before Experience
+  had a media field of its own.
+- The Mark field could overflow its 3rem square; a company name typed in
+  full is now clipped to two characters, per the field's own help text.
+
 ## [1.4.0] - 2026-08-29
 
 ### Changed
@@ -92,6 +149,7 @@ Initial release.
 - Development tooling: canonical block markup validation against the editor's
   own parser, structural validation, a WCAG contrast audit, and PHPCS.
 
-[Unreleased]: https://github.com/batavia-theme/batavia/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/batavia-theme/batavia/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.5.0
 [1.4.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.4.0
 [1.0.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.0.0
