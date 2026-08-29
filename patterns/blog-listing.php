@@ -27,7 +27,12 @@ if ( ! batavia_get_setting_bool( 'show_notes' ) ) {
 	return;
 }
 
-$batavia_notes_tax_query = batavia_category_tax_query( 'notes_category', 'notes_category_mode' );
+$batavia_notes_scope       = batavia_get_category_scope( 'notes_category_mode', 'notes_category' );
+$batavia_notes_category_id = absint( batavia_get_setting( 'notes_category' ) );
+$batavia_notes_tax_query   = batavia_category_tax_query( 'notes_category', 'notes_category_mode' );
+$batavia_notes_archive_url = ( 'specific' === $batavia_notes_scope && $batavia_notes_category_id > 0 )
+	? get_category_link( $batavia_notes_category_id )
+	: batavia_posts_page_url();
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|rule","width":"1px"}}},"layout":{"type":"constrained"}} -->
@@ -45,7 +50,7 @@ $batavia_notes_tax_query = batavia_category_tax_query( 'notes_category', 'notes_
 			<div class="wp-block-group is-style-batavia-entry" style="border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/2","width":"12rem"} /-->
 
-				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"40rem"}} -->
+				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"40rem","justifyContent":"left"}} -->
 				<div class="wp-block-group">
 					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
 					<div class="wp-block-group">
@@ -75,7 +80,7 @@ $batavia_notes_tax_query = batavia_category_tax_query( 'notes_category', 'notes_
 		<!-- wp:buttons -->
 		<div class="wp-block-buttons">
 			<!-- wp:button {"className":"is-style-outline"} -->
-			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></div>
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_notes_archive_url ? $batavia_notes_archive_url : '#' ); ?>"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

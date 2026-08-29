@@ -77,7 +77,7 @@ $batavia_last_row_index = count( $batavia_consulting_rows ) - 1;
 				<?php if ( $batavia_index === $batavia_last_row_index ) : ?>
 					<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|rule","width":"1px"},"bottom":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 					<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--rule);border-top-width:1px;border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
-						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"32rem"}} -->
+						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"32rem","justifyContent":"left"}} -->
 						<div class="wp-block-group">
 							<!-- wp:heading {"level":3,"fontSize":"large"} -->
 							<h3 class="wp-block-heading has-large-font-size"><?php echo esc_html( $batavia_row_title ); ?></h3>
@@ -97,7 +97,7 @@ $batavia_last_row_index = count( $batavia_consulting_rows ) - 1;
 				<?php else : ?>
 					<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 					<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--rule);border-top-width:1px;padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
-						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"32rem"}} -->
+						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"32rem","justifyContent":"left"}} -->
 						<div class="wp-block-group">
 							<!-- wp:heading {"level":3,"fontSize":"large"} -->
 							<h3 class="wp-block-heading has-large-font-size"><?php echo esc_html( $batavia_row_title ); ?></h3>

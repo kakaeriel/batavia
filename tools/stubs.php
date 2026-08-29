@@ -236,6 +236,23 @@ if ( ! function_exists( 'add_action' ) ) {
 	}
 }
 
+if ( ! function_exists( 'is_category' ) ) {
+	/**
+	 * Whether the current request is a category archive.
+	 *
+	 * There is no request here, so it never is -- the validator renders
+	 * every pattern the same way regardless of which page it would appear
+	 * on, the same as an empty option always reading as unset.
+	 *
+	 * @param int|string|array $category Category id, slug or name(s) to check against.
+	 * @return bool False.
+	 */
+	function is_category( $category = '' ) {
+		unset( $category );
+		return false;
+	}
+}
+
 if ( ! function_exists( 'absint' ) ) {
 	/**
 	 * Casts a value to a non-negative integer.

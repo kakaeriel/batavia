@@ -39,7 +39,7 @@ $batavia_portfolio_category_id = absint( batavia_get_setting( 'portfolio_categor
 $batavia_portfolio_tax_query   = batavia_category_tax_query( 'portfolio_category' );
 $batavia_portfolio_archive_url = $batavia_portfolio_category_id > 0
 	? get_category_link( $batavia_portfolio_category_id )
-	: get_permalink( get_option( 'page_for_posts' ) );
+	: batavia_posts_page_url();
 
 ?>
 <!-- wp:group {"align":"full","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|rule","width":"1px"}}},"layout":{"type":"constrained"}} -->

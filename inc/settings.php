@@ -506,6 +506,27 @@ if ( ! function_exists( 'batavia_get_category_scope' ) ) {
 	}
 }
 
+if ( ! function_exists( 'batavia_posts_page_url' ) ) {
+	/**
+	 * The site's posts page URL, if one is set under Settings -> Reading.
+	 *
+	 * `get_permalink()` treats `0` -- what `get_option( 'page_for_posts' )`
+	 * returns when no posts page is chosen -- as "use the current global
+	 * $post", not "no post". Called from inside a Query Loop, that silently
+	 * returns whichever post the loop last touched instead of the empty
+	 * string a caller checking "is one set" would expect.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @return string The posts page's URL, or an empty string if none is set.
+	 */
+	function batavia_posts_page_url() {
+		$page_id = absint( get_option( 'page_for_posts' ) );
+
+		return $page_id > 0 ? (string) get_permalink( $page_id ) : '';
+	}
+}
+
 if ( ! function_exists( 'batavia_category_tax_query' ) ) {
 	/**
 	 * The `taxQuery` value for a Query Loop scoped to one setting's category.

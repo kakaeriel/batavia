@@ -113,6 +113,17 @@ h1, h2, h3,
 }
 
 /*
+ * core/template-part carries no spacing support of its own, so header and
+ * footer cannot be told to skip the root layout's blockGap directly. That
+ * gap is set with :where(), specificity zero, so any ordinary selector
+ * overrides it -- here, back to each template part supplying its own
+ * padding rather than stacking a second gap on top.
+ */
+.wp-block-template-part {
+	margin-block-start: 0;
+}
+
+/*
  * Visually hidden, still announced. Used for the heading that gives the blog
  * index a level-one heading without repeating it on screen.
  */
