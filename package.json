@@ -5,7 +5,7 @@
   "license": "GPL-2.0-or-later",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=22.22.2"
   },
   "scripts": {
     "start": "bash tools/dev-server.sh",

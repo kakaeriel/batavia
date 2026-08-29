@@ -73,13 +73,17 @@ function lightPalette() {
 /**
  * Reads the dark palette out of the prefers-color-scheme override.
  *
+ * Each declaration is `var(--batavia-dark-{slug}, #hex)` rather than a bare
+ * hex, so a style variation can override the fallback; the `var(...)` prefix
+ * is optional in the pattern below to still match a bare hex declaration.
+ *
  * @return {Object<string, string>} Slug to hex.
  */
 function darkPalette() {
 	const css = fs.readFileSync( path.join( THEME_DIR, 'assets/css/color-scheme.css' ), 'utf8' );
 	const palette = {};
 
-	for ( const [ , slug, hex ] of css.matchAll( /--wp--preset--color--([a-z-]+):\s*(#[0-9A-Fa-f]{6})/g ) ) {
+	for ( const [ , slug, hex ] of css.matchAll( /--wp--preset--color--([a-z-]+):\s*(?:var\([^,]*,\s*)?(#[0-9A-Fa-f]{6})/g ) ) {
 		palette[ slug ] = hex.toUpperCase();
 	}
 

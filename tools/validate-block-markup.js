@@ -36,12 +36,25 @@ const RESET = '\x1b[0m';
 /**
  * Replaces PHP tags with tokens that survive a parse round trip.
  *
+ * A tag that only branches or assigns (`if`/`elseif`/`else`/`endif`,
+ * `foreach`/`endforeach`, a bare `$var = ...;`) renders as nothing at
+ * runtime, so it is masked to nothing -- otherwise a placeholder sitting
+ * between block comments becomes stray text no block-level container (Group,
+ * Buttons) tolerates among its children. A tag that echoes -- `echo`,
+ * `printf`, `_e()` and its `esc_*_e()` siblings -- stands in for real text,
+ * so it is masked to a non-empty token instead, matching what the block's
+ * own HTML-sourced attribute (RichText content, a table cell, a caption)
+ * would otherwise see.
+ *
  * @param {string} source Raw file contents.
  * @return {string} Tokenised markup.
  */
 function maskPhp( source ) {
 	let n = 0;
-	return source.replace( /<\?php[\s\S]*?\?>/g, () => `BATAVIAPHPTOKEN${ n++ }` );
+	return source.replace( /<\?php[\s\S]*?\?>/g, ( match ) => {
+		const producesOutput = /\becho\b|\bprintf\s*\(|\bvprintf\s*\(|_e\s*\(/.test( match );
+		return producesOutput ? `BATAVIAPHPTOKEN${ n++ }` : '';
+	} );
 }
 
 /**
