@@ -36,16 +36,16 @@ if ( ! batavia_get_setting_bool( 'show_cta' ) ) {
 }
 
 ?>
-<!-- wp:group {"align":"full","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
-	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"36rem","wideSize":"76rem","justifyContent":"left"}} -->
+<!-- wp:group {"align":"full","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|rule","width":"1px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-surface-background-color has-background" style="border-top-color:var(--wp--preset--color--rule);border-top-width:1px;padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
+	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"46rem","wideSize":"76rem","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
-		<h2 class="wp-block-heading has-xx-large-font-size"><?php esc_html_e( 'Have something worth building?', 'batavia' ); ?></h2>
+		<!-- wp:heading {"level":2,"align":"wide","className":"is-style-batavia-label"} -->
+		<h2 class="wp-block-heading alignwide is-style-batavia-label"><?php esc_html_e( 'Get in touch', 'batavia' ); ?></h2>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"fontSize":"large"} -->
-		<p class="has-large-font-size"><?php esc_html_e( 'Tell me what you are trying to do. If it is a fit, you will hear back within a day.', 'batavia' ); ?></p>
+		<p class="has-large-font-size"><?php esc_html_e( 'Have something worth building? Tell me what you are trying to do -- if it is a fit, you will hear back within a day.', 'batavia' ); ?></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->

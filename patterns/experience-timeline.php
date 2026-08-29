@@ -64,8 +64,12 @@ if ( empty( $batavia_experience_rows ) ) {
 		<div class="wp-block-group alignwide">
 			<?php foreach ( $batavia_experience_rows as $batavia_row ) : ?>
 				<?php
+				// 'medium' rather than 'thumbnail': the thumbnail size is hard-cropped
+				// to a square by default, which would cut down a wide wordmark logo
+				// before object-fit: contain in the stylesheet ever saw it. 'medium'
+				// only scales, so the square gets the whole logo, letterboxed.
 				$batavia_logo_id  = ! empty( $batavia_row['logo'] ) ? absint( $batavia_row['logo'] ) : 0;
-				$batavia_logo_url = $batavia_logo_id > 0 ? wp_get_attachment_image_url( $batavia_logo_id, 'thumbnail' ) : '';
+				$batavia_logo_url = $batavia_logo_id > 0 ? wp_get_attachment_image_url( $batavia_logo_id, 'medium' ) : '';
 
 				$batavia_mark = ! empty( $batavia_row['mark'] )
 					? $batavia_row['mark']
@@ -80,8 +84,8 @@ if ( empty( $batavia_experience_rows ) ) {
 					<!-- wp:group {"className":"is-style-batavia-mark","layout":{"type":"constrained"}} -->
 					<div class="wp-block-group is-style-batavia-mark">
 						<?php if ( '' !== $batavia_logo_url ) : ?>
-							<!-- wp:image {"sizeSlug":"thumbnail","className":"is-style-batavia-logo"} -->
-							<figure class="wp-block-image size-thumbnail is-style-batavia-logo"><img src="<?php echo esc_url( $batavia_logo_url ); ?>" alt="" /></figure>
+							<!-- wp:image {"sizeSlug":"medium","className":"is-style-batavia-logo"} -->
+							<figure class="wp-block-image size-medium is-style-batavia-logo"><img src="<?php echo esc_url( $batavia_logo_url ); ?>" alt="" /></figure>
 							<!-- /wp:image -->
 						<?php else : ?>
 							<!-- wp:paragraph {"fontFamily":"mono","fontSize":"medium"} -->

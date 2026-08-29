@@ -30,6 +30,7 @@ $batavia_show_cta_primary   = batavia_get_setting_bool( 'show_hero_cta_primary' 
 $batavia_show_cta_secondary = batavia_get_setting_bool( 'show_hero_cta_secondary' );
 $batavia_show_tools         = batavia_get_setting_bool( 'show_hero_tools' );
 $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_secondary;
+$batavia_notes_archive_url  = batavia_notes_archive_url();
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
@@ -65,7 +66,7 @@ $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_sec
 
 				<?php if ( $batavia_show_cta_secondary ) : ?>
 					<!-- wp:button {"className":"is-style-outline"} -->
-					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#"><?php esc_html_e( 'Read the notes', 'batavia' ); ?></a></div>
+					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_notes_archive_url ? $batavia_notes_archive_url : '#' ); ?>"><?php esc_html_e( 'Read the notes', 'batavia' ); ?></a></div>
 					<!-- /wp:button -->
 				<?php endif; ?>
 			</div>

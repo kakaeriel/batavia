@@ -527,6 +527,32 @@ if ( ! function_exists( 'batavia_posts_page_url' ) ) {
 	}
 }
 
+if ( ! function_exists( 'batavia_notes_archive_url' ) ) {
+	/**
+	 * Where "read the notes" should actually go.
+	 *
+	 * Used by both Hero's "Read the notes" button and Notes' own "All notes"
+	 * button, so the two always agree: the Notes category's own archive when
+	 * Notes is scoped to one specific category, the site's posts page
+	 * otherwise (or an empty string, if neither is set -- a caller should
+	 * fall back to `#` rather than link nowhere useful).
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string A URL, or an empty string if nothing is configured.
+	 */
+	function batavia_notes_archive_url() {
+		$scope       = batavia_get_category_scope( 'notes_category_mode', 'notes_category' );
+		$category_id = absint( batavia_get_setting( 'notes_category' ) );
+
+		if ( 'specific' === $scope && $category_id > 0 ) {
+			return (string) get_category_link( $category_id );
+		}
+
+		return batavia_posts_page_url();
+	}
+}
+
 if ( ! function_exists( 'batavia_category_tax_query' ) ) {
 	/**
 	 * The `taxQuery` value for a Query Loop scoped to one setting's category.

@@ -75,8 +75,8 @@ $batavia_last_row_index = count( $batavia_consulting_rows ) - 1;
 				<?php $batavia_row_description = isset( $batavia_row['description'] ) ? $batavia_row['description'] : ''; ?>
 				<?php $batavia_row_price = isset( $batavia_row['price'] ) ? $batavia_row['price'] : ''; ?>
 				<?php if ( $batavia_index === $batavia_last_row_index ) : ?>
-					<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|rule","width":"1px"},"bottom":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
-					<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--rule);border-top-width:1px;border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
+					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+					<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
 						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"32rem","justifyContent":"left"}} -->
 						<div class="wp-block-group">
 							<!-- wp:heading {"level":3,"fontSize":"large"} -->
@@ -95,8 +95,8 @@ $batavia_last_row_index = count( $batavia_consulting_rows ) - 1;
 					</div>
 					<!-- /wp:group -->
 				<?php else : ?>
-					<!-- wp:group {"style":{"border":{"top":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
-					<div class="wp-block-group" style="border-top-color:var(--wp--preset--color--rule);border-top-width:1px;padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
+					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+					<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
 						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"32rem","justifyContent":"left"}} -->
 						<div class="wp-block-group">
 							<!-- wp:heading {"level":3,"fontSize":"large"} -->
@@ -128,6 +128,12 @@ $batavia_last_row_index = count( $batavia_consulting_rows ) - 1;
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
+
+			<!-- wp:social-links {"iconColor":"accent","size":"has-normal-icon-size","layout":{"type":"flex"}} -->
+			<ul class="wp-block-social-links has-normal-icon-size">
+				<!-- wp:social-link {"service":"whatsapp","label":"WhatsApp"} /-->
+			</ul>
+			<!-- /wp:social-links -->
 
 			<!-- wp:paragraph {"textColor":"muted","fontSize":"small"} -->
 			<p class="has-muted-color has-text-color has-small-font-size"><?php esc_html_e( 'Rates are indicative and exclude tax.', 'batavia' ); ?></p>

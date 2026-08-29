@@ -27,12 +27,8 @@ if ( ! batavia_get_setting_bool( 'show_notes' ) ) {
 	return;
 }
 
-$batavia_notes_scope       = batavia_get_category_scope( 'notes_category_mode', 'notes_category' );
-$batavia_notes_category_id = absint( batavia_get_setting( 'notes_category' ) );
 $batavia_notes_tax_query   = batavia_category_tax_query( 'notes_category', 'notes_category_mode' );
-$batavia_notes_archive_url = ( 'specific' === $batavia_notes_scope && $batavia_notes_category_id > 0 )
-	? get_category_link( $batavia_notes_category_id )
-	: batavia_posts_page_url();
+$batavia_notes_archive_url = batavia_notes_archive_url();
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|rule","width":"1px"}}},"layout":{"type":"constrained"}} -->

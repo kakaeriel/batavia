@@ -257,6 +257,12 @@ if ( ! function_exists( 'batavia_fill_social_link' ) ) {
 	 * instead. Only icons left empty are filled: a URL typed into the editor is
 	 * the user being specific, and wins.
 	 *
+	 * WhatsApp is a special case: it reads the wa.me link derived from the
+	 * Contact tab's WhatsApp number (the same one `whatsapp_url` resolves to
+	 * for a bound button), rather than a `social_whatsapp` setting -- there is
+	 * no such field, since a second WhatsApp field under Social media would
+	 * just be the same number typed twice.
+	 *
 	 * @since 1.2.0
 	 *
 	 * @param array<string, mixed> $parsed_block The block about to be rendered.
@@ -277,7 +283,9 @@ if ( ! function_exists( 'batavia_fill_social_link' ) ) {
 			return $parsed_block;
 		}
 
-		$url = batavia_get_setting( 'social_' . $service );
+		$url = 'whatsapp' === $service
+			? (string) batavia_binding_value( array( 'key' => 'whatsapp_url' ) )
+			: batavia_get_setting( 'social_' . $service );
 
 		if ( '' !== $url ) {
 			$parsed_block['attrs']['url'] = $url;
