@@ -1,0 +1,48 @@
+/*
+ * Batavia -- automatic dark mode.
+ *
+ * The theme ships a single palette. Rather than duplicating every style rule,
+ * this file repaints the six colour presets that theme.json emits, so anything
+ * referencing a preset slug follows the visitor's system preference. Style
+ * variations set --batavia-dark-* so the dark remap follows the active set.
+ *
+ * The doubled :root selector raises specificity to (0,2,0) so these values win
+ * over the global-styles block regardless of stylesheet order. This file is
+ * enqueued on the front end only -- the editor keeps the canonical light
+ * palette so colour choices in Styles stay legible.
+ *
+ * Contrast ratios against Paper (light) / Ink (dark) grounds:
+ *   ink on base     16.6 : 1  |  15.9 : 1
+ *   muted on base    6.5 : 1  |   7.2 : 1
+ *   accent on base   6.2 : 1  |   5.5 : 1
+ * All exceed the WCAG 2.1 AA threshold of 4.5:1 for body text. The hairline
+ * rule is decorative and sits at 2.26 : 1 / 2.05 : 1 -- quiet, but not invisible.
+ * Run `npm run lint:contrast` to verify these against what actually ships.
+ */
+
+@media (prefers-color-scheme: dark) {
+
+	:root:root {
+		--wp--preset--color--base: var(--batavia-dark-base, #121211);
+		--wp--preset--color--surface: var(--batavia-dark-surface, #1C1B18);
+		--wp--preset--color--ink: var(--batavia-dark-ink, #EDECE8);
+		--wp--preset--color--muted: var(--batavia-dark-muted, #A3A09A);
+		--wp--preset--color--accent: var(--batavia-dark-accent, #D07060);
+		--wp--preset--color--rule: var(--batavia-dark-rule, #4A4842);
+
+		/* Let the browser paint form controls, scrollbars and
+		   spellcheck underlines to match. */
+		color-scheme: dark;
+	}
+
+	/* Photographic content is left untouched, but a logo strip sitting on a
+	   dark ground needs its marks lightened rather than darkened. */
+	.is-style-batavia-logo img {
+		filter: grayscale(100%) invert(100%);
+	}
+
+	.is-style-batavia-logo:hover img,
+	.is-style-batavia-logo:focus-within img {
+		filter: grayscale(0%);
+	}
+}

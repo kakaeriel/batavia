@@ -1,0 +1,183 @@
+/**
+ * Canonical-markup check for Batavia's templates, parts and patterns.
+ *
+ * Block markup written by hand drifts from what the editor would save: a
+ * missing `has-small-font-size` class, colour classes in a different order, an
+ * inline style whose properties are ordered differently. WordPress still
+ * renders the front end correctly, so nothing fails visibly -- but when a user
+ * opens the template in the Site Editor the block is either quietly migrated
+ * through a deprecation or flagged with "this block contains unexpected or
+ * invalid content".
+ *
+ * This script runs the editor's own parser over every template, part and
+ * pattern the theme ships. The parser reports each repair it makes through the
+ * console, so that output is captured and any repair is treated as a failure,
+ * printed alongside the markup the editor would have written instead.
+ *
+ * Usage: node tools/validate-block-markup.js
+ * Exits 0 when every block is canonical, 1 otherwise.
+ *
+ * @package Batavia
+ */
+
+'use strict';
+
+const fs = require( 'fs' );
+const path = require( 'path' );
+const { blocks, captureConsole } = require( './wp-block-env.js' );
+
+const THEME_DIR = path.resolve( __dirname, '..' );
+
+const RED = '\x1b[31m';
+const GREEN = '\x1b[32m';
+const DIM = '\x1b[2m';
+const RESET = '\x1b[0m';
+
+/**
+ * Replaces PHP tags with tokens that survive a parse round trip.
+ *
+ * A tag that only branches or assigns (`if`/`elseif`/`else`/`endif`,
+ * `foreach`/`endforeach`, a bare `$var = ...;`) renders as nothing at
+ * runtime, so it is masked to nothing -- otherwise a placeholder sitting
+ * between block comments becomes stray text no block-level container (Group,
+ * Buttons) tolerates among its children. A tag that echoes -- `echo`,
+ * `printf`, `_e()` and its `esc_*_e()` siblings -- stands in for real text,
+ * so it is masked to a non-empty token instead, matching what the block's
+ * own HTML-sourced attribute (RichText content, a table cell, a caption)
+ * would otherwise see.
+ *
+ * @param {string} source Raw file contents.
+ * @return {string} Tokenised markup.
+ */
+function maskPhp( source ) {
+	let n = 0;
+	return source.replace( /<\?php[\s\S]*?\?>/g, ( match ) => {
+		const producesOutput = /\becho\b|\bprintf\s*\(|\bvprintf\s*\(|_e\s*\(/.test( match );
+		return producesOutput ? `BATAVIAPHPTOKEN${ n++ }` : '';
+	} );
+}
+
+/**
+ * Strips the leading PHP docblock from a pattern file.
+ *
+ * @param {string} source Raw pattern file contents.
+ * @return {string} Everything after the header block.
+ */
+function stripPatternHeader( source ) {
+	const end = source.indexOf( '?>' );
+	return end === -1 ? source : source.slice( end + 2 );
+}
+
+/**
+ * Collects the theme files that contain block markup.
+ *
+ * @return {Array<{file: string, markup: string}>} Files to check.
+ */
+function collectDocuments() {
+	const documents = [];
+
+	for ( const dir of [ 'templates', 'parts' ] ) {
+		const full = path.join( THEME_DIR, dir );
+		if ( ! fs.existsSync( full ) ) {
+			continue;
+		}
+		for ( const name of fs.readdirSync( full ).filter( ( f ) => f.endsWith( '.html' ) ) ) {
+			const file = path.join( full, name );
+			documents.push( { file, markup: maskPhp( fs.readFileSync( file, 'utf8' ) ) } );
+		}
+	}
+
+	const patterns = path.join( THEME_DIR, 'patterns' );
+	if ( fs.existsSync( patterns ) ) {
+		for ( const name of fs.readdirSync( patterns ).filter( ( f ) => f.endsWith( '.php' ) ) ) {
+			const file = path.join( patterns, name );
+			const body = stripPatternHeader( fs.readFileSync( file, 'utf8' ) );
+			documents.push( { file, markup: maskPhp( body ) } );
+		}
+	}
+
+	return documents;
+}
+
+/**
+ * Counts every named block in a parsed tree.
+ *
+ * @param {Array<Object>} list Parsed blocks.
+ * @return {number} Block count.
+ */
+function countBlocks( list ) {
+	return list.reduce(
+		( total, block ) => ( block.name ? total + 1 : total ) + countBlocks( block.innerBlocks || [] ),
+		0
+	);
+}
+
+/**
+ * Collects the names of blocks the parser could not validate at all.
+ *
+ * @param {Array<Object>} list Parsed blocks.
+ * @param {string[]}      into Accumulator.
+ * @return {string[]} Invalid block names.
+ */
+function collectInvalid( list, into = [] ) {
+	for ( const block of list ) {
+		if ( block.name && block.isValid === false ) {
+			into.push( block.name );
+		}
+		collectInvalid( block.innerBlocks || [], into );
+	}
+	return into;
+}
+
+let failures = 0;
+let checked = 0;
+
+for ( const { file, markup } of collectDocuments() ) {
+	const relative = path.relative( THEME_DIR, file );
+	const { result: parsed, logs } = captureConsole( () => blocks.parse( markup ) );
+
+	checked += countBlocks( parsed );
+
+	const invalid = collectInvalid( parsed );
+
+	/*
+	 * "Updated Block" means the parser fell back to a deprecated save handler
+	 * to make the markup parse. The block still renders, but the markup in the
+	 * repository is not what the current editor writes.
+	 */
+	const repaired = logs.filter( ( line ) => line.includes( 'Updated Block' ) );
+
+	if ( ! repaired.length && ! invalid.length ) {
+		continue;
+	}
+
+	failures++;
+	process.stdout.write( `${ RED }not canonical${ RESET } ${ relative }\n` );
+
+	for ( const name of invalid ) {
+		process.stdout.write( `    invalid block: ${ name }\n` );
+	}
+
+	/*
+	 * The parser emits the block name and the before/after markup as two
+	 * separate console calls, so match across the joined output.
+	 */
+	const transcript = logs.join( '\n' );
+	const detail =
+		/Updated Block: (\S+)[\s\S]*?New content generated by `save` function:\s*([\s\S]*?)\s*Content retrieved from post body:\s*([\s\S]*?)(?:\n\s*\n|$)/g;
+
+	for ( const match of transcript.matchAll( detail ) ) {
+		process.stdout.write( `    ${ match[ 1 ] }\n` );
+		process.stdout.write( `      ${ DIM }editor would write:${ RESET } ${ match[ 2 ].trim() }\n` );
+		process.stdout.write( `      ${ DIM }theme has:${ RESET }          ${ match[ 3 ].trim() }\n` );
+	}
+}
+
+process.stdout.write( `${ DIM }${ checked } blocks checked${ RESET }\n` );
+
+if ( failures ) {
+	process.stdout.write( `${ RED }${ failures } file(s) with non-canonical markup${ RESET }\n` );
+	process.exit( 1 );
+}
+
+process.stdout.write( `${ GREEN }block markup is canonical${ RESET }\n` );

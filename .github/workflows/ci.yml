@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.3' ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Syntax
+        run: composer run lint:syntax
+
+      - name: WordPress Coding Standards
+        run: composer run lint:standards
+
+  markup:
+    name: Block markup, structure and contrast
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - run: npm ci
+
+      - name: Fetch WordPress core
+        run: npm run core
+
+      - name: Canonical block markup
+        run: npm run lint:blocks
+
+      - name: Template and pattern structure
+        run: npm run lint:structure
+
+      - name: Colour contrast
+        run: npm run lint:contrast
+
+  package:
+    name: Package and submission preflight
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Build the distributable zip
+        run: npm run zip
+
+      - name: Submission requirements
+        run: npm run preflight
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batavia-theme
+          path: build/*.zip
+          if-no-files-found: error

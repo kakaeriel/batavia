@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Forest",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "color": "#F6F3EC", "name": "Paper", "slug": "base" },
+				{ "color": "#E6DFD0", "name": "Panel", "slug": "surface" },
+				{ "color": "#1A1712", "name": "Ink", "slug": "ink" },
+				{ "color": "#5E574C", "name": "Annotation", "slug": "muted" },
+				{ "color": "#2C5A42", "name": "Accent", "slug": "accent" },
+				{ "color": "#B0A794", "name": "Rule", "slug": "rule" }
+			]
+		}
+	},
+	"styles": {
+		"css": ":root{--batavia-dark-base:#14120E;--batavia-dark-surface:#1E1A14;--batavia-dark-ink:#EDE8DC;--batavia-dark-muted:#A89F90;--batavia-dark-accent:#7EBE96;--batavia-dark-rule:#4A4338;}"
+	}
+}

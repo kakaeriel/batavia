@@ -1,0 +1,1307 @@
+# Copyright (C) 2026 Hairil
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Batavia 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/batavia\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-22T17:25:54+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: batavia\n"
+
+#. Theme Name of the theme
+#. translators: Page title of the theme's Appearance sub-page.
+#. translators: Menu label of the theme's Appearance sub-page.
+#: style.css
+#: inc/admin/admin-page.php:90
+#: inc/admin/admin-page.php:92
+msgid "Batavia"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://hairil.com/batavia"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "A precise, typographically restrained block theme for software engineers. Combines a portfolio, a technical blog, and a rate card in one site, built entirely from core blocks. IBM Plex Sans and Plex Mono are self-hosted, the palette reads like ink on paper, and dark mode follows the visitor's system preference. Your name, contact details and social profiles are entered once under Appearance and read by every pattern that mentions them. No custom post types, no external requests."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Hairil"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://hairil.com"
+msgstr ""
+
+#: functions.php:186
+#: functions.php:192
+msgid "Panel"
+msgstr ""
+
+#: functions.php:187
+msgid "Timeline"
+msgstr ""
+
+#: functions.php:188
+msgid "Company mark"
+msgstr ""
+
+#: functions.php:189
+msgid "Article entry"
+msgstr ""
+
+#: functions.php:195
+#: functions.php:198
+msgid "Spec label"
+msgstr ""
+
+#: functions.php:199
+msgid "Figure"
+msgstr ""
+
+#: functions.php:202
+msgid "Monospaced"
+msgstr ""
+
+#: functions.php:203
+#: functions.php:210
+msgid "Ruled"
+msgstr ""
+
+#: functions.php:204
+#: inc/admin/view-guide.php:160
+msgid "Numbered steps"
+msgstr ""
+
+#: functions.php:207
+msgid "Spec sheet"
+msgstr ""
+
+#: functions.php:213
+msgid "Dotted"
+msgstr ""
+
+#: functions.php:216
+msgid "Logo mark"
+msgstr ""
+
+#: functions.php:247
+msgctxt "Block pattern category"
+msgid "Batavia"
+msgstr ""
+
+#: functions.php:248
+msgid "Sections for an engineering portfolio: hero, tech stack, experience, clients, projects, pricing and calls to action."
+msgstr ""
+
+#: inc/admin/admin-page.php:35
+msgid "Getting started"
+msgstr ""
+
+#: inc/admin/admin-page.php:36
+msgid "Settings"
+msgstr ""
+
+#: inc/admin/admin-page.php:148
+msgid "Use this image"
+msgstr ""
+
+#: inc/admin/admin-page.php:149
+#: inc/admin/view-settings.php:125
+msgid "Choose image"
+msgstr ""
+
+#: inc/admin/admin-page.php:150
+#: inc/admin/view-settings.php:125
+msgid "Replace"
+msgstr ""
+
+#: inc/admin/admin-page.php:167
+msgid "You do not have permission to customise this site."
+msgstr ""
+
+#: inc/admin/admin-page.php:177
+msgid "Block theme"
+msgstr ""
+
+#: inc/admin/admin-page.php:185
+msgid "A portfolio, a technical blog and a rate card in one site. Layout is edited in the Site Editor; the handful of details that appear in more than one place are edited here."
+msgstr ""
+
+#: inc/admin/admin-page.php:189
+msgid "Batavia sections"
+msgstr ""
+
+#: inc/admin/view-guide.php:32
+msgid "Fill in your details"
+msgstr ""
+
+#: inc/admin/view-guide.php:33
+msgid "Your name, what you do, a WhatsApp number, an email address and your social profiles. The patterns read these, so you type them once instead of hunting for them in every section that mentions them."
+msgstr ""
+
+#: inc/admin/view-guide.php:34
+msgid "Open Settings"
+msgstr ""
+
+#: inc/admin/view-guide.php:38
+msgid "Create your categories"
+msgstr ""
+
+#: inc/admin/view-guide.php:39
+msgid "Batavia separates writing from projects using the built-in Category taxonomy rather than custom post types, so your content survives a theme switch. Add a category named Blog and one named Portfolio."
+msgstr ""
+
+#: inc/admin/view-guide.php:40
+msgid "Add categories"
+msgstr ""
+
+#: inc/admin/view-guide.php:44
+msgid "Choose a static front page"
+msgstr ""
+
+#: inc/admin/view-guide.php:45
+msgid "Create a page named Home and another named Notes, then select them under Reading. Batavia ships without a contact page: the buttons open WhatsApp or email from Settings."
+msgstr ""
+
+#: inc/admin/view-guide.php:46
+msgid "Open Reading settings"
+msgstr ""
+
+#: inc/admin/view-guide.php:50
+msgid "Point the loops at your categories"
+msgstr ""
+
+#: inc/admin/view-guide.php:51
+msgid "The Portfolio grid and Notes index are ordinary Query Loop blocks. Select each one, open the Filters panel in the sidebar, and choose the matching category. They ship unfiltered because a theme cannot know your category IDs in advance."
+msgstr ""
+
+#: inc/admin/view-guide.php:52
+msgid "Edit the front page"
+msgstr ""
+
+#: inc/admin/view-guide.php:56
+msgid "Make it yours"
+msgstr ""
+
+#: inc/admin/view-guide.php:57
+msgid "Every colour in the theme is one of six presets, so editing a preset changes it everywhere at once, in both light and dark. Dark mode follows the visitor's system setting; there is no toggle by design."
+msgstr ""
+
+#: inc/admin/view-guide.php:58
+msgid "Open Styles"
+msgstr ""
+
+#: inc/admin/view-guide.php:76
+msgid "Templates"
+msgstr ""
+
+#: inc/admin/view-guide.php:77
+msgid "The seven page layouts: front page, blog index, single post, page, archive, search and 404."
+msgstr ""
+
+#: inc/admin/view-guide.php:81
+msgid "Patterns"
+msgstr ""
+
+#: inc/admin/view-guide.php:82
+msgid "The reusable sections, plus the header and footer template parts."
+msgstr ""
+
+#: inc/admin/view-guide.php:86
+msgid "Styles"
+msgstr ""
+
+#: inc/admin/view-guide.php:87
+msgid "Colour presets, typography, spacing and layout widths."
+msgstr ""
+
+#: inc/admin/view-guide.php:91
+msgid "Navigation"
+msgstr ""
+
+#: inc/admin/view-guide.php:92
+msgid "The menus used in the header and footer."
+msgstr ""
+
+#: inc/admin/view-guide.php:110
+msgid "Page sections"
+msgstr ""
+
+#: inc/admin/view-guide.php:111
+msgid "Built for a front page, but nothing stops you using them on any page."
+msgstr ""
+
+#: inc/admin/view-guide.php:114
+msgid "Hero"
+msgstr ""
+
+#: inc/admin/view-guide.php:115
+msgid "Availability, name, role, two calls to action, and one line of tools."
+msgstr ""
+
+#: inc/admin/view-guide.php:118
+msgid "Tools line"
+msgstr ""
+
+#: inc/admin/view-guide.php:119
+msgid "What you work with, as a single ruled line rather than a stack."
+msgstr ""
+
+#: inc/admin/view-guide.php:122
+#: patterns/experience-timeline.php:25
+msgid "Experience"
+msgstr ""
+
+#: inc/admin/view-guide.php:123
+msgid "Roles and dates, each with a square for the company mark or logo."
+msgstr ""
+
+#: inc/admin/view-guide.php:126
+msgid "Client strip"
+msgstr ""
+
+#: inc/admin/view-guide.php:127
+msgid "Optional. Companies as wordmarks; not used on the front page."
+msgstr ""
+
+#: inc/admin/view-guide.php:130
+msgid "Portfolio grid"
+msgstr ""
+
+#: inc/admin/view-guide.php:131
+msgid "Project cards with screenshots. Client work and fun projects share it."
+msgstr ""
+
+#: inc/admin/view-guide.php:134
+msgid "Consulting rates"
+msgstr ""
+
+#: inc/admin/view-guide.php:135
+msgid "Three ways of working as rows, with the rate beside each."
+msgstr ""
+
+#: inc/admin/view-guide.php:138
+msgid "Notes index"
+msgstr ""
+
+#: inc/admin/view-guide.php:139
+msgid "Recent notes as article entries: thumbnail, title and opening sentences."
+msgstr ""
+
+#: inc/admin/view-guide.php:142
+msgid "Closing call to action"
+msgstr ""
+
+#: inc/admin/view-guide.php:143
+msgid "WhatsApp and email, filled in from Settings. No contact page."
+msgstr ""
+
+#: inc/admin/view-guide.php:148
+msgid "Inside a post"
+msgstr ""
+
+#: inc/admin/view-guide.php:149
+msgid "Small pieces for the middle of an article. These are the ones worth learning: they turn up in every technical post."
+msgstr ""
+
+#: inc/admin/view-guide.php:152
+#: patterns/note.php:18
+msgid "Note"
+msgstr ""
+
+#: inc/admin/view-guide.php:153
+msgid "An aside on a tinted panel, for the caveat that would otherwise sit in brackets."
+msgstr ""
+
+#: inc/admin/view-guide.php:156
+msgid "Specification table"
+msgstr ""
+
+#: inc/admin/view-guide.php:157
+msgid "Monospace key and value rows, for numbers and versions."
+msgstr ""
+
+#: inc/admin/view-guide.php:161
+msgid "A procedure, each step ruled off from the next."
+msgstr ""
+
+#: inc/admin/view-guide.php:164
+msgid "Questions and answers"
+msgstr ""
+
+#: inc/admin/view-guide.php:165
+msgid "Collapsible details blocks, and what search engines read as an FAQ."
+msgstr ""
+
+#: inc/admin/view-guide.php:168
+msgid "Pull quote"
+msgstr ""
+
+#: inc/admin/view-guide.php:169
+msgid "One sentence, set large, with an attribution."
+msgstr ""
+
+#: inc/admin/view-guide.php:172
+msgid "About the author"
+msgstr ""
+
+#: inc/admin/view-guide.php:173
+msgid "A short bio and social icons, both filled in from Settings."
+msgstr ""
+
+#: inc/admin/view-guide.php:176
+msgid "End of post prompt"
+msgstr ""
+
+#: inc/admin/view-guide.php:177
+msgid "A quiet invitation to get in touch, sized for the end of an article."
+msgstr ""
+
+#: inc/admin/view-guide.php:195
+msgid "Set up, in order"
+msgstr ""
+
+#: inc/admin/view-guide.php:209
+msgid "Where things are edited"
+msgstr ""
+
+#: inc/admin/view-guide.php:220
+msgid "Patterns included"
+msgstr ""
+
+#: inc/admin/view-guide.php:223
+msgid "These are patterns, not custom blocks. Insert one and it becomes ordinary core blocks you can take apart -- and nothing breaks if you switch themes later. Find them under the Batavia category in the block inserter, in the post editor as well as the Site Editor."
+msgstr ""
+
+#: inc/admin/view-guide.php:227
+msgid "Reusing one across many posts works two ways. Names, roles, contact links and social icons are read from Settings, so those parts stay right everywhere at once without any further work. For the wording, select the blocks, choose Create pattern from the toolbar and tick Synced -- every copy then updates together, and it stays your pattern rather than the theme's."
+msgstr ""
+
+#: inc/admin/view-guide.php:244
+msgid "Learn more"
+msgstr ""
+
+#: inc/admin/view-guide.php:249
+msgid "How block themes work"
+msgstr ""
+
+#: inc/admin/view-guide.php:254
+msgid "Working with patterns"
+msgstr ""
+
+#: inc/admin/view-guide.php:259
+msgid "Using the Site Editor"
+msgstr ""
+
+#: inc/admin/view-settings.php:40
+msgid "You do not have permission to change these settings."
+msgstr ""
+
+#: inc/admin/view-settings.php:134
+msgid "Remove"
+msgstr ""
+
+#: inc/admin/view-settings.php:154
+msgid "The site icon, logo, title and front page are WordPress settings, and your account cannot change them. Ask an administrator, or edit the theme details below."
+msgstr ""
+
+#: inc/admin/view-settings.php:163
+msgid "Site identity"
+msgstr ""
+
+#: inc/admin/view-settings.php:167
+msgid "These are WordPress settings, not Batavia settings."
+msgstr ""
+
+#: inc/admin/view-settings.php:168
+msgid "They are the same values found under Settings, they are shared with every theme, and they stay as you leave them if you switch away from Batavia. They are repeated here so that setting up a new site does not mean visiting four screens."
+msgstr ""
+
+#: inc/admin/view-settings.php:180
+msgid "Site title"
+msgstr ""
+
+#: inc/admin/view-settings.php:195
+msgid "Tagline"
+msgstr ""
+
+#: inc/admin/view-settings.php:206
+msgid "Shown under the site title in the footer."
+msgstr ""
+
+#: inc/admin/view-settings.php:213
+msgid "Site icon"
+msgstr ""
+
+#: inc/admin/view-settings.php:220
+msgid "Choose a site icon"
+msgstr ""
+
+#: inc/admin/view-settings.php:224
+msgid "The favicon: the small image shown in a browser tab and when the site is saved to a home screen. Use a square image of at least 512 by 512 pixels."
+msgstr ""
+
+#: inc/admin/view-settings.php:231
+msgid "Logo"
+msgstr ""
+
+#: inc/admin/view-settings.php:238
+msgid "Choose a logo"
+msgstr ""
+
+#: inc/admin/view-settings.php:242
+msgid "Appears wherever the header uses a Site Logo block. Batavia sets a logo in type by default, so leaving this empty is a perfectly good choice."
+msgstr ""
+
+#: inc/admin/view-settings.php:248
+msgid "Front page"
+msgstr ""
+
+#: inc/admin/view-settings.php:252
+msgid "What the front page shows"
+msgstr ""
+
+#: inc/admin/view-settings.php:262
+msgid "Your latest posts"
+msgstr ""
+
+#: inc/admin/view-settings.php:272
+msgid "A static page"
+msgstr ""
+
+#: inc/admin/view-settings.php:277
+msgid "Homepage"
+msgstr ""
+
+#: inc/admin/view-settings.php:284
+#: inc/admin/view-settings.php:299
+msgid "— Select —"
+msgstr ""
+
+#: inc/admin/view-settings.php:292
+msgid "Posts page"
+msgstr ""
+
+#: inc/admin/view-settings.php:307
+msgid "Batavia has a front page template, so a static homepage is what the design expects. Choosing your latest posts instead is fine -- the blog index template takes over."
+msgstr ""
+
+#: inc/admin/view-settings.php:321
+msgid "Save WordPress settings"
+msgstr ""
+
+#: inc/admin/view-settings.php:339
+msgid "Theme details"
+msgstr ""
+
+#: inc/admin/view-settings.php:342
+msgid "Everything below is optional. A field left empty keeps whatever the pattern already says, so nothing here can break a page -- and a pattern used in ten posts reads the same value in all ten."
+msgstr ""
+
+#: inc/admin/view-settings.php:383
+msgid "Need a service that is not listed? Add a Social Icon block for it in the Site Editor and type the address there. This screen only fills in icons that have been left empty."
+msgstr ""
+
+#: inc/admin/view-settings.php:388
+msgid "Save theme details"
+msgstr ""
+
+#: inc/admin/view-settings.php:421
+msgid "WordPress settings saved."
+msgstr ""
+
+#: inc/admin/view-settings.php:423
+msgid "Theme details saved."
+msgstr ""
+
+#: inc/bindings.php:147
+msgid "Best way to reach you (as a link)"
+msgstr ""
+
+#: inc/bindings.php:148
+msgid "WhatsApp chat (as a link)"
+msgstr ""
+
+#: inc/bindings.php:149
+msgid "Email address (as a link)"
+msgstr ""
+
+#: inc/bindings.php:180
+msgid "Batavia settings"
+msgstr ""
+
+#: inc/settings.php:49
+msgid "Profile"
+msgstr ""
+
+#: inc/settings.php:50
+msgid "Who the site is about. The bundled patterns read these, so a change here reaches every pattern and every post that uses one."
+msgstr ""
+
+#: inc/settings.php:53
+msgid "Name"
+msgstr ""
+
+#: inc/settings.php:55
+msgid "Ada Lovelace"
+msgstr ""
+
+#: inc/settings.php:56
+msgid "The headline of the Intro pattern. Leave empty to keep whatever the pattern already says."
+msgstr ""
+
+#: inc/settings.php:59
+msgid "Role"
+msgstr ""
+
+#: inc/settings.php:61
+msgid "Software engineer — distributed systems"
+msgstr ""
+
+#: inc/settings.php:62
+msgid "One line under the name, set in monospace."
+msgstr ""
+
+#: inc/settings.php:65
+msgid "Availability"
+msgstr ""
+
+#: inc/settings.php:67
+#: patterns/hero.php:28
+msgid "Available for new work"
+msgstr ""
+
+#: inc/settings.php:68
+msgid "The small ruled label above the name. A good place for a status you change often."
+msgstr ""
+
+#: inc/settings.php:71
+msgid "Location"
+msgstr ""
+
+#: inc/settings.php:73
+msgid "Jakarta, Indonesia"
+msgstr ""
+
+#: inc/settings.php:74
+msgid "Shown in the colophon at the foot of the page."
+msgstr ""
+
+#: inc/settings.php:79
+msgid "Contact"
+msgstr ""
+
+#: inc/settings.php:80
+msgid "Where a reader who wants to reach you ends up. Batavia ships without a contact page on purpose: a form is one more thing to maintain, and most people would rather open the app they already use. Fill in whichever of these you actually read."
+msgstr ""
+
+#: inc/settings.php:83
+msgid "WhatsApp number"
+msgstr ""
+
+#: inc/settings.php:86
+msgid "In international form, country code first. Buttons bound to WhatsApp open a chat with you; spaces, dashes and brackets are ignored."
+msgstr ""
+
+#: inc/settings.php:89
+msgid "Email address"
+msgstr ""
+
+#: inc/settings.php:92
+msgid "Buttons bound to the email link become mailto: links to this address."
+msgstr ""
+
+#: inc/settings.php:95
+msgid "Booking page"
+msgstr ""
+
+#: inc/settings.php:98
+msgid "A scheduling page, if you keep one. Optional: the primary button falls back to WhatsApp, then to your email address."
+msgstr ""
+
+#: inc/settings.php:103
+msgid "Social profiles"
+msgstr ""
+
+#: inc/settings.php:104
+msgid "Paste the full address of each profile you keep. An icon whose field is empty is left out of the page entirely, so there are no dead links and no empty rows."
+msgstr ""
+
+#: inc/settings.php:344
+msgid "Profile, contact and social details the Batavia patterns read."
+msgstr ""
+
+#: patterns/author-bio.php
+msgctxt "Pattern title"
+msgid "About the author"
+msgstr ""
+
+#: patterns/author-bio.php
+msgctxt "Pattern description"
+msgid "A short bio for the end of an article: name, role and social icons, all taken from the theme's settings."
+msgstr ""
+
+#: patterns/author-bio.php:24
+#: patterns/hero.php:32
+msgid "Your Name"
+msgstr ""
+
+#: patterns/author-bio.php:28
+#: patterns/hero.php:36
+msgid "What you do — and the two or three things you do it to"
+msgstr ""
+
+#: patterns/author-bio.php:34
+msgid "Two sentences on why you are worth listening to on this subject in particular. A bio that would fit any article on the site is a bio nobody reads."
+msgstr ""
+
+#: patterns/blog-listing.php
+msgctxt "Pattern title"
+msgid "Notes index"
+msgstr ""
+
+#: patterns/blog-listing.php
+msgctxt "Pattern description"
+msgid "Recent notes as article entries: thumbnail, date, category, title and the opening sentences. Open the block's Filters panel and choose your Blog category to limit it to written posts."
+msgstr ""
+
+#: patterns/blog-listing.php:26
+#: patterns/hidden-index-header.php:21
+msgid "Notes"
+msgstr ""
+
+#: patterns/blog-listing.php:57
+msgid "Nothing published yet."
+msgstr ""
+
+#: patterns/blog-listing.php:66
+msgid "All notes"
+msgstr ""
+
+#: patterns/client-logos.php
+msgctxt "Pattern title"
+msgid "Client strip"
+msgstr ""
+
+#: patterns/client-logos.php
+msgctxt "Pattern description"
+msgid "A quiet strip of companies worked with, set as monospace wordmarks. Replace any entry with an Image block using the \"Logo mark\" style to use real logos instead."
+msgstr ""
+
+#: patterns/client-logos.php:20
+msgid "Worked with"
+msgstr ""
+
+#: patterns/client-logos.php:26
+msgid "Northwind"
+msgstr ""
+
+#: patterns/client-logos.php:30
+msgid "Halyard"
+msgstr ""
+
+#: patterns/client-logos.php:34
+msgid "Ferrous"
+msgstr ""
+
+#: patterns/client-logos.php:38
+msgid "Meridian"
+msgstr ""
+
+#: patterns/client-logos.php:42
+msgid "Cadence"
+msgstr ""
+
+#: patterns/client-logos.php:46
+msgid "Stillwater"
+msgstr ""
+
+#: patterns/cta-footer.php
+msgctxt "Pattern title"
+msgid "Closing call to action"
+msgstr ""
+
+#: patterns/cta-footer.php
+msgctxt "Pattern description"
+msgid "A closing section inviting the reader to get in touch, set on a tinted band above the site footer."
+msgstr ""
+
+#: patterns/cta-footer.php:29
+msgid "Next step"
+msgstr ""
+
+#: patterns/cta-footer.php:33
+msgid "Got something worth a conversation?"
+msgstr ""
+
+#: patterns/cta-footer.php:37
+msgid "Say what you are trying to do and what you have already tried. A short, specific message gets a straight answer — usually within a day."
+msgstr ""
+
+#: patterns/cta-footer.php:43
+msgid "Message on WhatsApp"
+msgstr ""
+
+#: patterns/cta-footer.php:47
+#: patterns/post-cta.php:35
+msgid "Send an email"
+msgstr ""
+
+#: patterns/experience-timeline.php
+msgctxt "Pattern title"
+msgid "Experience"
+msgstr ""
+
+#: patterns/experience-timeline.php
+msgctxt "Pattern description"
+msgid "A ruled list of roles, each with the company mark, the dates, the title and two sentences on what the job actually was."
+msgstr ""
+
+#: patterns/experience-timeline.php:43
+msgid "2021 — Present"
+msgstr ""
+
+#: patterns/experience-timeline.php:47
+msgid "Lead Engineer, Northwind Studio"
+msgstr ""
+
+#: patterns/experience-timeline.php:51
+msgid "Rebuilt a publisher's editorial platform as a block theme, with the editing workflow the newsroom actually uses rather than the one the old site assumed. Page weight down by two thirds."
+msgstr ""
+
+#: patterns/experience-timeline.php:71
+msgid "2017 — 2021"
+msgstr ""
+
+#: patterns/experience-timeline.php:75
+msgid "Senior Developer, Halyard Digital"
+msgstr ""
+
+#: patterns/experience-timeline.php:79
+msgid "Kept forty client sites on one deployment pipeline. Wrote the update and rollback procedure, then automated the parts nobody enjoys doing at midnight."
+msgstr ""
+
+#: patterns/experience-timeline.php:99
+msgid "2013 — 2017"
+msgstr ""
+
+#: patterns/experience-timeline.php:103
+msgid "Developer, Ferrous Labs"
+msgstr ""
+
+#: patterns/experience-timeline.php:107
+msgid "PHP and MySQL behind a booking product that went from a handful of venues to several hundred. Learned which queries fall over first, and in what order."
+msgstr ""
+
+#: patterns/faq.php
+msgctxt "Pattern title"
+msgid "Questions and answers"
+msgstr ""
+
+#: patterns/faq.php
+msgctxt "Pattern description"
+msgid "Collapsible questions built from the core Details block, which browsers can search inside and screen readers announce as expandable."
+msgstr ""
+
+#: patterns/faq.php:19
+msgid "Questions"
+msgstr ""
+
+#: patterns/faq.php:23
+msgid "How long does this take?"
+msgstr ""
+
+#: patterns/faq.php:25
+msgid "Answer the question in the first sentence, then add the detail. A reader who opened this wants the number, not the reasoning that produced it."
+msgstr ""
+
+#: patterns/faq.php:31
+msgid "What do you need from me?"
+msgstr ""
+
+#: patterns/faq.php:33
+msgid "A short list is more useful than a paragraph here. Say what to send, in what form, and what happens once you have it."
+msgstr ""
+
+#: patterns/faq.php:39
+msgid "What if it does not work out?"
+msgstr ""
+
+#: patterns/faq.php:41
+msgid "The awkward question, answered plainly. Leaving it out does not stop anyone wondering — it just means they wonder somewhere you cannot answer."
+msgstr ""
+
+#: patterns/hero.php
+msgctxt "Pattern title"
+msgid "Hero"
+msgstr ""
+
+#: patterns/hero.php
+msgctxt "Pattern description"
+msgid "An opening statement: availability, name, role, a one-line summary of the work, two calls to action, and a single ruled line of tools."
+msgstr ""
+
+#: patterns/hero.php:40
+msgid "Two or three sentences on the work you want more of. Say what you are good at, who you do it for, and what someone gets out of hiring you or reading you — then stop. This paragraph is the one part of the page a visitor is certain to read."
+msgstr ""
+
+#: patterns/hero.php:46
+#: patterns/post-cta.php:31
+msgid "Get in touch"
+msgstr ""
+
+#: patterns/hero.php:50
+msgid "Read the notes"
+msgstr ""
+
+#: patterns/hero.php:58
+#: patterns/tools.php:22
+msgid "Works with"
+msgstr ""
+
+#: patterns/hero.php:62
+#: patterns/tools.php:26
+msgid "WordPress · PHP · MySQL · Linux · Nginx · Git"
+msgstr ""
+
+#: patterns/hidden-404.php
+msgctxt "Pattern title"
+msgid "404 content"
+msgstr ""
+
+#: patterns/hidden-404.php
+msgctxt "Pattern description"
+msgid "The message shown when a URL does not resolve, with a search field."
+msgstr ""
+
+#: patterns/hidden-404.php:16
+msgid "Error 404"
+msgstr ""
+
+#: patterns/hidden-404.php:20
+msgid "That page is not here"
+msgstr ""
+
+#: patterns/hidden-404.php:24
+msgid "The address may be mistyped, or the page may have been moved. Searching usually finds it."
+msgstr ""
+
+#: patterns/hidden-index-header.php
+msgctxt "Pattern title"
+msgid "Index header"
+msgstr ""
+
+#: patterns/hidden-index-header.php
+msgctxt "Pattern description"
+msgid "The heading and standfirst above the posts index."
+msgstr ""
+
+#: patterns/hidden-index-header.php:25
+msgid "Notes on the work: what broke, what fixed it, and what turned out to be worth writing down."
+msgstr ""
+
+#: patterns/hidden-post-list.php
+msgctxt "Pattern title"
+msgid "Post list"
+msgstr ""
+
+#: patterns/hidden-post-list.php
+msgctxt "Pattern description"
+msgid "The paginated list of posts shared by the index, archive and search templates. Inherits the query from the page it appears on."
+msgstr ""
+
+#: patterns/hidden-post-list.php:53
+msgid "Nothing here yet."
+msgstr ""
+
+#: patterns/note.php
+msgctxt "Pattern title"
+msgid "Note"
+msgstr ""
+
+#: patterns/note.php
+msgctxt "Pattern description"
+msgid "An aside on a tinted panel, for the caveat, prerequisite or warning that would otherwise end up in brackets in the middle of a sentence."
+msgstr ""
+
+#: patterns/note.php:22
+msgid "The thing the reader needs to know before they run the command, not after. Change the label to Warning, Prerequisite or Version if that is what this is — the label is a Spec label paragraph, so it keeps its rule either way."
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgctxt "Pattern title"
+msgid "Portfolio grid"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgctxt "Pattern description"
+msgid "A three-column grid of project cards built from a Query Loop. Open the block's Filters panel and choose your Portfolio category to limit it to project posts."
+msgstr ""
+
+#: patterns/portfolio-grid.php:21
+msgid "Selected work"
+msgstr ""
+
+#: patterns/portfolio-grid.php:25
+msgid "Client work and the occasional thing built for the fun of it. The picture is the screenshot; the title is the write-up."
+msgstr ""
+
+#: patterns/portfolio-grid.php:46
+msgid "No projects published yet. Add a post, assign it to your Portfolio category, and point this block at that category."
+msgstr ""
+
+#: patterns/post-cta.php
+msgctxt "Pattern title"
+msgid "End of post prompt"
+msgstr ""
+
+#: patterns/post-cta.php
+msgctxt "Pattern description"
+msgid "A quiet invitation to get in touch, sized for the foot of an article rather than the middle of a landing page."
+msgstr ""
+
+#: patterns/post-cta.php:21
+msgid "Working on something similar?"
+msgstr ""
+
+#: patterns/post-cta.php:25
+msgid "One sentence saying what you would like to hear about, and what a reader gets back if they write. Vague invitations get vague email."
+msgstr ""
+
+#: patterns/pricing-tiers.php
+msgctxt "Pattern title"
+msgid "Consulting rates"
+msgstr ""
+
+#: patterns/pricing-tiers.php
+msgctxt "Pattern description"
+msgid "Three ways of working -- hourly, fixed-scope project, monthly retainer -- as ruled rows with the rate set quietly beside each, and one enquiry button for all three."
+msgstr ""
+
+#: patterns/pricing-tiers.php:29
+msgid "Consulting"
+msgstr ""
+
+#: patterns/pricing-tiers.php:33
+msgid "Three ways to work together. Whichever it is, the scope and the timeline are agreed in writing before anything starts."
+msgstr ""
+
+#: patterns/pricing-tiers.php:43
+msgid "Hourly"
+msgstr ""
+
+#: patterns/pricing-tiers.php:47
+msgid "Advisory, code and design review, and the architecture questions that are quicker to answer than to write down. Billed in 30-minute blocks, no minimum commitment."
+msgstr ""
+
+#: patterns/pricing-tiers.php:53
+msgid "$225 / hour"
+msgstr ""
+
+#: patterns/pricing-tiers.php:63
+msgid "Project"
+msgstr ""
+
+#: patterns/pricing-tiers.php:67
+msgid "A fixed scope, agreed after a short discovery and written down before the first commit. Delivered with a handover, typically over six to ten weeks."
+msgstr ""
+
+#: patterns/pricing-tiers.php:73
+msgid "from $18,000"
+msgstr ""
+
+#: patterns/pricing-tiers.php:83
+msgid "Retainer"
+msgstr ""
+
+#: patterns/pricing-tiers.php:87
+msgid "Around two days a week of standing capacity, with priority on anything asked asynchronously. Three months minimum, because less than that is a project."
+msgstr ""
+
+#: patterns/pricing-tiers.php:93
+msgid "$7,500 / month"
+msgstr ""
+
+#: patterns/pricing-tiers.php:105
+msgid "Ask about a project"
+msgstr ""
+
+#: patterns/pricing-tiers.php:111
+msgid "Rates are indicative and exclude tax."
+msgstr ""
+
+#: patterns/pull-quote.php
+msgctxt "Pattern title"
+msgid "Pull quote"
+msgstr ""
+
+#: patterns/pull-quote.php
+msgctxt "Pattern description"
+msgid "One sentence lifted out of the article and set large between hairline rules, with an attribution underneath."
+msgstr ""
+
+#: patterns/pull-quote.php:17
+msgid "The sentence a reader would underline. If nothing in the piece is worth pulling out, that is worth knowing before you publish it."
+msgstr ""
+
+#: patterns/pull-quote.php:17
+msgid "Who said it, and where"
+msgstr ""
+
+#: patterns/site-footer.php
+msgctxt "Pattern title"
+msgid "Site footer"
+msgstr ""
+
+#: patterns/site-footer.php
+msgctxt "Pattern description"
+msgid "Site identity, secondary navigation and social icons above a monospace colophon."
+msgstr ""
+
+#. translators: %s: The current year, for example 2026.
+#: patterns/site-footer.php:81
+#, php-format
+msgid "© %s"
+msgstr ""
+
+#: patterns/site-footer.php:89
+msgid "Your location"
+msgstr ""
+
+#: patterns/site-footer.php:95
+msgid "https://wordpress.org/"
+msgstr ""
+
+#: patterns/site-footer.php:95
+msgid "Proudly powered by WordPress"
+msgstr ""
+
+#: patterns/spec-table.php
+msgctxt "Pattern title"
+msgid "Specification table"
+msgstr ""
+
+#: patterns/spec-table.php
+msgctxt "Pattern description"
+msgid "Key and value rows set in monospace on hairline rules, for versions, limits, dimensions and anything else that is really data."
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "Runtime"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "PHP 8.3"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "Database"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "PostgreSQL 16"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "Requests per second"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "12,400"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "p99 latency"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "38 ms"
+msgstr ""
+
+#: patterns/spec-table.php:17
+msgid "What was measured, and on what. A table without this line invites the wrong conclusion."
+msgstr ""
+
+#: patterns/steps.php
+msgctxt "Pattern title"
+msgid "Numbered steps"
+msgstr ""
+
+#: patterns/steps.php
+msgctxt "Pattern description"
+msgid "A procedure, each step ruled off from the next with its number set in monospace, for instructions a reader will follow with one hand on the keyboard."
+msgstr ""
+
+#: patterns/steps.php:19
+msgid "Procedure"
+msgstr ""
+
+#: patterns/steps.php:25
+msgid "Start with the state you expect."
+msgstr ""
+
+#: patterns/steps.php:25
+msgid "Say what should already be true before step two, so a reader who has skipped something finds out here rather than three commands later."
+msgstr ""
+
+#: patterns/steps.php:29
+msgid "One action per step."
+msgstr ""
+
+#: patterns/steps.php:29
+msgid "If a step contains the word \"and\", it is usually two steps wearing one number."
+msgstr ""
+
+#: patterns/steps.php:33
+msgid "Say what success looks like."
+msgstr ""
+
+#: patterns/steps.php:33
+msgid "The output, the status, the thing on screen. This is what turns instructions into something a reader can check themselves against."
+msgstr ""
+
+#: patterns/tools.php
+msgctxt "Pattern title"
+msgid "Tools line"
+msgstr ""
+
+#: patterns/tools.php
+msgctxt "Pattern description"
+msgid "One ruled line naming what you work with, for a page that needs the information without giving it a whole section."
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Paper"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Panel"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Ink"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Annotation"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Accent"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Rule"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "1"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "3"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "4"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "5"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "6"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "7"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "8"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Plex Sans"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Plex Mono"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Footnote"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Body"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Lead"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Subhead"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Head"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Display"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
+msgstr ""
