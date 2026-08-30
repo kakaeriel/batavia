@@ -17,8 +17,9 @@
  *
  * Every element here can also be turned off individually from Appearance ->
  * Batavia -> Homepage, for a page that does not want one of them. The tools
- * line's own list is edited from there too, as a Tools row per item; leaving
- * it empty keeps the example list below, like the summary paragraph.
+ * line's own list is edited from there too, as a comma-separated Tools
+ * field; leaving it empty keeps the example list below, like the summary
+ * paragraph.
  *
  * @package Batavia
  * @since   1.0.0
@@ -33,13 +34,7 @@ $batavia_show_tools         = batavia_get_setting_bool( 'show_hero_tools' );
 $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_secondary;
 $batavia_notes_archive_url  = batavia_notes_archive_url();
 
-$batavia_tool_names = array();
-
-foreach ( batavia_get_repeater_rows( 'tools' ) as $batavia_tool_row ) {
-	if ( ! empty( $batavia_tool_row['name'] ) ) {
-		$batavia_tool_names[] = $batavia_tool_row['name'];
-	}
-}
+$batavia_tool_names = array_filter( array_map( 'trim', explode( ',', batavia_get_setting( 'tools' ) ) ) );
 
 $batavia_tools_text = ! empty( $batavia_tool_names )
 	? implode( ' · ', $batavia_tool_names )

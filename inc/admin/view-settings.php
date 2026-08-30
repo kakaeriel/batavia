@@ -412,6 +412,28 @@ if ( ! function_exists( 'batavia_render_field_input' ) ) {
 				<?php
 				break;
 
+			case 'tags':
+				/*
+				 * A plain comma-separated text input, progressively enhanced
+				 * into a chip-style tag entry by settings-page.js. Without
+				 * JavaScript this is still a perfectly usable field -- type
+				 * names separated by commas, same as the value it submits.
+				 */
+				?>
+				<input
+					type="text"
+					id="<?php echo esc_attr( $id ); ?>"
+					name="<?php echo esc_attr( $name ); ?>"
+					value="<?php echo esc_attr( $value ); ?>"
+					class="regular-text"
+					data-batavia-tags-field
+					<?php if ( ! empty( $field['placeholder'] ) ) : ?>
+						placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>"
+					<?php endif; ?>
+				/>
+				<?php
+				break;
+
 			default:
 				?>
 				<input

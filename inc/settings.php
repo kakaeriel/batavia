@@ -227,17 +227,10 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'type'  => 'checkbox',
 					),
 					'tools'                   => array(
-						'label'     => __( 'Tools', 'batavia' ),
-						'type'      => 'repeater',
-						'row_label' => __( 'Tool', 'batavia' ),
-						'max'       => BATAVIA_REPEATER_MAX_ROWS,
-						'fields'    => array(
-							'name' => array(
-								'label'       => __( 'Name', 'batavia' ),
-								'type'        => 'text',
-								'placeholder' => __( 'WordPress', 'batavia' ),
-							),
-						),
+						'label'       => __( 'Tools', 'batavia' ),
+						'type'        => 'tags',
+						'placeholder' => __( 'WordPress, PHP, MySQL', 'batavia' ),
+						'help'        => __( 'Type a name and press Enter or comma to add it.', 'batavia' ),
 					),
 				),
 			),
@@ -819,6 +812,11 @@ if ( ! function_exists( 'batavia_sanitize_settings' ) ) {
 
 				case 'radio':
 					$clean[ $key ] = isset( $field['options'][ $raw ] ) ? $raw : '';
+					break;
+
+				case 'tags':
+					$items         = array_filter( array_map( 'trim', explode( ',', $raw ) ) );
+					$clean[ $key ] = implode( ', ', array_map( 'sanitize_text_field', $items ) );
 					break;
 
 				default:

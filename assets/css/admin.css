@@ -290,6 +290,75 @@
 	width: 100%;
 }
 
+/* ---------------------------------------------------------------- Tag chips */
+
+.batavia-tags {
+	align-items: center;
+	border: 1px solid var(--batavia-rule);
+	border-radius: 3px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	max-width: 44rem;
+	padding: 0.5rem;
+}
+
+.batavia-tags:focus-within {
+	border-color: var(--batavia-accent);
+}
+
+.batavia-tags__list {
+	display: contents;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.batavia-tags__chip {
+	align-items: center;
+	background: rgba(0, 0, 0, 0.04);
+	border-radius: 3px;
+	display: flex;
+	font-size: 0.85rem;
+	gap: 0.35rem;
+	padding: 0.25rem 0.3rem 0.25rem 0.6rem;
+}
+
+@media (prefers-color-scheme: dark) {
+
+	.batavia-tags__chip {
+		background: rgba(255, 255, 255, 0.06);
+	}
+}
+
+.batavia-tags__remove {
+	background: transparent;
+	border: 0;
+	color: var(--batavia-muted);
+	cursor: pointer;
+	display: flex;
+	line-height: 1;
+	padding: 0.1rem;
+}
+
+.batavia-tags__remove:hover,
+.batavia-tags__remove:focus {
+	color: var(--batavia-accent);
+}
+
+.batavia-tags__entry {
+	background: transparent;
+	border: 0;
+	flex: 1 1 8rem;
+	min-width: 8rem;
+	padding: 0.25rem 0.1rem;
+}
+
+.batavia-tags__entry:focus {
+	box-shadow: none;
+	outline: none;
+}
+
 /* ---------------------------------------------------------- Media pickers */
 
 .batavia-media {
