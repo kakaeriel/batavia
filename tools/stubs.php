@@ -253,6 +253,48 @@ if ( ! function_exists( 'is_category' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_the_ID' ) ) {
+	/**
+	 * The current post's id.
+	 *
+	 * There is no post loop here, so there is no current post.
+	 *
+	 * @return int 0.
+	 */
+	function get_the_ID() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid -- Matching WordPress core's own name.
+		return 0;
+	}
+}
+
+if ( ! function_exists( 'get_the_category' ) ) {
+	/**
+	 * The categories assigned to the current post.
+	 *
+	 * There is no post loop here, so there are none -- the pattern that
+	 * calls this should treat an empty array the same as a post with no
+	 * category, which is a real state a published post can be in too.
+	 *
+	 * @param int $post_id Post id. Unused.
+	 * @return array<int, object> Empty array.
+	 */
+	function get_the_category( $post_id = 0 ) {
+		unset( $post_id );
+		return array();
+	}
+}
+
+if ( ! function_exists( 'home_url' ) ) {
+	/**
+	 * The site's front-end URL.
+	 *
+	 * @param string $path Path to append.
+	 * @return string The stub theme URI, with the path appended.
+	 */
+	function home_url( $path = '' ) {
+		return BATAVIA_STUB_THEME_URI . '/' . ltrim( (string) $path, '/' );
+	}
+}
+
 if ( ! function_exists( 'absint' ) ) {
 	/**
 	 * Casts a value to a non-negative integer.
@@ -327,6 +369,38 @@ if ( ! function_exists( 'get_option' ) ) {
 }
 
 // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound -- Matching WordPress core's own name.
+if ( ! class_exists( 'WP_Query' ) ) {
+	/**
+	 * Stands in for a real query: there is no database here, so every query
+	 * reads as having found nothing. Related notes checks this before
+	 * rendering anything, so this makes it correctly render nothing rather
+	 * than fatal on a class that only exists once WordPress is loaded.
+	 *
+	 * @since 1.5.0
+	 */
+	class WP_Query {
+		/**
+		 * Constructor.
+		 *
+		 * @param array<string, mixed> $args Query arguments. Unused.
+		 */
+		public function __construct( $args = array() ) {
+			unset( $args );
+		}
+
+		/**
+		 * Whether the query has any results.
+		 *
+		 * @return bool False.
+		 */
+		public function have_posts() {
+			return false;
+		}
+	}
+}
+// phpcs:enable Universal.Files.SeparateFunctionsFromOO.Mixed, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', BATAVIA_THEME_DIR . '/' );
