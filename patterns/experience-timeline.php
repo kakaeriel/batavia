@@ -85,9 +85,9 @@ if ( empty( $batavia_experience_rows ) ) {
 					<!-- wp:group {"className":"is-style-batavia-mark","layout":{"type":"constrained"}} -->
 					<div class="wp-block-group is-style-batavia-mark">
 						<?php if ( '' !== $batavia_logo_url ) : ?>
-							<!-- wp:image {"sizeSlug":"medium"} -->
-							<figure class="wp-block-image size-medium"><img src="<?php echo esc_url( $batavia_logo_url ); ?>" alt="" /></figure>
-							<!-- /wp:image -->
+						<!-- wp:image {"sizeSlug":"medium"} -->
+						<figure class="wp-block-image size-medium"><img src="<?php echo esc_url( $batavia_logo_url ); ?>" alt="<?php echo esc_attr( $batavia_company ); ?>" /></figure>
+						<!-- /wp:image -->
 						<?php else : ?>
 							<!-- wp:paragraph {"fontFamily":"mono","fontSize":"medium"} -->
 							<p class="has-medium-font-size has-mono-font-family"><?php echo esc_html( $batavia_initials ); ?></p>
