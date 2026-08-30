@@ -226,6 +226,19 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'label' => __( 'Show the tools line', 'batavia' ),
 						'type'  => 'checkbox',
 					),
+					'tools'                   => array(
+						'label'     => __( 'Tools', 'batavia' ),
+						'type'      => 'repeater',
+						'row_label' => __( 'Tool', 'batavia' ),
+						'max'       => BATAVIA_REPEATER_MAX_ROWS,
+						'fields'    => array(
+							'name' => array(
+								'label'       => __( 'Name', 'batavia' ),
+								'type'        => 'text',
+								'placeholder' => __( 'WordPress', 'batavia' ),
+							),
+						),
+					),
 				),
 			),
 			'portfolio'  => array(

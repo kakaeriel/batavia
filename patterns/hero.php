@@ -17,7 +17,8 @@
  *
  * Every element here can also be turned off individually from Appearance ->
  * Batavia -> Homepage, for a page that does not want one of them. The tools
- * line's wording is edited directly here, like the summary paragraph below.
+ * line's own list is edited from there too, as a Tools row per item; leaving
+ * it empty keeps the example list below, like the summary paragraph.
  *
  * @package Batavia
  * @since   1.0.0
@@ -31,6 +32,18 @@ $batavia_show_cta_secondary = batavia_get_setting_bool( 'show_hero_cta_secondary
 $batavia_show_tools         = batavia_get_setting_bool( 'show_hero_tools' );
 $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_secondary;
 $batavia_notes_archive_url  = batavia_notes_archive_url();
+
+$batavia_tool_names = array();
+
+foreach ( batavia_get_repeater_rows( 'tools' ) as $batavia_tool_row ) {
+	if ( ! empty( $batavia_tool_row['name'] ) ) {
+		$batavia_tool_names[] = $batavia_tool_row['name'];
+	}
+}
+
+$batavia_tools_text = ! empty( $batavia_tool_names )
+	? implode( ' · ', $batavia_tool_names )
+	: __( 'WordPress · PHP · MySQL · Linux · Nginx · Git', 'batavia' );
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
@@ -81,7 +94,7 @@ $batavia_notes_archive_url  = batavia_notes_archive_url();
 				<!-- /wp:paragraph -->
 
 				<!-- wp:paragraph {"fontFamily":"mono","fontSize":"small"} -->
-				<p class="has-small-font-size has-mono-font-family"><?php esc_html_e( 'WordPress · PHP · MySQL · Linux · Nginx · Git', 'batavia' ); ?></p>
+				<p class="has-small-font-size has-mono-font-family"><?php echo esc_html( $batavia_tools_text ); ?></p>
 				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->
