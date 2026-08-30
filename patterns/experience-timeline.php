@@ -65,10 +65,9 @@ if ( empty( $batavia_experience_rows ) ) {
 		<div class="wp-block-group alignwide">
 			<?php foreach ( $batavia_experience_rows as $batavia_row ) : ?>
 				<?php
-				// 'medium' rather than 'thumbnail': the thumbnail size is hard-cropped
-				// to a square by default, which would cut down a wide wordmark logo
-				// before object-fit: contain in the stylesheet ever saw it. 'medium'
-				// only scales, so the square gets the whole logo, letterboxed.
+				// Logo image for the mark, if one is set. The mark is rendered as a fixed
+				// circle and cropped via CSS (object-fit: cover), so the attachment size
+				// choice here is primarily a quality/performance trade-off.
 				$batavia_logo_id  = ! empty( $batavia_row['logo'] ) ? absint( $batavia_row['logo'] ) : 0;
 				$batavia_logo_url = $batavia_logo_id > 0 ? wp_get_attachment_image_url( $batavia_logo_id, 'medium' ) : '';
 
