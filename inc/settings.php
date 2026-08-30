@@ -260,13 +260,13 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 							'logo'        => array(
 								'label' => __( 'Logo', 'batavia' ),
 								'type'  => 'media',
-								'help'  => __( 'Replaces the Mark below with an image in the same square, desaturated until hovered. Leave empty to use Mark instead.', 'batavia' ),
+								'help'  => __( 'A square photo or icon, shown in the circle instead of Company\'s initials. Cropped to fill, like a profile picture.', 'batavia' ),
 							),
 							'mark'        => array(
-								'label'       => __( 'Mark', 'batavia' ),
+								'label'       => __( 'Company', 'batavia' ),
 								'type'        => 'text',
-								'placeholder' => __( 'N', 'batavia' ),
-								'help'        => __( 'One or two characters for the square. Leave empty to use the first letter of the title.', 'batavia' ),
+								'placeholder' => __( 'Northwind Studio', 'batavia' ),
+								'help'        => __( 'Shown next to the role. Also supplies the circle\'s initials when no Logo is set.', 'batavia' ),
 							),
 							'dates'       => array(
 								'label'       => __( 'Dates', 'batavia' ),

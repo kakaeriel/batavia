@@ -212,19 +212,20 @@ h1, h2, h3,
 }
 
 /*
- * 4.3.1 Company mark -- a square that holds either an initial or a logo.
- * Sized in ems so it tracks the type around it, and fixed against flex
- * shrinking so a long job title cannot squash it.
+ * 4.3.1 Company mark -- a circle that holds either a logo photo or initials,
+ * the same shape as a profile picture. Fixed against flex shrinking so a
+ * long job title cannot squash it.
  */
 .is-style-batavia-mark {
 	align-items: center;
 	border: 1px solid var(--wp--preset--color--rule);
+	border-radius: 50%;
 	display: flex;
 	flex: 0 0 auto;
-	height: 3rem;
+	height: 4.5rem;
 	justify-content: center;
 	overflow: hidden;
-	width: 3rem;
+	width: 4.5rem;
 }
 
 .is-style-batavia-mark > * {
@@ -232,11 +233,10 @@ h1, h2, h3,
 	margin: 0;
 }
 
-/* A logo dropped in place of the initial fills the square without stretching. */
+/* A logo dropped in place of the initials fills the circle, cropping to fit. */
 .is-style-batavia-mark img {
 	height: 100%;
-	object-fit: contain;
-	padding: 0.375rem;
+	object-fit: cover;
 	width: 100%;
 }
 
@@ -425,6 +425,49 @@ body .is-style-batavia-entry {
 	color: var(--wp--preset--color--accent);
 	font-family: var(--wp--preset--font-family--mono);
 	font-size: var(--wp--preset--font-size--small);
+}
+
+/* 4.12 Tag chips -- each term as its own hairline-bordered pill. */
+.is-style-batavia-tags {
+	column-gap: var(--wp--preset--spacing--20);
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: var(--wp--preset--spacing--10);
+}
+
+.is-style-batavia-tags a {
+	border: 1px solid var(--wp--preset--color--rule);
+	border-radius: 999px;
+	color: var(--wp--preset--color--ink);
+	display: inline-block;
+	padding: 0.25rem 0.75rem;
+	text-decoration: none;
+}
+
+.is-style-batavia-tags a:hover,
+.is-style-batavia-tags a:focus {
+	background-color: var(--wp--preset--color--ink);
+	border-color: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+}
+
+/*
+ * 4.13 Post navigation as a button -- core/post-navigation-link carries no
+ * button style option of its own, so Previous/Next borrow the outline
+ * button's look directly rather than reading as bare links beside it.
+ */
+.wp-block-post-navigation-link.is-style-outline > a {
+	border: 1px solid var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--ink);
+	display: inline-block;
+	padding: 0.75rem 1.25rem;
+	text-decoration: none;
+}
+
+.wp-block-post-navigation-link.is-style-outline > a:hover,
+.wp-block-post-navigation-link.is-style-outline > a:focus {
+	background-color: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
 }
 
 /* -------------------------------------------------------------------------

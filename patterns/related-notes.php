@@ -69,8 +69,10 @@ $batavia_related_tax_query = wp_json_encode( array( 'include' => array( 'categor
 		<!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[<?php echo $batavia_current_post_id; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Cast to int above, not user input. */ ?>],"sticky":"ignore","inherit":false,"taxQuery":<?php echo $batavia_related_tax_query; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already JSON-encoded by wp_json_encode(), and only ever a filtered category id, never user input. */ ?>,"parents":[]},"align":"wide","layout":{"type":"default"}} -->
 		<div class="wp-block-query alignwide">
 			<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"grid","columnCount":3}} -->
-			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained"}} -->
-			<div class="wp-block-group">
+			<!-- wp:group {"className":"is-style-batavia-project","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group is-style-batavia-project">
+				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/2"} /-->
+
 				<!-- wp:post-date {"textColor":"muted","fontFamily":"mono","fontSize":"x-small"} /-->
 
 				<!-- wp:post-title {"level":3,"isLink":true,"fontSize":"medium"} /-->

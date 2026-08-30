@@ -3,13 +3,15 @@
  * Title: Sidebar: Selected work
  * Slug: batavia/widget-work
  * Categories: batavia, query, portfolio
- * Description: A compact list of recent projects for the post detail sidebar. Reads the same category as the front page's Selected work section.
+ * Description: A random sample of projects for the post detail sidebar. Reads the same category as the front page's Selected work section.
  * Keywords: sidebar, widget, portfolio, work, projects
  * Block Types: core/query
  * Inserter: no
  *
  * Off whenever the front page's own Selected work section is, from
- * Appearance -> Batavia -> Homepage -- see widget-notes.php for why.
+ * Appearance -> Batavia -> Homepage -- see widget-notes.php for why. Ordered
+ * randomly rather than by date, so a sidebar sitting on the same post for a
+ * while does not always point at the same three projects.
  *
  * @package Batavia
  * @since   1.5.0
@@ -34,7 +36,7 @@ $batavia_widget_work_url       = $batavia_portfolio_category_id > 0
 	<h3 class="wp-block-heading is-style-batavia-label"><?php esc_html_e( 'Selected work', 'batavia' ); ?></h3>
 	<!-- /wp:heading -->
 
-	<!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[<?php echo $batavia_current_post_id; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Cast to int above, not user input. */ ?>],"sticky":"ignore","inherit":false,"taxQuery":<?php echo $batavia_widget_portfolio_tax_query; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already JSON-encoded by batavia_category_tax_query(), and only ever `null` or a filtered category id, never user input. */ ?>,"parents":[]},"layout":{"type":"default"}} -->
+	<!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"rand","author":"","search":"","exclude":[<?php echo $batavia_current_post_id; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Cast to int above, not user input. */ ?>],"sticky":"ignore","inherit":false,"taxQuery":<?php echo $batavia_widget_portfolio_tax_query; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already JSON-encoded by batavia_category_tax_query(), and only ever `null` or a filtered category id, never user input. */ ?>,"parents":[]},"layout":{"type":"default"}} -->
 	<div class="wp-block-query">
 		<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}}} -->
 		<!-- wp:post-title {"level":4,"isLink":true,"fontSize":"small"} /-->
@@ -48,8 +50,12 @@ $batavia_widget_work_url       = $batavia_portfolio_category_id > 0
 	</div>
 	<!-- /wp:query -->
 
-	<!-- wp:paragraph {"fontSize":"small"} -->
-	<p class="has-small-font-size"><a href="<?php echo esc_url( $batavia_widget_work_url ? $batavia_widget_work_url : '#' ); ?>"><?php esc_html_e( 'View all work', 'batavia' ); ?></a></p>
-	<!-- /wp:paragraph -->
+	<!-- wp:buttons -->
+	<div class="wp-block-buttons">
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_widget_work_url ? $batavia_widget_work_url : '#' ); ?>"><?php esc_html_e( 'View all work', 'batavia' ); ?></a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
 </div>
 <!-- /wp:group -->

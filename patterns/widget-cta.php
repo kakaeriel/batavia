@@ -29,12 +29,22 @@ if ( ! batavia_get_setting_bool( 'show_cta' ) ) {
 	<p class="has-small-font-size"><?php esc_html_e( 'Have something worth building? Tell me what you are trying to do.', 'batavia' ); ?></p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:buttons -->
-	<div class="wp-block-buttons">
-		<!-- wp:button {"metadata":{"bindings":{"url":{"source":"batavia/setting","args":{"key":"contact_url"}}}}} -->
-		<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#"><?php esc_html_e( 'Get in touch', 'batavia' ); ?></a></div>
-		<!-- /wp:button -->
+	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
+	<div class="wp-block-group">
+		<!-- wp:buttons -->
+		<div class="wp-block-buttons">
+			<!-- wp:button {"metadata":{"bindings":{"url":{"source":"batavia/setting","args":{"key":"contact_url"}}}}} -->
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#"><?php esc_html_e( 'Get in touch', 'batavia' ); ?></a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
+
+		<!-- wp:social-links {"iconColor":"accent","size":"has-normal-icon-size","layout":{"type":"flex"}} -->
+		<ul class="wp-block-social-links has-normal-icon-size">
+			<!-- wp:social-link {"service":"whatsapp","label":"WhatsApp"} /-->
+		</ul>
+		<!-- /wp:social-links -->
 	</div>
-	<!-- /wp:buttons -->
+	<!-- /wp:group -->
 </div>
 <!-- /wp:group -->

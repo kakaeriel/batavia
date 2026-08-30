@@ -33,11 +33,17 @@ $batavia_current_post_id        = (int) get_the_ID();
 	<!-- wp:query {"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[<?php echo $batavia_current_post_id; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Cast to int above, not user input. */ ?>],"sticky":"ignore","inherit":false,"taxQuery":<?php echo $batavia_widget_notes_tax_query; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already JSON-encoded by batavia_category_tax_query(), and only ever `null` or a filtered category id, never user input. */ ?>,"parents":[]},"layout":{"type":"default"}} -->
 	<div class="wp-block-query">
 		<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
-		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained"}} -->
+		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 		<div class="wp-block-group">
-			<!-- wp:post-date {"textColor":"muted","fontFamily":"mono","fontSize":"x-small"} /-->
+			<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"1","width":"3rem"} /-->
 
-			<!-- wp:post-title {"level":4,"isLink":true,"fontSize":"small"} /-->
+			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group">
+				<!-- wp:post-date {"textColor":"muted","fontFamily":"mono","fontSize":"x-small"} /-->
+
+				<!-- wp:post-title {"level":4,"isLink":true,"fontSize":"small"} /-->
+			</div>
+			<!-- /wp:group -->
 		</div>
 		<!-- /wp:group -->
 		<!-- /wp:post-template -->
@@ -50,8 +56,12 @@ $batavia_current_post_id        = (int) get_the_ID();
 	</div>
 	<!-- /wp:query -->
 
-	<!-- wp:paragraph {"fontSize":"small"} -->
-	<p class="has-small-font-size"><a href="<?php echo esc_url( batavia_notes_archive_url() ? batavia_notes_archive_url() : '#' ); ?>"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></p>
-	<!-- /wp:paragraph -->
+	<!-- wp:buttons -->
+	<div class="wp-block-buttons">
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( batavia_notes_archive_url() ? batavia_notes_archive_url() : '#' ); ?>"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
 </div>
 <!-- /wp:group -->

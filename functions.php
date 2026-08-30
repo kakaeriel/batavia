@@ -182,38 +182,41 @@ if ( ! function_exists( 'batavia_register_block_styles' ) ) {
 	 */
 	function batavia_register_block_styles() {
 		$styles = array(
-			'core/group'     => array(
+			'core/group'      => array(
 				'batavia-panel'    => __( 'Panel', 'batavia' ),
 				'batavia-timeline' => __( 'Timeline', 'batavia' ),
 				'batavia-mark'     => __( 'Company mark', 'batavia' ),
 				'batavia-entry'    => __( 'Article entry', 'batavia' ),
 			),
-			'core/columns'   => array(
+			'core/columns'    => array(
 				'batavia-panel' => __( 'Panel', 'batavia' ),
 			),
-			'core/heading'   => array(
+			'core/heading'    => array(
 				'batavia-label' => __( 'Spec label', 'batavia' ),
 			),
-			'core/paragraph' => array(
+			'core/paragraph'  => array(
 				'batavia-label'  => __( 'Spec label', 'batavia' ),
 				'batavia-figure' => __( 'Figure', 'batavia' ),
 			),
-			'core/list'      => array(
+			'core/list'       => array(
 				'batavia-mono'  => __( 'Monospaced', 'batavia' ),
 				'batavia-ruled' => __( 'Ruled', 'batavia' ),
 				'batavia-steps' => __( 'Numbered steps', 'batavia' ),
 			),
-			'core/table'     => array(
+			'core/table'      => array(
 				'batavia-spec' => __( 'Spec sheet', 'batavia' ),
 			),
-			'core/details'   => array(
+			'core/details'    => array(
 				'batavia-ruled' => __( 'Ruled', 'batavia' ),
 			),
-			'core/separator' => array(
+			'core/separator'  => array(
 				'batavia-dotted' => __( 'Dotted', 'batavia' ),
 			),
-			'core/image'     => array(
+			'core/image'      => array(
 				'batavia-logo' => __( 'Logo mark', 'batavia' ),
+			),
+			'core/post-terms' => array(
+				'batavia-tags' => __( 'Tag chips', 'batavia' ),
 			),
 		);
 
