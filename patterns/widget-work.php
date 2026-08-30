@@ -50,12 +50,8 @@ $batavia_widget_work_url       = $batavia_portfolio_category_id > 0
 	</div>
 	<!-- /wp:query -->
 
-	<!-- wp:buttons -->
-	<div class="wp-block-buttons">
-		<!-- wp:button {"className":"is-style-outline"} -->
-		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_widget_work_url ? $batavia_widget_work_url : '#' ); ?>"><?php esc_html_e( 'View all work', 'batavia' ); ?></a></div>
-		<!-- /wp:button -->
-	</div>
-	<!-- /wp:buttons -->
+	<!-- wp:paragraph {"fontSize":"small"} -->
+	<p class="has-small-font-size"><a href="<?php echo esc_url( $batavia_widget_work_url ? $batavia_widget_work_url : '#' ); ?>"><?php esc_html_e( 'View all work', 'batavia' ); ?></a></p>
+	<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->

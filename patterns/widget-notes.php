@@ -56,12 +56,8 @@ $batavia_current_post_id        = (int) get_the_ID();
 	</div>
 	<!-- /wp:query -->
 
-	<!-- wp:buttons -->
-	<div class="wp-block-buttons">
-		<!-- wp:button {"className":"is-style-outline"} -->
-		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( batavia_notes_archive_url() ? batavia_notes_archive_url() : '#' ); ?>"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></div>
-		<!-- /wp:button -->
-	</div>
-	<!-- /wp:buttons -->
+	<!-- wp:paragraph {"fontSize":"small"} -->
+	<p class="has-small-font-size"><a href="<?php echo esc_url( batavia_notes_archive_url() ? batavia_notes_archive_url() : '#' ); ?>"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></p>
+	<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->

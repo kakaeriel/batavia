@@ -302,6 +302,26 @@ body .is-style-batavia-entry {
 	border-color: var(--wp--preset--color--accent);
 }
 
+/*
+ * 4.3.4 Featured image placeholder -- a diagonal hairline fill standing in
+ * for a post's missing photo, from batavia_post_featured_image_placeholder()
+ * in inc/media.php. Kept to the same rule and surface colours as everything
+ * else, so an empty slot reads as deliberate rather than broken.
+ */
+.batavia-featured-image-placeholder {
+	background-color: var(--wp--preset--color--surface);
+	background-image: repeating-linear-gradient(
+		135deg,
+		var(--wp--preset--color--rule) 0,
+		var(--wp--preset--color--rule) 1px,
+		transparent 1px,
+		transparent 10px
+	);
+	border: 1px solid var(--wp--preset--color--rule);
+	display: block;
+	width: 100%;
+}
+
 /* 4.4 Ruled list -- entries separated by hairlines, no bullets. */
 .is-style-batavia-ruled {
 	list-style: none;
@@ -429,7 +449,7 @@ body .is-style-batavia-entry {
 
 /* 4.12 Tag chips -- each term as its own hairline-bordered pill. */
 .is-style-batavia-tags {
-	column-gap: var(--wp--preset--spacing--20);
+	column-gap: var(--wp--preset--spacing--10);
 	display: flex;
 	flex-wrap: wrap;
 	row-gap: var(--wp--preset--spacing--10);
@@ -440,7 +460,8 @@ body .is-style-batavia-entry {
 	border-radius: 999px;
 	color: var(--wp--preset--color--ink);
 	display: inline-block;
-	padding: 0.25rem 0.75rem;
+	font-size: var(--wp--preset--font-size--x-small);
+	padding: 0.25rem 0.625rem;
 	text-decoration: none;
 }
 

@@ -26,6 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 require_once get_theme_file_path( 'inc/settings.php' );
 require_once get_theme_file_path( 'inc/bindings.php' );
+require_once get_theme_file_path( 'inc/media.php' );
 
 /*
  * The Appearance sub-page. Loaded only in the admin, so the front end carries
