@@ -29,6 +29,7 @@
  *
  * @package Batavia
  * @since   1.5.0
+ */
 
 if ( ! batavia_get_setting_bool( 'show_cta' ) ) {
 	return;

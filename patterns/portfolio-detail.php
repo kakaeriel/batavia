@@ -13,6 +13,7 @@
  *
  * @package Batavia
  * @since   1.5.0
+ */
 
 ?>
 <!-- wp:table {"className":"is-style-batavia-spec"} -->
