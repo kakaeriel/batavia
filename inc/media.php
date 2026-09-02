@@ -50,7 +50,9 @@ if ( ! function_exists( 'batavia_post_featured_image_placeholder' ) ) {
 
 		$aspect_ratio = ! empty( $attrs['aspectRatio'] ) && is_string( $attrs['aspectRatio'] )
 			? preg_replace( '/[^0-9.\/]/', '', $attrs['aspectRatio'] )
-			: '3/2';
+			: '';
+
+		$aspect_ratio = '' !== $aspect_ratio ? $aspect_ratio : '3/2';
 
 		$style = 'aspect-ratio:' . $aspect_ratio . ';';
 

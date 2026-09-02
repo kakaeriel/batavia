@@ -28,8 +28,7 @@
  * light mode, the same as every other section, so neither problem exists.
  *
  * @package Batavia
- * @since   1.4.0
- */
+ * @since   1.5.0
 
 if ( ! batavia_get_setting_bool( 'show_cta' ) ) {
 	return;

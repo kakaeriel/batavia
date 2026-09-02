@@ -130,7 +130,7 @@ $batavia_last_row_index = count( $batavia_consulting_rows ) - 1;
 			<!-- /wp:buttons -->
 
 			<!-- wp:social-links {"iconColor":"accent","size":"has-normal-icon-size","layout":{"type":"flex"}} -->
-			<ul class="wp-block-social-links has-normal-icon-size">
+			<ul class="wp-block-social-links has-normal-icon-size has-icon-color has-accent-color">
 				<!-- wp:social-link {"service":"whatsapp","label":"WhatsApp"} /-->
 			</ul>
 			<!-- /wp:social-links -->

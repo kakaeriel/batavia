@@ -282,7 +282,7 @@
 		var $chip = $( '<li class="batavia-tags__chip"></li>' ).text( name ).data( 'name', name );
 		var $remove = $( '<button type="button" class="batavia-tags__remove"><span aria-hidden="true">&times;</span></button>' );
 
-		$remove.attr( 'aria-label', name );
+		$remove.attr( 'aria-label', 'Remove ' + name );
 		$chip.append( $remove );
 		$list.append( $chip );
 		sync( $field, $list );
