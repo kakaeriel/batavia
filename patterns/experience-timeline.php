@@ -14,11 +14,10 @@
  * example roles below, the same way an empty text field elsewhere in the
  * theme keeps the pattern's own wording.
  *
- * A row's mark is its own "Mark" field if set, otherwise the first letter of
- * its title. To use a real logo instead of a letter, open the Front Page
- * template in the Site Editor, select the square for that row, and replace it
- * with an Image block -- the square keeps its size and the logo is
- * desaturated until hovered.
+ * A row's circle shows its "Company" field's Logo if set; otherwise the
+ * initials of the Company name; otherwise the first letter of the title. The
+ * Company name itself is also printed next to the role, since a one- or
+ * two-letter mark is not always enough to say who the role was at.
  *
  * @package Batavia
  * @since   1.0.0
@@ -62,29 +61,56 @@ if ( empty( $batavia_experience_rows ) ) {
 		<h2 class="wp-block-heading alignwide is-style-batavia-label"><?php esc_html_e( 'Experience', 'batavia' ); ?></h2>
 		<!-- /wp:heading -->
 
-		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
+		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 		<div class="wp-block-group alignwide">
 			<?php foreach ( $batavia_experience_rows as $batavia_row ) : ?>
 				<?php
-				$batavia_mark = ! empty( $batavia_row['mark'] )
-					? $batavia_row['mark']
+				// Logo image for the mark, if one is set. The mark is rendered as a fixed
+				// circle and cropped via CSS (object-fit: cover), so the attachment size
+				// choice here is primarily a quality/performance trade-off.
+				$batavia_logo_id  = ! empty( $batavia_row['logo'] ) ? absint( $batavia_row['logo'] ) : 0;
+				$batavia_logo_url = $batavia_logo_id > 0 ? wp_get_attachment_image_url( $batavia_logo_id, 'medium' ) : '';
+
+				$batavia_company = ! empty( $batavia_row['mark'] ) ? $batavia_row['mark'] : '';
+
+				// The circle's fallback initial, only ever shown when there is no
+				// Logo: from the Company name first, since that is what the circle
+				// is standing in for, otherwise from the role's own title.
+				$batavia_initials = '' !== $batavia_company
+					? mb_strtoupper( mb_substr( $batavia_company, 0, 2 ) )
 					: ( ! empty( $batavia_row['title'] ) ? mb_strtoupper( mb_substr( $batavia_row['title'], 0, 1 ) ) : '' );
 				?>
-				<!-- wp:group {"style":{"border":{"bottom":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-				<div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
+				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+				<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 					<!-- wp:group {"className":"is-style-batavia-mark","layout":{"type":"constrained"}} -->
 					<div class="wp-block-group is-style-batavia-mark">
-						<!-- wp:paragraph {"fontFamily":"mono","fontSize":"medium"} -->
-						<p class="has-medium-font-size has-mono-font-family"><?php echo esc_html( $batavia_mark ); ?></p>
-						<!-- /wp:paragraph -->
+						<?php if ( '' !== $batavia_logo_url ) : ?>
+						<!-- wp:image {"sizeSlug":"medium"} -->
+						<figure class="wp-block-image size-medium"><img src="<?php echo esc_url( $batavia_logo_url ); ?>" alt="<?php echo esc_attr( $batavia_company ); ?>" /></figure>
+						<!-- /wp:image -->
+						<?php else : ?>
+							<!-- wp:paragraph {"fontFamily":"mono","fontSize":"medium"} -->
+							<p class="has-medium-font-size has-mono-font-family"><?php echo esc_html( $batavia_initials ); ?></p>
+							<!-- /wp:paragraph -->
+						<?php endif; ?>
 					</div>
 					<!-- /wp:group -->
 
 					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained"}} -->
 					<div class="wp-block-group">
-						<!-- wp:paragraph {"textColor":"muted","fontFamily":"mono","fontSize":"x-small"} -->
-						<p class="has-muted-color has-text-color has-x-small-font-size has-mono-font-family"><?php echo esc_html( isset( $batavia_row['dates'] ) ? $batavia_row['dates'] : '' ); ?></p>
-						<!-- /wp:paragraph -->
+						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
+						<div class="wp-block-group">
+							<!-- wp:paragraph {"textColor":"muted","fontFamily":"mono","fontSize":"x-small"} -->
+							<p class="has-muted-color has-text-color has-x-small-font-size has-mono-font-family"><?php echo esc_html( isset( $batavia_row['dates'] ) ? $batavia_row['dates'] : '' ); ?></p>
+							<!-- /wp:paragraph -->
+
+							<?php if ( '' !== $batavia_company ) : ?>
+								<!-- wp:paragraph {"fontFamily":"mono","fontSize":"x-small","style":{"typography":{"fontWeight":"600"}}} -->
+								<p class="has-x-small-font-size has-mono-font-family" style="font-weight:600"><?php echo esc_html( $batavia_company ); ?></p>
+								<!-- /wp:paragraph -->
+							<?php endif; ?>
+						</div>
+						<!-- /wp:group -->
 
 						<!-- wp:heading {"level":3,"fontSize":"large"} -->
 						<h3 class="wp-block-heading has-large-font-size"><?php echo esc_html( isset( $batavia_row['title'] ) ? $batavia_row['title'] : '' ); ?></h3>

@@ -1,11 +1,12 @@
 /**
  * The Settings and Homepage tabs' interactive fields.
  *
- * Two independent pieces, both admin-only: media pickers for the site icon
- * and logo on the Site identity tab, and the add/remove/reorder controls --
+ * Three independent pieces, all admin-only: media pickers for the site icon
+ * and logo on the Site identity tab; the add/remove/reorder controls --
  * buttons and drag-and-drop alike -- for the Experience and Consulting
- * repeater fields on Homepage. The repeater code only needs jQuery, since
- * not every tab this file loads on has enqueued wp.media.
+ * repeater fields on Homepage; and the chip-style entry for Hero's Tools
+ * field, also on Homepage. Everything past the media pickers only needs
+ * jQuery, since not every tab this file loads on has enqueued wp.media.
  *
  * Loads on these tabs, and only for users who may change these settings.
  * The theme itself ships no front-end JavaScript.
@@ -226,5 +227,124 @@
 
 	$( document ).on( 'drop', '.batavia-repeater__row', function ( event ) {
 		event.preventDefault();
+	} );
+} )( window.jQuery );
+
+( function ( $ ) {
+	'use strict';
+
+	if ( ! $ ) {
+		return;
+	}
+
+	/**
+	 * Reads the chip list back into the underlying field's comma-separated
+	 * value, so the field submits the same way with or without this running.
+	 *
+	 * @param {Object} $field The original text input, kept hidden.
+	 * @param {Object} $list  The chip list built in front of it.
+	 * @return {void}
+	 */
+	function sync( $field, $list ) {
+		var names = $list
+			.find( '.batavia-tags__chip' )
+			.map( function () {
+				return $( this ).data( 'name' );
+			} )
+			.get();
+
+		$field.val( names.join( ', ' ) );
+	}
+
+	/**
+	 * Adds one chip, unless its name is empty or already present.
+	 *
+	 * @param {Object} $field The original text input.
+	 * @param {Object} $list  The chip list to append to.
+	 * @param {string} name   The name to add.
+	 * @return {void}
+	 */
+	function addChip( $field, $list, name ) {
+		name = name.trim().replace( /,+$/, '' );
+
+		if ( ! name ) {
+			return;
+		}
+
+		var exists = $list.find( '.batavia-tags__chip' ).toArray().some( function ( chip ) {
+			return $( chip ).data( 'name' ).toLowerCase() === name.toLowerCase();
+		} );
+
+		if ( exists ) {
+			return;
+		}
+
+		var $chip = $( '<li class="batavia-tags__chip"></li>' ).text( name ).data( 'name', name );
+		var $remove = $( '<button type="button" class="batavia-tags__remove"><span aria-hidden="true">&times;</span></button>' );
+
+		$remove.attr( 'aria-label', 'Remove ' + name );
+		$chip.append( $remove );
+		$list.append( $chip );
+		sync( $field, $list );
+	}
+
+	/**
+	 * Replaces one `[data-batavia-tags-field]` input with a chip entry UI.
+	 *
+	 * The original input is kept in the page, hidden rather than removed, so
+	 * its name and value keep submitting normally -- this only changes how a
+	 * person fills it in, not what the form sends.
+	 *
+	 * @param {Object} $field The text input to enhance.
+	 * @return {void}
+	 */
+	function enhance( $field ) {
+		var $list = $( '<ul class="batavia-tags__list"></ul>' );
+		var $entry = $( '<input type="text" class="batavia-tags__entry" />' );
+		var placeholder = $field.attr( 'placeholder' );
+
+		if ( placeholder ) {
+			$entry.attr( 'placeholder', placeholder );
+		}
+
+		( $field.val() || '' ).split( ',' ).forEach( function ( name ) {
+			addChip( $field, $list, name );
+		} );
+
+		$list.on( 'click', '.batavia-tags__remove', function () {
+			$( this ).closest( '.batavia-tags__chip' ).remove();
+			sync( $field, $list );
+			$entry.trigger( 'focus' );
+		} );
+
+		$entry.on( 'keydown', function ( event ) {
+			if ( 'Enter' === event.key || ',' === event.key ) {
+				event.preventDefault();
+				addChip( $field, $list, $entry.val() );
+				$entry.val( '' );
+			} else if ( 'Backspace' === event.key && ! $entry.val() ) {
+				$list.find( '.batavia-tags__chip' ).last().remove();
+				sync( $field, $list );
+			}
+		} );
+
+		$entry.on( 'blur', function () {
+			addChip( $field, $list, $entry.val() );
+			$entry.val( '' );
+		} );
+
+		$field
+			.hide()
+			.after(
+				$( '<div class="batavia-tags"></div>' )
+					.append( $list )
+					.append( $entry )
+			);
+	}
+
+	$( function () {
+		$( '[data-batavia-tags-field]' ).each( function () {
+			enhance( $( this ) );
+		} );
 	} );
 } )( window.jQuery );

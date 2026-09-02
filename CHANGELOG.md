@@ -9,71 +9,87 @@ The version in `style.css` is the source of truth and must match the
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-08-29
+
+### Added
+
+- Post detail sidebar: Recent notes, Selected work, Get in touch and
+  Consulting, plus a Related notes section after the content.
+- Portfolio detail pattern, for a portfolio post's own content (client,
+  role, timeline, stack, live link).
+- Closing call to action section above the footer.
+- "All except one category" mode for Notes.
+- A placeholder shown in place of a post's missing featured image.
+- Experience rows can show a company logo as a circular photo, with the
+  company name printed next to the role.
+- "All notes" and "View all work" links; the category archive for
+  Selected work now uses the portfolio grid layout instead of a plain list.
+
+### Changed
+
+- Selected work: two columns, uncropped screenshots, no category badge,
+  capped at six with a "View all work" link.
+- Post tags moved below the content and styled as chips instead of
+  underlined text.
+- Previous/Next links repositioned above Related notes.
+- Removed the rule between entries in Notes, Experience and archive
+  listings, and the border around Closing call to action.
+
+### Fixed
+
+- Category and portfolio filtering (Selected work, Notes) did not
+  actually filter anything.
+- Several sections rendered centered instead of left-aligned: Experience
+  rows, archive/search page titles, and text next to thumbnails or in
+  the sidebar.
+- The Logo media picker did not open on the Homepage tab.
+- A stray top margin under the footer.
+- A company name in Experience was clipped instead of shown in full.
+
 ## [1.4.0] - 2026-08-29
 
 ### Changed
 
-- Renamed the theme from Celestine to Batavia, across the text domain, slug,
-  function and constant prefixes, block/pattern namespaces, and CSS class
-  names.
-- Repositioned from a portfolio/blog/rate-card theme for engineers to a
-  two-page personal site (home and notes), with no dedicated contact page --
-  patterns open WhatsApp or email instead.
-- `Appearance -> Batavia` grew from one explanatory page into a five-tab
-  settings screen (Site identity, Profile, Contact, Social media, Homepage).
+- Renamed the theme from Celestine to Batavia.
+- Repositioned from a portfolio/blog/rate-card theme to a two-page
+  personal site (home and notes), with no contact page -- patterns open
+  WhatsApp or email directly instead.
+- Settings screen grew to five tabs: Site identity, Profile, Contact,
+  Social media, Homepage.
 - Four style variations: Forest, Indigo, Newsprint, Slate.
 
 ### Added
 
-- `inc/settings.php` and `inc/bindings.php`: a single `batavia_settings`
-  option, read into patterns through the Block Bindings API, so a value like
-  an email address is entered once and stays consistent everywhere it is used.
-- Five new patterns for the middle of an article: Note, Specification table,
-  Numbered steps, Questions and answers, About the author.
-- `screenshot.png` for the theme directory listing.
+- Theme settings stored in one option and read into patterns through the
+  Block Bindings API.
+- Five new content patterns: Note, Specification table, Numbered steps,
+  Questions and answers, About the author.
+- Theme screenshot.
 
 ### Removed
 
-- The technical-blog-oriented patterns (`tech-stack`, `cta-footer`,
-  `hidden-blog-heading`) that do not fit the personal-site scope.
+- Technical-blog-oriented patterns that no longer fit the personal-site
+  scope.
 
 ## [1.1.0] - 2026-08-22
 
 ### Added
 
-- An Appearance sub-page. A block theme has no Customizer, and the Site Editor
-  gives no hint about what a theme expects of you, so the page names the
-  categories the patterns are built around, points at Reading settings for the
-  static front page, and links into each part of the Site Editor.
-
-  Kept within what a theme is permitted to do: no demo importer, no outbound
-  requests, no usage tracking. Those belong in a companion plugin. Verified
-  against Theme Check -- zero warnings, zero recommendations.
-
-
-### Added
-
-- `tools/dev-server.sh`, a local WordPress on SQLite that needs no Docker.
-- `tools/dev-markers.php`, annotating the rendered page with the template,
-  parts and patterns that produced it.
-- `tools/dev-guard.php`, which stops WordPress from offering to "update" the
-  theme under development into whatever is published under the same slug.
-- `tools/pull-from-editor.php` and `tools/reset-editor.php`, moving Site Editor
-  customisations onto the theme's files and clearing them again.
-- `tools/preflight.sh`, checking the built zip against the WordPress.org
-  submission requirements Theme Check does not cover, including whether the
-  theme slug is already published by someone else.
+- An Appearance sub-page guiding setup: the pattern categories, a link to
+  Reading settings, and links into the Site Editor.
+- Local dev tooling: a SQLite dev server, on-page dev markers, an
+  update guard, Site Editor sync scripts, and a submission preflight
+  check.
 
 ### Changed
 
-- Renamed the theme from Almanac to Celestine. The `almanac` slug was already
-  taken on WordPress.org; `celestine` was confirmed available via the
-  WordPress.org Themes API before the rename.
+- Renamed the theme from Almanac to Celestine (the `almanac` slug was
+  already taken on WordPress.org).
 
 ### Fixed
 
-- Theme Check honours `.distignore`, so a symlinked development install is
-  checked as the theme that ships rather than as the repository.
+- Theme Check now honours `.distignore`, so a symlinked dev install is
+  checked as the theme that ships.
 
 ## [1.0.0] - 2026-08-20
 
@@ -82,16 +98,16 @@ Initial release.
 ### Added
 
 - Full site editing block theme targeting WordPress 6.6+, `theme.json` v3.
-- Six-slug colour system with automatic dark mode driven by
-  `prefers-color-scheme`, implemented by repainting the colour presets.
-- Self-hosted IBM Plex Sans and Plex Mono, Latin and Latin Extended subsets
-  split by `unicode-range`; the two regular weights are preloaded.
-- Eight front page patterns, seven templates, header and footer parts.
-- Eight custom block styles.
-- Translation template covering pattern titles and descriptions.
-- Development tooling: canonical block markup validation against the editor's
-  own parser, structural validation, a WCAG contrast audit, and PHPCS.
+- Automatic dark mode via `prefers-color-scheme`.
+- Self-hosted IBM Plex Sans and Plex Mono.
+- Eight front page patterns, seven templates, header and footer parts,
+  eight custom block styles.
+- Translation-ready.
+- Development tooling: block markup validation, structural validation, a
+  contrast audit, and PHPCS.
 
-[Unreleased]: https://github.com/batavia-theme/batavia/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/batavia-theme/batavia/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.5.0
 [1.4.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.4.0
+[1.1.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.1.0
 [1.0.0]: https://github.com/batavia-theme/batavia/releases/tag/v1.0.0

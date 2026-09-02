@@ -42,18 +42,24 @@ const RESET = '\x1b[0m';
  * between block comments becomes stray text no block-level container (Group,
  * Buttons) tolerates among its children. A tag that echoes -- `echo`,
  * `printf`, `_e()` and its `esc_*_e()` siblings -- stands in for real text,
- * so it is masked to a non-empty token instead, matching what the block's
- * own HTML-sourced attribute (RichText content, a table cell, a caption)
- * would otherwise see.
+ * so it is masked to the literal `null` instead of nothing.
+ *
+ * `null` rather than a made-up word because a handful of patterns (Selected
+ * work, Notes) echo PHP directly into a block comment's JSON attributes --
+ * `"taxQuery":<?php echo ...; ?>` -- to bake a category filter into the query
+ * before it is ever parsed. A non-empty placeholder there needs to already be
+ * valid JSON, or the parser silently resets that whole attribute to its
+ * schema default instead of failing loudly. Everywhere else -- RichText
+ * content, a table cell, a caption -- `null` is just non-empty text, which is
+ * all masking those needs.
  *
  * @param {string} source Raw file contents.
  * @return {string} Tokenised markup.
  */
 function maskPhp( source ) {
-	let n = 0;
 	return source.replace( /<\?php[\s\S]*?\?>/g, ( match ) => {
 		const producesOutput = /\becho\b|\bprintf\s*\(|\bvprintf\s*\(|_e\s*\(/.test( match );
-		return producesOutput ? `BATAVIAPHPTOKEN${ n++ }` : '';
+		return producesOutput ? 'null' : '';
 	} );
 }
 

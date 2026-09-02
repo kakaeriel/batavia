@@ -13,11 +13,11 @@
  * -- what it is about and how it opens -- and the thumbnail is simply left out
  * on posts that have no featured image.
  *
- * The section can be turned off and pointed at a category from Appearance ->
- * Batavia -> Homepage -- see batavia_filter_query_loop_category() in
- * inc/bindings.php for how the category setting reaches this block without a
- * hardcoded taxQuery. The title is edited directly here, like any other
- * heading.
+ * The section can be turned off and pointed at -- or away from -- a category
+ * from Appearance -> Batavia -> Homepage, or by opening the block's own
+ * Filters panel. See batavia_category_tax_query() in inc/settings.php for why
+ * that value is baked into the query below rather than filtered in later.
+ * The title is edited directly here, like any other heading.
  *
  * @package Batavia
  * @since   1.0.0
@@ -26,6 +26,9 @@
 if ( ! batavia_get_setting_bool( 'show_notes' ) ) {
 	return;
 }
+
+$batavia_notes_tax_query   = batavia_category_tax_query( 'notes_category', 'notes_category_mode' );
+$batavia_notes_archive_url = batavia_notes_archive_url();
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|rule","width":"1px"}}},"layout":{"type":"constrained"}} -->
@@ -36,14 +39,14 @@ if ( ! batavia_get_setting_bool( 'show_notes' ) ) {
 		<h2 class="wp-block-heading alignwide is-style-batavia-label"><?php esc_html_e( 'Notes', 'batavia' ); ?></h2>
 		<!-- /wp:heading -->
 
-		<!-- wp:query {"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"ignore","inherit":false,"taxQuery":null,"parents":[]},"align":"wide","className":"batavia-query-notes","layout":{"type":"default"}} -->
+		<!-- wp:query {"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"ignore","inherit":false,"taxQuery":<?php echo $batavia_notes_tax_query; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already JSON-encoded by batavia_category_tax_query(), and only ever `null` or a filtered category id, never user input. */ ?>,"parents":[]},"align":"wide","className":"batavia-query-notes","layout":{"type":"default"}} -->
 		<div class="wp-block-query alignwide batavia-query-notes">
 			<!-- wp:post-template {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
-			<!-- wp:group {"className":"is-style-batavia-entry","style":{"border":{"bottom":{"color":"var:preset|color|rule","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|40","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"top"}} -->
-			<div class="wp-block-group is-style-batavia-entry" style="border-bottom-color:var(--wp--preset--color--rule);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
+			<!-- wp:group {"className":"is-style-batavia-entry","style":{"spacing":{"blockGap":"var:preset|spacing|40","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"top"}} -->
+			<div class="wp-block-group is-style-batavia-entry" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
 				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/2","width":"12rem"} /-->
 
-				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"40rem"}} -->
+				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"40rem","justifyContent":"left"}} -->
 				<div class="wp-block-group">
 					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
 					<div class="wp-block-group">
@@ -73,7 +76,7 @@ if ( ! batavia_get_setting_bool( 'show_notes' ) ) {
 		<!-- wp:buttons -->
 		<div class="wp-block-buttons">
 			<!-- wp:button {"className":"is-style-outline"} -->
-			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></div>
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_notes_archive_url ? $batavia_notes_archive_url : '#' ); ?>"><?php esc_html_e( 'All notes', 'batavia' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

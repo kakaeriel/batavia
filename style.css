@@ -7,7 +7,7 @@ Description: A precise block theme for a personal site: home page, notes, select
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Version: 1.4.0
+Version: 1.5.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: batavia
@@ -113,6 +113,17 @@ h1, h2, h3,
 }
 
 /*
+ * core/template-part carries no spacing support of its own, so header and
+ * footer cannot be told to skip the root layout's blockGap directly. That
+ * gap is set with :where(), specificity zero, so any ordinary selector
+ * overrides it -- here, back to each template part supplying its own
+ * padding rather than stacking a second gap on top.
+ */
+.wp-block-template-part {
+	margin-block-start: 0;
+}
+
+/*
  * Visually hidden, still announced. Used for the heading that gives the blog
  * index a level-one heading without repeating it on screen.
  */
@@ -201,19 +212,20 @@ h1, h2, h3,
 }
 
 /*
- * 4.3.1 Company mark -- a square that holds either an initial or a logo.
- * Sized in ems so it tracks the type around it, and fixed against flex
- * shrinking so a long job title cannot squash it.
+ * 4.3.1 Company mark -- a circle that holds either a logo photo or initials,
+ * the same shape as a profile picture. Fixed against flex shrinking so a
+ * long job title cannot squash it.
  */
 .is-style-batavia-mark {
 	align-items: center;
 	border: 1px solid var(--wp--preset--color--rule);
+	border-radius: 50%;
 	display: flex;
 	flex: 0 0 auto;
-	height: 3rem;
+	height: 4.5rem;
 	justify-content: center;
 	overflow: hidden;
-	width: 3rem;
+	width: 4.5rem;
 }
 
 .is-style-batavia-mark > * {
@@ -221,32 +233,92 @@ h1, h2, h3,
 	margin: 0;
 }
 
-/* A logo dropped in place of the initial fills the square without stretching. */
+/* A logo dropped in place of the initials fills the circle, cropping to fit. */
 .is-style-batavia-mark img {
 	height: 100%;
-	object-fit: contain;
-	padding: 0.375rem;
+	object-fit: cover;
 	width: 100%;
 }
 
 /*
  * 4.3.2 Article entry -- a thumbnail beside a column of text.
- * The text column is allowed to grow but not to become narrower than a
- * readable measure, so the row wraps to two lines on a phone instead of
- * squeezing a title into four words per line. A post with no featured image
- * simply renders the text column full width.
+ * A grid, not a flex row: flex only reserves the thumbnail's column when a
+ * post actually has one, so a post without a featured image had its text
+ * column start flush against the left edge instead of lining up with every
+ * other entry's title. Grid's empty first track keeps that column reserved
+ * either way. Collapses to one column under 640px, where there is no room
+ * for a fixed-width thumbnail beside a readable line of text.
+ *
+ * `body` is not decoration: WordPress's own layout CSS sets `display: flex`
+ * on `body .is-layout-flex`, at specificity (0,1,1) -- one point ahead of a
+ * bare class selector -- so overriding `display` here needs the same shape
+ * to actually win rather than silently losing to a same-specificity rule
+ * that merely loads later.
  */
+body .is-style-batavia-entry {
+	display: grid;
+	grid-template-columns: 12rem 1fr;
+}
+
 .is-style-batavia-entry > .wp-block-group {
-	flex: 1 1 22rem;
+	grid-column: 2;
 	min-width: 0;
 }
 
 .is-style-batavia-entry > .wp-block-post-featured-image {
-	flex: 0 0 auto;
+	grid-column: 1;
 	margin-block: 0;
 }
 
 .is-style-batavia-entry > .wp-block-post-featured-image img {
+	width: 100%;
+}
+
+@media (max-width: 640px) {
+	body .is-style-batavia-entry {
+		grid-template-columns: 1fr;
+	}
+
+	.is-style-batavia-entry > .wp-block-group,
+	.is-style-batavia-entry > .wp-block-post-featured-image {
+		grid-column: 1;
+	}
+}
+
+/*
+ * 4.3.3 Project card -- a screenshot with a rule under it that shifts to
+ * Accent on hover, so the whole card reads as interactive without a shadow
+ * or a zoom. The rule lives on the image rather than the card, so hovering
+ * the title -- also a link, to the same post -- highlights it too.
+ */
+.is-style-batavia-project .wp-block-post-featured-image {
+	border-bottom: 1px solid var(--wp--preset--color--rule);
+	margin-block-end: 0;
+	transition: border-color 150ms ease;
+}
+
+.is-style-batavia-project:hover .wp-block-post-featured-image,
+.is-style-batavia-project:focus-within .wp-block-post-featured-image {
+	border-color: var(--wp--preset--color--accent);
+}
+
+/*
+ * 4.3.4 Featured image placeholder -- a diagonal hairline fill standing in
+ * for a post's missing photo, from batavia_post_featured_image_placeholder()
+ * in inc/media.php. Kept to the same rule and surface colours as everything
+ * else, so an empty slot reads as deliberate rather than broken.
+ */
+.batavia-featured-image-placeholder {
+	background-color: var(--wp--preset--color--surface);
+	background-image: repeating-linear-gradient(
+		135deg,
+		var(--wp--preset--color--rule) 0,
+		var(--wp--preset--color--rule) 1px,
+		transparent 1px,
+		transparent 10px
+	);
+	border: 1px solid var(--wp--preset--color--rule);
+	display: block;
 	width: 100%;
 }
 
@@ -373,6 +445,50 @@ h1, h2, h3,
 	color: var(--wp--preset--color--accent);
 	font-family: var(--wp--preset--font-family--mono);
 	font-size: var(--wp--preset--font-size--small);
+}
+
+/* 4.12 Tag chips -- each term as its own hairline-bordered pill. */
+.is-style-batavia-tags {
+	column-gap: var(--wp--preset--spacing--10);
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: var(--wp--preset--spacing--10);
+}
+
+.is-style-batavia-tags a {
+	border: 1px solid var(--wp--preset--color--rule);
+	border-radius: 999px;
+	color: var(--wp--preset--color--ink);
+	display: inline-block;
+	font-size: var(--wp--preset--font-size--x-small);
+	padding: 0.25rem 0.625rem;
+	text-decoration: none;
+}
+
+.is-style-batavia-tags a:hover,
+.is-style-batavia-tags a:focus {
+	background-color: var(--wp--preset--color--ink);
+	border-color: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+}
+
+/*
+ * 4.13 Post navigation as a button -- core/post-navigation-link carries no
+ * button style option of its own, so Previous/Next borrow the outline
+ * button's look directly rather than reading as bare links beside it.
+ */
+.wp-block-post-navigation-link.is-style-outline > a {
+	border: 1px solid var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--ink);
+	display: inline-block;
+	padding: 0.75rem 1.25rem;
+	text-decoration: none;
+}
+
+.wp-block-post-navigation-link.is-style-outline > a:hover,
+.wp-block-post-navigation-link.is-style-outline > a:focus {
+	background-color: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
 }
 
 /* -------------------------------------------------------------------------

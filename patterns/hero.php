@@ -3,7 +3,7 @@
  * Title: Hero
  * Slug: batavia/hero
  * Categories: batavia, banner, featured
- * Description: An opening statement: availability, name, role, a one-line summary of the work, two calls to action, and a single ruled line of tools.
+ * Description: An opening statement: name, role, a one-line summary of the work, two calls to action, and a single ruled line of tools.
  * Keywords: hero, intro, headline, banner, about
  * Viewport Width: 1400
  *
@@ -17,13 +17,14 @@
  *
  * Every element here can also be turned off individually from Appearance ->
  * Batavia -> Homepage, for a page that does not want one of them. The tools
- * line's wording is edited directly here, like the summary paragraph below.
+ * line's own list is edited from there too, as a comma-separated Tools
+ * field; leaving it empty keeps the example list below, like the summary
+ * paragraph.
  *
  * @package Batavia
  * @since   1.0.0
  */
 
-$batavia_show_availability  = batavia_get_setting_bool( 'show_hero_availability' );
 $batavia_show_name          = batavia_get_setting_bool( 'show_hero_name' );
 $batavia_show_role          = batavia_get_setting_bool( 'show_hero_role' );
 $batavia_show_description   = batavia_get_setting_bool( 'show_hero_description' );
@@ -31,18 +32,19 @@ $batavia_show_cta_primary   = batavia_get_setting_bool( 'show_hero_cta_primary' 
 $batavia_show_cta_secondary = batavia_get_setting_bool( 'show_hero_cta_secondary' );
 $batavia_show_tools         = batavia_get_setting_bool( 'show_hero_tools' );
 $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_secondary;
+$batavia_notes_archive_url  = batavia_notes_archive_url();
+
+$batavia_tool_names = array_filter( array_map( 'trim', explode( ',', batavia_get_setting( 'tools' ) ) ) );
+
+$batavia_tools_text = ! empty( $batavia_tool_names )
+	? implode( ' · ', $batavia_tool_names )
+	: __( 'WordPress · PHP · MySQL · Linux · Nginx · Git', 'batavia' );
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained","contentSize":"46rem","wideSize":"76rem","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
-		<?php if ( $batavia_show_availability ) : ?>
-			<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"batavia/setting","args":{"key":"availability"}}}},"className":"is-style-batavia-label"} -->
-			<p class="is-style-batavia-label"><?php esc_html_e( 'A short status line', 'batavia' ); ?></p>
-			<!-- /wp:paragraph -->
-		<?php endif; ?>
-
 		<?php if ( $batavia_show_name ) : ?>
 			<!-- wp:heading {"metadata":{"bindings":{"content":{"source":"batavia/setting","args":{"key":"name"}}}},"level":1,"fontSize":"xxx-large"} -->
 			<h1 class="wp-block-heading has-xxx-large-font-size"><?php esc_html_e( 'Your Name', 'batavia' ); ?></h1>
@@ -72,7 +74,7 @@ $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_sec
 
 				<?php if ( $batavia_show_cta_secondary ) : ?>
 					<!-- wp:button {"className":"is-style-outline"} -->
-					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#"><?php esc_html_e( 'Read the notes', 'batavia' ); ?></a></div>
+					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $batavia_notes_archive_url ? $batavia_notes_archive_url : '#' ); ?>"><?php esc_html_e( 'Read the notes', 'batavia' ); ?></a></div>
 					<!-- /wp:button -->
 				<?php endif; ?>
 			</div>
@@ -87,7 +89,7 @@ $batavia_show_buttons       = $batavia_show_cta_primary || $batavia_show_cta_sec
 				<!-- /wp:paragraph -->
 
 				<!-- wp:paragraph {"fontFamily":"mono","fontSize":"small"} -->
-				<p class="has-small-font-size has-mono-font-family"><?php esc_html_e( 'WordPress · PHP · MySQL · Linux · Nginx · Git', 'batavia' ); ?></p>
+				<p class="has-small-font-size has-mono-font-family"><?php echo esc_html( $batavia_tools_text ); ?></p>
 				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->
