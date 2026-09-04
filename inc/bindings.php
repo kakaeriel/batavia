@@ -3,7 +3,7 @@
  * Connects the theme's settings to core blocks.
  *
  * A theme may not register blocks of its own, so the usual way to show a value
- * the user typed into a settings screen -- a block that reads it -- is closed.
+ * the user typed into the Customizer -- a block that reads it -- is closed.
  * The Block Bindings API opens a different one: a core Paragraph, Heading,
  * Button or Image can be told to take one of its attributes from a named source,
  * and a theme is allowed to register the source.
@@ -35,7 +35,7 @@ if ( ! function_exists( 'batavia_binding_value' ) ) {
 	 * Resolves one bound attribute.
 	 *
 	 * Returning null tells WordPress to keep the value already written into the
-	 * block, which is what makes a half-filled settings screen harmless.
+	 * block, which is what makes a half-filled Customizer panel harmless.
 	 *
 	 * @since 1.2.0
 	 *

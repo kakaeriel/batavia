@@ -9,6 +9,54 @@ The version in `style.css` is the source of truth and must match the
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-09-04
+
+Addresses the WordPress.org theme review findings that closed the first
+submission.
+
+### Changed
+
+- Theme settings moved from the `Appearance > Batavia` screen into the
+  Customizer, under a `Batavia` panel with one section per schema group.
+  Custom options panels are not allowed in the directory; a theme's own
+  options have to be edited in the Customizer. Storage is unchanged -- every
+  control still writes into the single `batavia_settings` option, scalars at
+  `batavia_settings[key]` and repeater rows at
+  `batavia_settings[key][index][sub_key]` -- so values saved under 1.5.0 are
+  read back as they were.
+- Experience and Consulting are a fixed number of numbered slots
+  (`BATAVIA_EXPERIENCE_SLOTS`, 5; `BATAVIA_CONSULTING_SLOTS`, 4) rather than an
+  open-ended list, because the Customizer has no repeating control. Rows are
+  stored against their slot index so the slots stay put on screen;
+  `batavia_get_repeater_rows()` sorts, drops blank slots and reindexes on read.
+  A site with more than five roles or four tiers saved under 1.5.0 keeps only
+  the first of each.
+- Checkboxes are stored as booleans, which is what the Customizer's checkbox
+  control writes. `batavia_get_setting_bool()` still accepts the `'1'`/`'0'`
+  strings 1.5.x wrote.
+- Stated the theme's copyright in `readme.txt` in the form the review team
+  asks for, and added the notice to `style.css`.
+
+### Added
+
+- `inc/customizer.php`: the panel, its sections and controls, and a single
+  sanitise callback that resolves each setting id back to its schema field.
+- The `theme-options` tag, which the theme now earns.
+- The 1.5.0 entry that was missing from `readme.txt`.
+
+### Removed
+
+- `inc/admin/` -- the Appearance sub-page, its two views, `assets/css/admin.css`
+  and `assets/js/settings-page.js`. The Site identity tab is gone with it: the
+  site icon, logo, title and tagline are core's own settings, edited in its
+  Site Identity section, and the front page is under Homepage Settings.
+- The `Theme URI` and `Author URI` headers, which pointed at pages that did not
+  exist. Both are optional; they can come back when there are pages behind them.
+- The `accessibility-ready` tag. Every accessibility feature stays -- skip
+  link, focus ring, contrast ratios -- but the tag is a claim granted by a
+  separate review that had not happened, and it delays the general queue.
+- `batavia.code-workspace` from the distributed zip.
+
 ## [1.5.0] - 2026-08-29
 
 ### Added

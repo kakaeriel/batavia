@@ -1,6 +1,6 @@
 {
   "name": "batavia",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "A precise block theme for a personal site: home page, notes, selected work and a rate card.",
   "license": "GPL-2.0-or-later",
   "private": true,
@@ -29,7 +29,7 @@
     "theme-check": "wp --path=.wp-local eval-file tools/run-theme-check.php",
     "theme-check:wp-env": "wp-env run --quiet cli wp plugin install theme-check --activate && wp-env run --quiet --env-cwd=/var/www/html/wp-content/themes/batavia cli wp eval-file tools/run-theme-check.php",
     "preflight": "bash tools/preflight.sh",
-    "make-pot": "wp-env run --env-cwd=/var/www/html/wp-content/themes/batavia cli wp i18n make-pot . languages/batavia.pot --domain=batavia --exclude=tools,node_modules,vendor,.wp-core",
+    "make-pot": "wp-env run --env-cwd=/var/www/html/wp-content/themes/batavia cli wp i18n make-pot . languages/batavia.pot --domain=batavia --exclude=tools,node_modules,vendor,.wp-core,.wp-local,build,bak",
     "zip": "bash tools/build-zip.sh"
   },
   "devDependencies": {

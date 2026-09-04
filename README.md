@@ -25,8 +25,8 @@ more than any aesthetic decision does:
   separated with the built-in Category taxonomy, so a user who switches away
   keeps everything they wrote.
 - **One settings option.** Personal details (name, contact, social profiles)
-  live in a single `batavia_settings` option, written through the Settings
-  API and read into patterns via the Block Bindings API. Everything else
+  live in a single `batavia_settings` option, written through the Customizer
+  and read into patterns via the Block Bindings API. Everything else
   configurable lives in `theme.json`.
 - **No external requests.** Fonts are bundled and served from the site's own
   domain.
@@ -42,12 +42,13 @@ batavia/
 ├── functions.php           Theme supports, two stylesheets, block styles,
 │                           pattern category, font preloading.
 ├── inc/
-│   ├── settings.php         The settings schema, sanitisation, accessors.
+│   ├── settings.php         The settings schema and the accessors that read it.
 │   ├── bindings.php          Connects settings to core blocks via Block Bindings.
-│   └── admin/                The Appearance sub-page: tabs, homepage view, settings view.
+│   ├── customizer.php        The Customizer panel: sections, controls, sanitisation.
+│   └── media.php             Placeholder for a post with no featured image.
 ├── assets/
 │   ├── css/color-scheme.css  The prefers-color-scheme dark palette.
-│   ├── js/                    Editor bindings UI and the settings-page script.
+│   ├── js/                    The editor bindings script.
 │   └── fonts/                IBM Plex woff2 subsets + OFL licence.
 ├── styles/                  Four style variations (forest, indigo, newsprint, slate).
 ├── parts/                   header.html, footer.html
@@ -88,19 +89,29 @@ npm install && composer install && npm run dev
 
 `wp-env` on http://localhost:8888, same login.
 
-## The Appearance sub-page
+## The Customizer panel
 
-`Appearance -> Batavia` has five tabs: Site identity, Profile, Contact, Social
-media and Homepage. The first four hold the personal details the patterns read
-through Block Bindings -- name, role, email, WhatsApp number and
-up to fourteen social profiles. Homepage explains the theme's content model and
-links into the Site Editor. It lives in `inc/admin/` and loads only in the
-admin.
+`Appearance -> Customize -> Batavia` has one section per group in
+`batavia_settings_schema()`: Profile, Contact, Social profiles, Hero, Selected
+work, Experience, Consulting, Notes and Closing call to action. Together they
+hold the personal details the patterns read through Block Bindings -- name,
+role, email, WhatsApp number, up to fourteen social profiles -- plus which
+sections the front page shows. It lives in `inc/customizer.php`.
 
-Theme review permits an Appearance sub-page but forbids demo importers, outbound
-HTTP requests and usage tracking inside a theme. This page does none of those --
-every link is either an admin screen on the same site or a plain documentation
-link. Anything requiring more belongs in a companion plugin.
+Theme review requires a theme's own options to be edited in the Customizer, and
+forbids custom options panels, demo importers, outbound HTTP requests and usage
+tracking inside a theme. Anything requiring more belongs in a companion plugin.
+
+Core hides the Customizer on block themes unless something hooks
+`customize_register` (see `wp-admin/menu.php`), so registering the panel is also
+what puts `Appearance -> Customize` back on the menu.
+
+The Customizer has no repeating control, so Experience and Consulting are laid
+out as a fixed number of numbered slots -- `BATAVIA_EXPERIENCE_SLOTS` and
+`BATAVIA_CONSULTING_SLOTS`. A slot is stored against its own index so the slots
+stay put on screen; `batavia_get_repeater_rows()` sorts them, drops the blank
+ones and reindexes, so the front end only ever sees the rows that were filled
+in.
 
 ## Debugging
 

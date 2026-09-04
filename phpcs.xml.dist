@@ -36,7 +36,7 @@
 		</properties>
 	</rule>
 
-	<config name="minimum_wp_version" value="6.6"/>
+	<config name="minimum_wp_version" value="6.7"/>
 	<config name="testVersion" value="7.4-"/>
 
 	<!--

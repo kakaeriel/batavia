@@ -29,12 +29,11 @@ require_once get_theme_file_path( 'inc/bindings.php' );
 require_once get_theme_file_path( 'inc/media.php' );
 
 /*
- * The Appearance sub-page. Loaded only in the admin, so the front end carries
- * none of its weight.
+ * The Customizer panel those settings are edited on. Registering it is also
+ * what restores Appearance > Customize, which core hides on a block theme
+ * until a theme or plugin hooks `customize_register`.
  */
-if ( is_admin() ) {
-	require_once get_theme_file_path( 'inc/admin/admin-page.php' );
-}
+require_once get_theme_file_path( 'inc/customizer.php' );
 
 if ( ! function_exists( 'batavia_setup' ) ) {
 	/**

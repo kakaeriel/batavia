@@ -4,16 +4,17 @@
  *
  * Theme review allows a theme to keep settings of its own on one condition --
  * exactly one database option, prefixed with the theme slug, stored as an array,
- * written through the Settings API and sanitised on the way in. That option is
+ * edited through the Customizer and sanitised on the way in. That option is
  * `batavia_settings`, and this file is the only place that knows its shape.
  *
- * One schema drives three things: the fields on the settings screen, the
- * sanitisation callback, and the keys the block binding source will resolve.
- * Adding a field here makes it appear in all three.
+ * One schema drives three things: the controls on the Customizer panel (see
+ * inc/customizer.php), the sanitisation each of them applies, and the keys the
+ * block binding source will resolve. Adding a field here makes it appear in
+ * all three.
  *
  * Nothing here is required for the theme to render. Every field is optional and
  * an empty field falls back to the text written into the pattern, so a fresh
- * install looks finished before anyone opens this screen.
+ * install looks finished before anyone opens the Customizer.
  *
  * @package Batavia
  * @since   1.2.0
@@ -27,13 +28,17 @@ if ( ! defined( 'BATAVIA_SETTINGS_OPTION' ) ) {
 	define( 'BATAVIA_SETTINGS_OPTION', 'batavia_settings' );
 }
 
-if ( ! defined( 'BATAVIA_REPEATER_MAX_ROWS' ) ) {
-	define( 'BATAVIA_REPEATER_MAX_ROWS', 20 );
+if ( ! defined( 'BATAVIA_EXPERIENCE_SLOTS' ) ) {
+	define( 'BATAVIA_EXPERIENCE_SLOTS', 5 );
+}
+
+if ( ! defined( 'BATAVIA_CONSULTING_SLOTS' ) ) {
+	define( 'BATAVIA_CONSULTING_SLOTS', 4 );
 }
 
 if ( ! function_exists( 'batavia_settings_schema' ) ) {
 	/**
-	 * The settings, grouped as they are presented on the settings screens.
+	 * The settings, grouped as they are presented on the Customizer panel.
 	 *
 	 * Field types: `text`, `tel`, `email`, `url` and `textarea` need a
 	 * sanitiser, an input and (all but `textarea`) a binding, and cover
@@ -261,7 +266,7 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'label'     => __( 'Roles', 'batavia' ),
 						'type'      => 'repeater',
 						'row_label' => __( 'Role', 'batavia' ),
-						'max'       => BATAVIA_REPEATER_MAX_ROWS,
+						'max'       => BATAVIA_EXPERIENCE_SLOTS,
 						'fields'    => array(
 							'logo'        => array(
 								'label' => __( 'Logo', 'batavia' ),
@@ -305,7 +310,7 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'label'     => __( 'Tiers', 'batavia' ),
 						'type'      => 'repeater',
 						'row_label' => __( 'Tier', 'batavia' ),
-						'max'       => BATAVIA_REPEATER_MAX_ROWS,
+						'max'       => BATAVIA_CONSULTING_SLOTS,
 						'fields'    => array(
 							'title'       => array(
 								'label'       => __( 'Title', 'batavia' ),
@@ -361,21 +366,6 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 					),
 				),
 			),
-		);
-	}
-}
-
-if ( ! function_exists( 'batavia_settings_groups' ) ) {
-	/**
-	 * Which schema groups belong on which admin tab.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @return array<string, array<int, string>> Tab slug mapped to group keys.
-	 */
-	function batavia_settings_groups() {
-		return array(
-			'homepage' => array( 'hero', 'portfolio', 'experience', 'consulting', 'notes', 'cta' ),
 		);
 	}
 }
@@ -458,9 +448,9 @@ if ( ! function_exists( 'batavia_get_setting_bool' ) ) {
 	/**
 	 * One checkbox setting.
 	 *
-	 * Unlike the other field types, a checkbox is always written on save --
-	 * '1' or '0' -- so a saved "off" cannot be mistaken for "never set".
-	 * Only a field that has genuinely never been saved falls back to
+	 * Unlike the other field types, a checkbox is always written on save, so
+	 * a saved "off" cannot be mistaken for "never set". Only a field that has
+	 * genuinely never been saved falls back to
 	 * `$default_value`, which is why every show_* field defaults to visible:
 	 * a fresh install has an empty option and should still look finished.
 	 *
@@ -477,7 +467,12 @@ if ( ! function_exists( 'batavia_get_setting_bool' ) ) {
 			return $default_value;
 		}
 
-		return '1' === $stored[ $key ];
+		/*
+		 * The Customizer stores a checkbox as a boolean. Themes updated from
+		 * 1.5.x carry the '1'/'0' strings the settings screen wrote instead,
+		 * so both spellings of "on" are accepted.
+		 */
+		return true === $stored[ $key ] || '1' === $stored[ $key ];
 	}
 }
 
@@ -612,6 +607,11 @@ if ( ! function_exists( 'batavia_get_repeater_rows' ) ) {
 	 * that reads it supplies its own example rows in that case, the same way
 	 * an empty text field leaves the pattern's own wording in place.
 	 *
+	 * Each row is stored against the numbered Customizer slot it was typed
+	 * into, so the slots stay where the user left them. Ordering and the
+	 * dropping of blank slots happen here instead, which is why filling in
+	 * slot three without slot two shows one row on the page rather than two.
+	 *
 	 * @since 1.4.0
 	 *
 	 * @param string $key Repeater field key.
@@ -624,238 +624,29 @@ if ( ! function_exists( 'batavia_get_repeater_rows' ) ) {
 			return array();
 		}
 
-		return $stored[ $key ];
-	}
-}
+		$slots = $stored[ $key ];
 
-if ( ! function_exists( 'batavia_sanitize_repeater_rows' ) ) {
-	/**
-	 * Sanitises one repeater field's posted rows.
-	 *
-	 * Rows are kept in the order they were submitted, which -- because
-	 * nothing in the admin JS ever re-indexes a row's name attributes --
-	 * matches whatever order they were arranged in on screen. A row with
-	 * every sub-field empty is dropped rather than stored as a blank row.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @param mixed                               $raw_rows  Posted value for the repeater.
-	 * @param array<string, array<string, mixed>> $row_fields Sub-field definitions.
-	 * @param int                                 $max       Maximum rows to keep.
-	 * @return array<int, array<string, string>> Sanitised rows.
-	 */
-	function batavia_sanitize_repeater_rows( $raw_rows, $row_fields, $max ) {
+		ksort( $slots, SORT_NUMERIC );
+
 		$rows = array();
 
-		if ( ! is_array( $raw_rows ) ) {
-			return $rows;
-		}
-
-		foreach ( $raw_rows as $raw_row ) {
-			if ( count( $rows ) >= $max ) {
-				break;
-			}
-
-			if ( ! is_array( $raw_row ) ) {
+		foreach ( $slots as $slot ) {
+			if ( ! is_array( $slot ) ) {
 				continue;
 			}
 
-			$clean_row = array();
-
-			foreach ( $row_fields as $sub_key => $sub_field ) {
-				if ( ! isset( $raw_row[ $sub_key ] ) || ! is_scalar( $raw_row[ $sub_key ] ) ) {
-					continue;
+			$row = array_filter(
+				$slot,
+				static function ( $value ) {
+					return '' !== $value && 0 !== $value && null !== $value;
 				}
+			);
 
-				$raw = trim( (string) $raw_row[ $sub_key ] );
-
-				if ( 'media' === $sub_field['type'] ) {
-					$attachment_id = absint( $raw );
-
-					if ( $attachment_id > 0 ) {
-						$clean_row[ $sub_key ] = (string) $attachment_id;
-					}
-
-					continue;
-				}
-
-				if ( '' === $raw ) {
-					continue;
-				}
-
-				$clean_row[ $sub_key ] = 'textarea' === $sub_field['type']
-					? sanitize_textarea_field( $raw )
-					: sanitize_text_field( $raw );
-			}
-
-			if ( ! empty( $clean_row ) ) {
-				$rows[] = $clean_row;
+			if ( ! empty( $row ) ) {
+				$rows[] = $row;
 			}
 		}
 
 		return $rows;
 	}
 }
-
-if ( ! function_exists( 'batavia_sanitize_settings' ) ) {
-	/**
-	 * Sanitises the option on its way into the database.
-	 *
-	 * Keys the schema does not describe are discarded, so a stray field in a
-	 * submitted form cannot add anything to the option. Profile, Contact,
-	 * Social media and Homepage are four separate forms writing the same
-	 * single option, so each carries a `_scope` field naming the schema
-	 * group(s) it owns (see batavia_settings_groups() for Homepage's, and
-	 * batavia_render_settings_group_tab() for the other three); a field
-	 * outside that scope is copied through from whatever is already stored
-	 * rather than dropped, so saving one form can never erase another's
-	 * values. A submission with no `_scope` at all -- direct API use, not any
-	 * shipped form -- sanitises every field present, the original
-	 * single-form behaviour.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param mixed $value Raw submitted value.
-	 * @return array<string, mixed> Sanitised settings.
-	 */
-	function batavia_sanitize_settings( $value ) {
-		$clean = array();
-
-		if ( ! is_array( $value ) ) {
-			return $clean;
-		}
-
-		$stored = get_option( BATAVIA_SETTINGS_OPTION, array() );
-
-		if ( ! is_array( $stored ) ) {
-			$stored = array();
-		}
-
-		$scope_fields = null;
-
-		if ( isset( $value['_scope'] ) && is_string( $value['_scope'] ) && '' !== $value['_scope'] ) {
-			$schema       = batavia_settings_schema();
-			$scope_fields = array();
-
-			foreach ( array_filter( explode( ',', $value['_scope'] ) ) as $group_key ) {
-				if ( isset( $schema[ $group_key ]['fields'] ) ) {
-					$scope_fields = array_merge( $scope_fields, array_keys( $schema[ $group_key ]['fields'] ) );
-				}
-			}
-		}
-
-		foreach ( batavia_settings_fields() as $key => $field ) {
-			if ( null !== $scope_fields && ! in_array( $key, $scope_fields, true ) ) {
-				if ( isset( $stored[ $key ] ) ) {
-					$clean[ $key ] = $stored[ $key ];
-				}
-
-				continue;
-			}
-
-			if ( 'repeater' === $field['type'] ) {
-				$rows = batavia_sanitize_repeater_rows(
-					isset( $value[ $key ] ) ? $value[ $key ] : null,
-					$field['fields'],
-					isset( $field['max'] ) ? (int) $field['max'] : BATAVIA_REPEATER_MAX_ROWS
-				);
-
-				if ( ! empty( $rows ) ) {
-					$clean[ $key ] = $rows;
-				}
-
-				continue;
-			}
-
-			if ( 'checkbox' === $field['type'] ) {
-				$clean[ $key ] = ! empty( $value[ $key ] ) ? '1' : '0';
-				continue;
-			}
-
-			if ( ! isset( $value[ $key ] ) || ! is_scalar( $value[ $key ] ) ) {
-				continue;
-			}
-
-			$raw = trim( (string) $value[ $key ] );
-
-			if ( '' === $raw ) {
-				continue;
-			}
-
-			switch ( $field['type'] ) {
-				case 'email':
-					$clean[ $key ] = sanitize_email( $raw );
-					break;
-
-				case 'url':
-					$clean[ $key ] = esc_url_raw( $raw );
-					break;
-
-				case 'tel':
-					/*
-					 * Kept as typed, minus anything that cannot belong to a
-					 * phone number, so the screen shows the spaced form a
-					 * person recognises. The digits-only form the wa.me link
-					 * needs is derived when the link is built.
-					 */
-					$clean[ $key ] = trim( (string) preg_replace( '/[^0-9+()\-. ]/', '', $raw ) );
-					break;
-
-				case 'textarea':
-					$clean[ $key ] = sanitize_textarea_field( $raw );
-					break;
-
-				case 'category':
-					$term_id       = absint( $raw );
-					$clean[ $key ] = ( $term_id > 0 && term_exists( $term_id, 'category' ) ) ? (string) $term_id : '';
-					break;
-
-				case 'radio':
-					$clean[ $key ] = isset( $field['options'][ $raw ] ) ? $raw : '';
-					break;
-
-				case 'tags':
-					$items         = array_filter( array_map( 'trim', explode( ',', $raw ) ) );
-					$clean[ $key ] = implode( ', ', array_map( 'sanitize_text_field', $items ) );
-					break;
-
-				default:
-					$clean[ $key ] = sanitize_text_field( $raw );
-					break;
-			}
-
-			if ( '' === $clean[ $key ] ) {
-				unset( $clean[ $key ] );
-			}
-		}
-
-		return $clean;
-	}
-}
-
-if ( ! function_exists( 'batavia_register_settings' ) ) {
-	/**
-	 * Registers the single option with the Settings API.
-	 *
-	 * `show_in_rest` is off deliberately: these values are already visible in
-	 * the rendered page, and a theme has no reason to add an endpoint.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @return void
-	 */
-	function batavia_register_settings() {
-		register_setting(
-			'batavia_settings_group',
-			BATAVIA_SETTINGS_OPTION,
-			array(
-				'type'              => 'array',
-				'description'       => __( 'Profile, contact, social and homepage-section details the Batavia patterns read.', 'batavia' ),
-				'sanitize_callback' => 'batavia_sanitize_settings',
-				'default'           => array(),
-				'show_in_rest'      => false,
-			)
-		);
-	}
-}
-add_action( 'admin_init', 'batavia_register_settings' );
