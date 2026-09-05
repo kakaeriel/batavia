@@ -155,7 +155,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-= Bundled resources =
+== Resources ==
 
 IBM Plex Sans and IBM Plex Mono
 Copyright 2017 IBM Corp.
@@ -199,6 +199,14 @@ JavaScript at all.
 * Dropped the settings-page script and stylesheet, and the editor script is
   now the only JavaScript the theme ships.
 * The distributed zip no longer contains the editor workspace file.
+* Fixed a fatal error on PHP builds without the mbstring extension: the
+  Experience pattern's fallback initials no longer depend on mb_strtoupper(),
+  which WordPress does not polyfill.
+* Twelve patterns still pointed at the old settings screen, four of them in
+  the description shown in the block inserter. All now name the Customizer.
+* Renamed the About the author pattern file, since the author- prefix is
+  reserved by the template hierarchy.
+* Added the Upgrade Notice and Resources sections to this readme.
 
 = 1.5.0 =
 * Post detail sidebar: Recent notes, Selected work, Get in touch and
@@ -270,3 +278,28 @@ JavaScript at all.
 
 = 1.0.0 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 1.6.0 =
+Theme settings have moved from Appearance > Batavia into the Customizer, under
+Appearance > Customize > Batavia. Everything you had saved is still there. If
+you had more than five roles under Experience, or more than four consulting
+tiers, only the first five and the first four are kept.
+
+= 1.5.0 =
+Adds a sidebar to post pages, a Portfolio detail pattern and a closing call to
+action. No action needed.
+
+= 1.4.0 =
+Adds a Homepage tab and makes Experience and Consulting editable lists. The
+three hardcoded roles and three tiers become editable rows; check them after
+upgrading.
+
+= 1.3.0 =
+New palette and four colour variations. Custom colours you set yourself are
+untouched, but the default presets change appearance.
+
+= 1.2.0 =
+Requires WordPress 6.7. Adds a settings screen and block bindings, so patterns
+read your details instead of repeating them.

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-04T14:05:54+00:00\n"
+"POT-Creation-Date: 2026-09-05T12:22:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: batavia\n"
@@ -422,27 +422,27 @@ msgstr ""
 msgid "A closing invitation to get in touch, just above the footer. Reads the same contact link as Hero's primary button -- a booking page, WhatsApp or email, whichever is filled in under Contact."
 msgstr ""
 
-#: patterns/author-bio.php
+#: patterns/bio-author.php
 msgctxt "Pattern title"
 msgid "About the author"
 msgstr ""
 
-#: patterns/author-bio.php
+#: patterns/bio-author.php
 msgctxt "Pattern description"
 msgid "A short bio for the end of an article: name, role and social icons, all taken from the theme's settings."
 msgstr ""
 
-#: patterns/author-bio.php:24
+#: patterns/bio-author.php:24
 #: patterns/hero.php:50
 msgid "Your Name"
 msgstr ""
 
-#: patterns/author-bio.php:28
+#: patterns/bio-author.php:28
 #: patterns/hero.php:56
 msgid "What you do — and the two or three things you do it to"
 msgstr ""
 
-#: patterns/author-bio.php:34
+#: patterns/bio-author.php:34
 msgid "Two sentences on why you are worth listening to on this subject in particular. A bio that would fit any article on the site is a bio nobody reads."
 msgstr ""
 
@@ -453,7 +453,7 @@ msgstr ""
 
 #: patterns/blog-listing.php
 msgctxt "Pattern description"
-msgid "Recent posts as article entries: thumbnail, date, category, title and the opening sentences. Choose a category from Appearance -> Batavia -> Homepage, or open the block's own Filters panel."
+msgid "Recent posts as article entries: thumbnail, date, category, title and the opening sentences. Choose a category from Appearance -> Customize -> Batavia, or open the block's own Filters panel."
 msgstr ""
 
 #: patterns/blog-listing.php:70
@@ -533,7 +533,7 @@ msgstr ""
 
 #: patterns/experience-timeline.php
 msgctxt "Pattern description"
-msgid "A ruled list of roles, each with the company mark, the dates, the title and two sentences on what the job actually was. Edit the list from Appearance -> Batavia -> Homepage."
+msgid "A ruled list of roles, each with the company mark, the dates, the title and two sentences on what the job actually was. Edit the list from Appearance -> Customize -> Batavia -> Experience."
 msgstr ""
 
 #: patterns/experience-timeline.php:38
@@ -738,7 +738,7 @@ msgstr ""
 
 #: patterns/portfolio-grid.php
 msgctxt "Pattern description"
-msgid "A two-column grid of project cards built from a Query Loop, the screenshot doing most of the talking. Choose a category from Appearance -> Batavia -> Homepage, or open the block's own Filters panel."
+msgid "A two-column grid of project cards built from a Query Loop, the screenshot doing most of the talking. Choose a category from Appearance -> Customize -> Batavia, or open the block's own Filters panel."
 msgstr ""
 
 #: patterns/portfolio-grid.php:54
@@ -761,7 +761,7 @@ msgstr ""
 
 #: patterns/pricing-tiers.php
 msgctxt "Pattern description"
-msgid "Ways of working, as ruled rows with the rate set quietly beside each, and one enquiry button for all of them. Edit the list from Appearance -> Batavia -> Homepage."
+msgid "Ways of working, as ruled rows with the rate set quietly beside each, and one enquiry button for all of them. Edit the list from Appearance -> Customize -> Batavia -> Consulting."
 msgstr ""
 
 #: patterns/pricing-tiers.php:40

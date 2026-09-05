@@ -8,7 +8,7 @@
  * Block Types: core/template-part/footer
  * Viewport Width: 1400
  *
- * The icons cover every service Appearance -> Batavia -> Settings offers, so
+ * The icons cover every service Appearance -> Customize -> Batavia offers, so
  * filling in a field is all it takes for one to appear. Icons with nothing to
  * point at are dropped before the page is sent, so the strip only ever shows the
  * profiles that exist -- which is why the editor shows more icons here than the

@@ -1,13 +1,13 @@
 <?php
 /**
  * Title: About the author
- * Slug: batavia/author-bio
+ * Slug: batavia/bio-author
  * Categories: batavia, about, text
  * Description: A short bio for the end of an article: name, role and social icons, all taken from the theme's settings.
  * Keywords: author, bio, about, byline, profile
  * Viewport Width: 800
  *
- * The name, the role and every icon read Appearance -> Batavia -> Settings.
+ * The name, the role and every icon read Appearance -> Customize -> Batavia.
  * That is the point of this one: dropped at the end of fifty posts, it is still
  * a single place to correct a job title.
  *

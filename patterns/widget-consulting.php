@@ -8,7 +8,7 @@
  * Inserter: no
  *
  * Off whenever the front page's own Consulting section is, from Appearance
- * -> Batavia -> Homepage -- see widget-notes.php for why.
+ * -> Customize -> Batavia -- see widget-notes.php for why.
  *
  * @package Batavia
  * @since   1.5.0

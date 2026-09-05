@@ -3,13 +3,13 @@
  * Title: Experience
  * Slug: batavia/experience-timeline
  * Categories: batavia, text, about
- * Description: A ruled list of roles, each with the company mark, the dates, the title and two sentences on what the job actually was. Edit the list from Appearance -> Batavia -> Homepage.
+ * Description: A ruled list of roles, each with the company mark, the dates, the title and two sentences on what the job actually was. Edit the list from Appearance -> Customize -> Batavia -> Experience.
  *
  * The section title is edited directly here, like any other heading.
  * Keywords: experience, timeline, career, roles, history, resume, work
  * Viewport Width: 1400
  *
- * The rows themselves come from Appearance -> Batavia -> Homepage -- add,
+ * The rows themselves come from Appearance -> Customize -> Batavia -- add,
  * remove and reorder them there. Leaving every row empty keeps the three
  * example roles below, the same way an empty text field elsewhere in the
  * theme keeps the pattern's own wording.
@@ -73,12 +73,31 @@ if ( empty( $batavia_experience_rows ) ) {
 
 				$batavia_company = ! empty( $batavia_row['mark'] ) ? $batavia_row['mark'] : '';
 
-				// The circle's fallback initial, only ever shown when there is no
-				// Logo: from the Company name first, since that is what the circle
-				// is standing in for, otherwise from the role's own title.
-				$batavia_initials = '' !== $batavia_company
-					? mb_strtoupper( mb_substr( $batavia_company, 0, 2 ) )
-					: ( ! empty( $batavia_row['title'] ) ? mb_strtoupper( mb_substr( $batavia_row['title'], 0, 1 ) ) : '' );
+				/*
+				 * The circle's fallback initial, only ever shown when there is no
+				 * Logo: from the Company name first, since that is what the circle
+				 * is standing in for, otherwise from the role's own title.
+				 *
+				 * WordPress polyfills mb_substr() in wp-includes/compat.php but
+				 * not mb_strtoupper(), and mbstring is not compiled into every
+				 * PHP build, so uppercasing falls back to strtoupper(). That is
+				 * ASCII-only, which is why the letters are taken first and cased
+				 * second: a multibyte initial is then passed through unchanged
+				 * rather than mangled.
+				 */
+				$batavia_initial_from = '' !== $batavia_company
+					? $batavia_company
+					: ( ! empty( $batavia_row['title'] ) ? $batavia_row['title'] : '' );
+
+				$batavia_initials = '';
+
+				if ( '' !== $batavia_initial_from ) {
+					$batavia_initials = mb_substr( $batavia_initial_from, 0, '' !== $batavia_company ? 2 : 1, 'UTF-8' );
+
+					$batavia_initials = function_exists( 'mb_strtoupper' )
+						? mb_strtoupper( $batavia_initials, 'UTF-8' )
+						: strtoupper( $batavia_initials );
+				}
 				?>
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 				<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">

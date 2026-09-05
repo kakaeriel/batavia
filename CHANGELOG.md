@@ -37,12 +37,31 @@ submission.
 - Stated the theme's copyright in `readme.txt` in the form the review team
   asks for, and added the notice to `style.css`.
 
+### Fixed
+
+- The Experience pattern's fallback initials called `mb_strtoupper()`, which
+  WordPress does not polyfill (`wp-includes/compat.php` covers `mb_substr()`,
+  `mb_strlen()`, `mb_chr()` and `mb_ord()` only) and mbstring is not compiled
+  into every PHP build -- a fatal error on those hosts. Uppercasing now falls
+  back to `strtoupper()`, and the letters are cut before they are cased so a
+  multibyte initial passes through unchanged rather than mangled. Both
+  `mb_substr()` calls now pass `'UTF-8'` explicitly.
+- Twelve patterns still pointed users at `Appearance -> Batavia`, four of them
+  in the `Description:` header shown in the block inserter. All now name the
+  Customizer.
+- Renamed `patterns/author-bio.php` to `patterns/bio-author.php`. The
+  `author-` prefix is reserved by the template hierarchy, and while a file
+  under `patterns/` is never read as a template, the name trips
+  `WPThemeReview.Templates.ReservedFileNamePrefix`. The pattern's registered
+  slug moved with it; nothing referenced the old one.
+
 ### Added
 
 - `inc/customizer.php`: the panel, its sections and controls, and a single
   sanitise callback that resolves each setting id back to its schema field.
 - The `theme-options` tag, which the theme now earns.
-- The 1.5.0 entry that was missing from `readme.txt`.
+- The 1.5.0 entry that was missing from `readme.txt`, plus the `Upgrade
+  Notice` and `Resources` sections the readme requirements ask for.
 
 ### Removed
 

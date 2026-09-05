@@ -9,7 +9,7 @@
  * Inserter: no
  *
  * Off whenever the front page's own Notes section is, from Appearance ->
- * Batavia -> Homepage -- a sidebar promoting a section the site owner
+ * Customize -> Batavia -- a sidebar promoting a section the site owner
  * turned off would be a stray link to nowhere they meant to send anyone.
  *
  * @package Batavia
