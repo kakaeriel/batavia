@@ -10,7 +10,7 @@
  * for one job.
  *
  * The one exception is the archive for whichever category Selected work is
- * scoped to, from Appearance -> Batavia -> Homepage: that page gets the
+ * scoped to, from Appearance -> Customize -> Batavia: that page gets the
  * portfolio grid's own two-column, image-forward layout instead, since a
  * list of dates and excerpts is the wrong shape for a page of screenshots.
  * Everywhere else -- the blog index, other category archives, search --

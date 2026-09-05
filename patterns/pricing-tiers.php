@@ -3,11 +3,11 @@
  * Title: Consulting rates
  * Slug: batavia/pricing-tiers
  * Categories: batavia, services, text
- * Description: Ways of working, as ruled rows with the rate set quietly beside each, and one enquiry button for all of them. Edit the list from Appearance -> Batavia -> Homepage.
+ * Description: Ways of working, as ruled rows with the rate set quietly beside each, and one enquiry button for all of them. Edit the list from Appearance -> Customize -> Batavia -> Consulting.
  * Keywords: pricing, rates, consulting, packages, retainer, freelance
  * Viewport Width: 1400
  *
- * The tiers themselves come from Appearance -> Batavia -> Homepage -- add,
+ * The tiers themselves come from Appearance -> Customize -> Batavia -- add,
  * remove and reorder them there. Leaving every row empty keeps the three
  * example tiers below, the same way an empty text field elsewhere in the
  * theme keeps the pattern's own wording.
@@ -17,7 +17,7 @@
  * work, not the pitch: set them beside the description at the size of any
  * other number and the section stops shouting.
  *
- * The button reads the contact link from Appearance -> Batavia -> Settings.
+ * The button reads the contact link from Appearance -> Customize -> Batavia.
  * One button, not one per tier, because a reader choosing between them has not
  * decided anything yet.
  *

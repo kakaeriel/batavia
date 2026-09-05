@@ -3,13 +3,13 @@
  * Title: Portfolio grid
  * Slug: batavia/portfolio-grid
  * Categories: batavia, portfolio, query
- * Description: A two-column grid of project cards built from a Query Loop, the screenshot doing most of the talking. Choose a category from Appearance -> Batavia -> Homepage, or open the block's own Filters panel.
+ * Description: A two-column grid of project cards built from a Query Loop, the screenshot doing most of the talking. Choose a category from Appearance -> Customize -> Batavia, or open the block's own Filters panel.
  * Keywords: portfolio, projects, work, grid, case studies
  * Block Types: core/query
  * Viewport Width: 1400
  *
  * The section can be turned off and pointed at -- or away from -- a category
- * from Appearance -> Batavia -> Homepage, or by opening the block's own
+ * from Appearance -> Customize -> Batavia, or by opening the block's own
  * Filters panel. See batavia_category_tax_query() in inc/settings.php for why
  * that value is baked into the query below rather than filtered in later.
  * The title and paragraph are edited directly here, like any other heading.

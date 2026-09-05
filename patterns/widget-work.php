@@ -9,7 +9,7 @@
  * Inserter: no
  *
  * Off whenever the front page's own Selected work section is, from
- * Appearance -> Batavia -> Homepage -- see widget-notes.php for why. Ordered
+ * Appearance -> Customize -> Batavia -- see widget-notes.php for why. Ordered
  * randomly rather than by date, so a sidebar sitting on the same post for a
  * while does not always point at the same three projects.
  *

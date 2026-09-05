@@ -8,14 +8,14 @@
  * Viewport Width: 1400
  *
  * Deliberately a button, not a form: Batavia ships without a contact page on
- * purpose (see Appearance -> Batavia -> Contact), and a form here would mean
+ * purpose (see Appearance -> Customize -> Batavia -> Contact), and a form here would mean
  * a submission handler, spam handling and outgoing mail -- the "no external
  * requests" a WordPress.org review holds a theme to. Reusing Hero's own
  * contact_url binding keeps this section truthful to that: it can only ever
  * open WhatsApp, an email client or a booking page the site owner already
  * chose, never collect anything itself.
  *
- * Can be turned off from Appearance -> Batavia -> Homepage. The heading and
+ * Can be turned off from Appearance -> Customize -> Batavia. The heading and
  * paragraph are edited directly here, like Hero's own wording.
  *
  * Surface, not an Ink/Base inversion: Ink and Base swap which one is the

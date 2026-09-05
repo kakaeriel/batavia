@@ -8,7 +8,7 @@
  * Inserter: no
  *
  * Off whenever the front page's own Closing call to action is, from
- * Appearance -> Batavia -> Homepage -- see widget-notes.php for why.
+ * Appearance -> Customize -> Batavia -- see widget-notes.php for why.
  *
  * @package Batavia
  * @since   1.5.0

@@ -3,7 +3,7 @@
  * Title: Post index
  * Slug: batavia/blog-listing
  * Categories: batavia, posts, query
- * Description: Recent posts as article entries: thumbnail, date, category, title and the opening sentences. Choose a category from Appearance -> Batavia -> Homepage, or open the block's own Filters panel.
+ * Description: Recent posts as article entries: thumbnail, date, category, title and the opening sentences. Choose a category from Appearance -> Customize -> Batavia, or open the block's own Filters panel.
  * Keywords: blog, posts, writing, notes, articles, index
  * Block Types: core/query
  * Viewport Width: 1400
@@ -14,7 +14,7 @@
  * on posts that have no featured image.
  *
  * The section can be turned off and pointed at -- or away from -- a category
- * from Appearance -> Batavia -> Homepage, or by opening the block's own
+ * from Appearance -> Customize -> Batavia, or by opening the block's own
  * Filters panel. See batavia_category_tax_query() in inc/settings.php for why
  * that value is baked into the query below rather than filtered in later.
  * The title is edited directly here, like any other heading.

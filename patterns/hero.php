@@ -8,7 +8,7 @@
  * Viewport Width: 1400
  *
  * The label, the name, the role and the first button read Appearance ->
- * Batavia -> Settings. Until those are filled in, the text below is what
+ * Customize -> Batavia. Until those are filled in, the text below is what
  * shows -- which is why it reads as a finished page rather than as a form.
  *
  * The first button is bound to the contact link, which resolves to a booking
@@ -16,7 +16,7 @@
  * no contact page to point it at, and that is deliberate.
  *
  * Every element here can also be turned off individually from Appearance ->
- * Batavia -> Homepage, for a page that does not want one of them. The tools
+ * Customize -> Batavia, for a page that does not want one of them. The tools
  * line's own list is edited from there too, as a comma-separated Tools
  * field; leaving it empty keeps the example list below, like the summary
  * paragraph.
