@@ -3,10 +3,10 @@ Contributors: kakaeriel
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: accessibility-ready, block-patterns, block-styles, blog, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, portfolio, sticky-post, template-editing, threaded-comments, translation-ready, wide-blocks
+Tags: block-patterns, block-styles, blog, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, portfolio, sticky-post, template-editing, theme-options, threaded-comments, translation-ready, wide-blocks
 
 A block theme for a personal site: home page, notes, selected work and a rate card, built entirely from core blocks.
 
@@ -45,7 +45,7 @@ And six for the middle of an article:
 * Portfolio detail -- a project's client, role, timeline and stack, for the
   top of a portfolio post
 
-Under Appearance > Batavia there is a settings screen for the details that
+Under Appearance > Customize there is a Batavia panel for the details that
 would otherwise have to be retyped into every pattern that mentions them: your
 name, what you do, a WhatsApp number, an email address and your social profiles.
 The patterns read them through the Block Bindings API, so a pattern used in
@@ -65,21 +65,20 @@ software, and the source is public.
 
 = Where do I set the favicon and my social links? =
 
-Appearance > Batavia, across a few tabs. Site identity holds WordPress's own
-settings -- site icon, logo, title, tagline and front page -- gathered in one
-place so setting up a new site is not a tour of four screens. Those values belong
-to your site rather than to Batavia, and they stay as you left them if you
-switch theme.
+Appearance > Customize. The site icon, logo, title and tagline are WordPress's
+own settings and sit in its Site Identity section; the front page is under
+Homepage Settings. Those values belong to your site rather than to Batavia, and
+they stay as you left them if you switch theme.
 
-Profile and Contact hold Batavia's own: your name, role, location, email
-address and contact page. Social media holds fourteen social
-profiles; icons whose field you leave empty are left out of the page entirely,
-so there are no dead links and no gaps.
+Batavia's own details are in the Batavia panel below them: Profile and Contact
+hold your name, role, location, email address and contact page, and Social
+profiles holds fourteen services. An icon whose field you leave empty is left
+out of the page entirely, so there are no dead links and no gaps.
 
 = Why can I not edit this heading in the post editor? =
 
-Because it is reading a value from one of the tabs under Appearance > Batavia,
-and the editor is telling you where to change it. Blocks connected to a setting
+Because it is reading a value from the Batavia panel in the Customizer, and
+the editor is telling you where to change it. Blocks connected to a setting
 show a small indicator in the editor; the fix is to change the setting, not the
 block. If you would rather write directly into the block, remove the connection
 from the block's sidebar.
@@ -129,9 +128,9 @@ any block you use.
 = How do I reuse a section across several posts? =
 
 Two things are worth separating. Details that repeat -- your name, your email
-address, your social profiles -- come from the Profile, Contact and Social media
-tabs under Appearance > Batavia, so they are already consistent everywhere and
-stay that way after you change one.
+address, your social profiles -- come from the Profile, Contact and Social
+profiles sections of the Batavia panel in the Customizer, so they are already
+consistent everywhere and stay that way after you change one.
 
 Wording is different. Select the blocks, choose Create pattern from the toolbar
 and tick Synced: every copy then updates together. That pattern is yours, stored
@@ -145,8 +144,8 @@ prompts, no accounts.
 
 == Copyright ==
 
-Batavia WordPress Theme, (C) 2026 Hairil.
-Batavia is distributed under the terms of the GNU General Public License v2 or later.
+Batavia WordPress Theme, Copyright 2026 Hairil
+Batavia is distributed under the terms of the GNU GPL v2 or later.
 
 This program is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -170,12 +169,50 @@ Fontsource distribution of IBM Plex (https://fontsource.org). Only the weights t
 theme actually uses are included: 400, 500 and 600 for Plex Sans plus a 400
 italic, and 400 and 500 for Plex Mono.
 
-No images, icons or third-party JavaScript are bundled with this theme. The two
-JavaScript files it does ship are its own, both admin-only: one resolves the
-settings a block is connected to inside the editor, the other opens the media
-library on the settings screen. The front end runs no theme JavaScript at all.
+No images, icons or third-party JavaScript are bundled with this theme. The one
+JavaScript file it does ship is its own and loads only in the block editor, where
+it resolves the settings a block is connected to. The front end runs no theme
+JavaScript at all.
 
 == Changelog ==
+
+= 1.6.0 =
+* Theme settings moved from the Appearance > Batavia screen into the
+  Customizer, under a Batavia panel with one section per group. The theme
+  directory requires a theme's own options to be edited in the Customizer;
+  custom options panels are not allowed. Values already saved are kept -- the
+  option they are stored in has not changed.
+* Experience and Consulting are now a fixed number of numbered slots -- five
+  roles and four tiers -- rather than an open-ended list, since the Customizer
+  has no repeating control. A site with more than five roles or four tiers
+  saved under 1.5.0 keeps only the first of each.
+* Site identity is no longer gathered into a tab of its own. The site icon,
+  logo, title and tagline are WordPress's own settings and are edited in its
+  Site Identity section; the front page is under Homepage Settings.
+* Removed the Theme URI and Author URI headers, which pointed at pages that
+  did not exist.
+* Added the theme's copyright notice to style.css and stated it in readme.txt
+  in the form the theme directory asks for.
+* Removed the accessibility-ready tag. Every accessibility feature stays --
+  the skip link, the focus ring, the contrast ratios -- but the tag is a claim
+  that has to be granted by a separate review, and it had not been.
+* Dropped the settings-page script and stylesheet, and the editor script is
+  now the only JavaScript the theme ships.
+* The distributed zip no longer contains the editor workspace file.
+
+= 1.5.0 =
+* Post detail sidebar: Recent notes, Selected work, Get in touch and
+  Consulting, plus a Related notes section after the content.
+* Added a Portfolio detail pattern for a portfolio post's own content --
+  client, role, timeline, stack and a live link.
+* Added a Closing call to action section above the footer.
+* Added an "All except one category" mode for Notes.
+* A post with no featured image now gets a placeholder the same shape, so
+  grids and lists stay even.
+* Experience rows can show a company logo as a circular photo, with the
+  company name printed next to the role.
+* Added "All notes" and "View all work" links, and the category archive for
+  Selected work now uses the portfolio grid layout instead of a plain list.
 
 = 1.4.0 =
 * Added a Homepage tab under Appearance > Batavia: every section can be
