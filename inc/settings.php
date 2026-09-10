@@ -306,6 +306,12 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'label' => __( 'Show this section', 'batavia' ),
 						'type'  => 'checkbox',
 					),
+					'consulting_url'  => array(
+						'label'       => __( 'Rates page link', 'batavia' ),
+						'type'        => 'url',
+						'placeholder' => home_url( '/' ),
+						'help'        => __( 'Where the sidebar\'s "See rates" link points. Leave empty to use the homepage -- fill in if Consulting rates lives somewhere else, or off-site.', 'batavia' ),
+					),
 					'consulting'      => array(
 						'label'     => __( 'Tiers', 'batavia' ),
 						'type'      => 'repeater',
@@ -353,6 +359,12 @@ if ( ! function_exists( 'batavia_settings_schema' ) ) {
 						'label' => __( 'Category', 'batavia' ),
 						'type'  => 'category',
 						'help'  => __( 'Used when "One specific category" or "All except one category" is selected above.', 'batavia' ),
+					),
+					'notes_url'           => array(
+						'label'       => __( 'Custom link (optional)', 'batavia' ),
+						'type'        => 'url',
+						'placeholder' => 'https://example.com/writing',
+						'help'        => __( 'Where "Read the notes" and "All notes" buttons point. Leave empty to use this site\'s own notes archive -- fill in if you write somewhere else instead.', 'batavia' ),
 					),
 				),
 			),
@@ -468,11 +480,16 @@ if ( ! function_exists( 'batavia_get_setting_bool' ) ) {
 		}
 
 		/*
-		 * The Customizer stores a checkbox as a boolean. Themes updated from
-		 * 1.5.x carry the '1'/'0' strings the settings screen wrote instead,
-		 * so both spellings of "on" are accepted.
+		 * Two things have written this key: the Customizer stores a real
+		 * boolean, while a site updated from 1.5.x carries the '1'/'0'
+		 * strings the old settings screen wrote. A cast reads both, and
+		 * every other shape the value could arrive in -- PHP already counts
+		 * the string '0' as false, so an explicitly disabled section stays
+		 * disabled. Comparing identically against a single spelling of
+		 * "on" would silently hide a section whose value round-tripped
+		 * through, say, JSON and came back as the integer 1.
 		 */
-		return true === $stored[ $key ] || '1' === $stored[ $key ];
+		return (bool) $stored[ $key ];
 	}
 }
 
@@ -533,16 +550,23 @@ if ( ! function_exists( 'batavia_notes_archive_url' ) ) {
 	 * Where "read the notes" should actually go.
 	 *
 	 * Used by both Hero's "Read the notes" button and Notes' own "All notes"
-	 * button, so the two always agree: the Notes category's own archive when
-	 * Notes is scoped to one specific category, the site's posts page
-	 * otherwise (or an empty string, if neither is set -- a caller should
-	 * fall back to `#` rather than link nowhere useful).
+	 * button, so the two always agree: the "Custom link" field under Notes
+	 * when one is set, else the Notes category's own archive when Notes is
+	 * scoped to one specific category, else the site's posts page (or an
+	 * empty string, if nothing is set -- a caller should fall back to `#`
+	 * rather than link nowhere useful).
 	 *
 	 * @since 1.5.0
 	 *
 	 * @return string A URL, or an empty string if nothing is configured.
 	 */
 	function batavia_notes_archive_url() {
+		$custom_url = batavia_get_setting( 'notes_url' );
+
+		if ( '' !== $custom_url ) {
+			return $custom_url;
+		}
+
 		$scope       = batavia_get_category_scope( 'notes_category_mode', 'notes_category' );
 		$category_id = absint( batavia_get_setting( 'notes_category' ) );
 

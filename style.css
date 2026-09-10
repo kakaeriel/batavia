@@ -122,6 +122,13 @@ h1, h2, h3,
 	margin-block-start: 0;
 }
 
+/* Dropped below 640px rather than left to stack full-width under the article. */
+@media (max-width: 640px) {
+	.batavia-single-sidebar {
+		display: none;
+	}
+}
+
 /*
  * Visually hidden, still announced. Used for the heading that gives the blog
  * index a level-one heading without repeating it on screen.
@@ -281,6 +288,12 @@ body .is-style-batavia-entry {
 	.is-style-batavia-entry > .wp-block-group,
 	.is-style-batavia-entry > .wp-block-post-featured-image {
 		grid-column: 1;
+	}
+
+	/* Both set width as an inline style, which only !important can beat. */
+	.is-style-batavia-entry > .wp-block-post-featured-image img,
+	.is-style-batavia-entry > .wp-block-post-featured-image.batavia-featured-image-placeholder {
+		width: 100% !important;
 	}
 }
 

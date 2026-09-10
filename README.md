@@ -8,7 +8,7 @@ and hairline rules doing the work that boxes and shadows usually do. Dark mode
 follows the operating system. No external requests, no contact page -- buttons
 open WhatsApp or email from the theme settings.
 
-- **Requires** WordPress 6.6+, PHP 7.4+
+- **Requires** WordPress 6.7+, PHP 7.4+
 - **Licence** GPL-2.0-or-later
 - **Text domain** `batavia`
 
@@ -52,7 +52,7 @@ batavia/
 │   └── fonts/                IBM Plex woff2 subsets + OFL licence.
 ├── styles/                  Four style variations (forest, indigo, newsprint, slate).
 ├── parts/                   header.html, footer.html
-├── patterns/                Seventeen patterns; four are template plumbing.
+├── patterns/                Twenty-two patterns; three are hidden template plumbing.
 ├── templates/               Seven templates.
 ├── languages/batavia.pot   Translation template.
 └── tools/                   Development tooling. Not distributed.
