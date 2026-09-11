@@ -9,6 +9,42 @@ The version in `style.css` is the source of truth and must match the
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-09-10
+
+Mobile review pass.
+
+### Fixed
+
+- The header navigation wrapped into a ragged, right-justified stagger once a
+  menu had more items than fit on one line, in the tablet-width range between
+  the mobile toggle and the desktop layout. `justifyContent` on the
+  navigation block's own layout was `right`; each wrapped line was justified
+  independently, so a shorter second line landed far from the first instead
+  of under it. Changed to `left`.
+- The featured image thumbnail in the Notes list and category archives
+  (`.is-style-batavia-entry`) stayed pinned to its fixed 12rem desktop width
+  on mobile instead of filling the single column the layout collapses to
+  below 640px. The width is set as an inline style -- by the Featured Image
+  block on the `img` when a post has a photo, by
+  `batavia_post_featured_image_placeholder()` in `inc/media.php` on the
+  placeholder div when it does not -- which a plain class selector cannot
+  override regardless of specificity, so the mobile breakpoint now carries an
+  `!important` rule for both.
+- The post detail sidebar (Recent notes, Selected work, Get in touch,
+  Consulting) stacked full-width under the article on mobile instead of
+  disappearing. It is hidden below 640px instead.
+
+### Added
+
+- `consulting_url` setting ("Rates page link" under Consulting): where the
+  sidebar's "See rates" link points. It was hard-coded to the homepage,
+  which only holds if Consulting rates actually lives there. Falls back to
+  the homepage when empty, so an upgraded site behaves as before.
+- `notes_url` setting ("Custom link" under Notes): overrides
+  `batavia_notes_archive_url()`, which feeds Hero's "Read the notes" button
+  and both "All notes" links, so a site that publishes its writing somewhere
+  other than this install can point all three there at once.
+
 ## [1.6.0] - 2026-09-04
 
 Addresses the WordPress.org theme review findings that closed the first

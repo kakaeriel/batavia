@@ -3,7 +3,7 @@ Contributors: kakaeriel
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: block-patterns, block-styles, blog, custom-colors, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, grid-layout, one-column, portfolio, sticky-post, template-editing, theme-options, threaded-comments, translation-ready, wide-blocks
@@ -175,6 +175,21 @@ it resolves the settings a block is connected to. The front end runs no theme
 JavaScript at all.
 
 == Changelog ==
+
+= 1.6.1 =
+* Fixed the header navigation wrapping into a ragged, right-justified stagger
+  once a menu has more items than fit on one line, in the tablet-width range
+  between the mobile toggle and the desktop layout.
+* Fixed the featured image thumbnail in the Notes list and category archives
+  staying pinned to its fixed desktop width on mobile instead of filling the
+  single column it now has to itself.
+* The post detail sidebar (Recent notes, Selected work, Get in touch,
+  Consulting) no longer stacks full-width under the article on mobile; it is
+  hidden there instead.
+* Added a "Rates page link" field under Consulting, and a "Custom link" field
+  under Notes, so the sidebar's "See rates" link and the "Read the notes" /
+  "All notes" buttons can point anywhere instead of assuming the section lives
+  on this site's own homepage or posts archive.
 
 = 1.6.0 =
 * Theme settings moved from the Appearance > Batavia screen into the

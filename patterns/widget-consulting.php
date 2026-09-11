@@ -18,6 +18,12 @@ if ( ! batavia_get_setting_bool( 'show_consulting' ) ) {
 	return;
 }
 
+$batavia_consulting_url = batavia_get_setting( 'consulting_url' );
+
+if ( '' === $batavia_consulting_url ) {
+	$batavia_consulting_url = home_url( '/' );
+}
+
 ?>
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group">
@@ -30,7 +36,7 @@ if ( ! batavia_get_setting_bool( 'show_consulting' ) ) {
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"fontSize":"small"} -->
-	<p class="has-small-font-size"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'See rates', 'batavia' ); ?></a></p>
+	<p class="has-small-font-size"><a href="<?php echo esc_url( $batavia_consulting_url ); ?>"><?php esc_html_e( 'See rates', 'batavia' ); ?></a></p>
 	<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
